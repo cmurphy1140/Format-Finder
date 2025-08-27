@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		013631670A42122AFF715568 /* PerformanceOptimizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0745A6EDA7663513A393E4 /* PerformanceOptimizations.swift */; };
 		026B0728B2DF2875B47B8F24 /* FormatFinder.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 032DB516812E45C9CB364C3C /* FormatFinder.xcdatamodeld */; };
 		0CEE81C118979A490FC03AB8 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445D585D46FE8746FD70DAC1 /* FeatureFlags.swift */; };
 		152C639AE26B232CA78E9754 /* ThemeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4886E3C446ECD78834FF4F4F /* ThemeEngine.swift */; };
@@ -17,26 +16,17 @@
 		222B811C7DAC70C303F1E122 /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225397C3D009215FD23A5FC6 /* GameStore.swift */; };
 		256B78D072F4F6E5885B50AC /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B59B9D07DEA9113EE51D306 /* NavigationCoordinator.swift */; };
 		3472F34461E1382F0FA1B90B /* UXEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0DC7BE638C7BD4AC0F51FE /* UXEnhancements.swift */; };
-		3EF9424BE94C5293BE98F101 /* StateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50C4A75E018702480CE98FA /* StateAdapter.swift */; };
-		4AEBE989C54608759DF502BB /* BallPhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A13B0B7DD906DC3AC5E96 /* BallPhysicsEngine.swift */; };
 		4B92799FC91853DD5BB70E80 /* BallPhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF61E9C07A6790FF47B7FB8 /* BallPhysicsEngine.swift */; };
 		5027BB5BF74AB67CF1A7ECB1 /* RoundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364F98CB26E6049CB1DD7B2 /* RoundRepository.swift */; };
-		51DAACCC83E00AEF0FC492B2 /* InteractiveFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354D42D4CEBD10366C02A8C /* InteractiveFormatView.swift */; };
-		5418DDD24EB084BAF3AB279B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295F41AD04DFAA329864D199 /* CoreDataStack.swift */; };
 		545D0DD9B3B3673BBDFDFF2E /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AACA62D44D733D27BA21D7 /* TimerManager.swift */; };
-		55BAD00489FB58D7A0E205F8 /* FormatFinder.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 99EFB0EA17C1269EF2A618E0 /* FormatFinder.xcdatamodeld */; };
 		5738AD629F1D2B5403554573 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1574D946395BC6B80783F75C /* ErrorHandling.swift */; };
 		58B1C74790882917DB4EFAA3 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8B3100E27D1D70C7E1159 /* AppIconView.swift */; };
-		65C0378EEC460536154F7F96 /* GolfFormatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBAA52DA713E3E7FC205899 /* GolfFormatProtocol.swift */; };
 		67723E0CAEF181BC08E98CC9 /* MicroInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C6189171474960E1E07002 /* MicroInteractions.swift */; };
 		67E1556F707FC7814404AE15 /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE0C5D83FC81296210FA68E /* GameModeSelector.swift */; };
-		70DF1D314651DEB20B9CFFFB /* ScrambleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CE37039892FFAB633F56C5 /* ScrambleFormat.swift */; };
 		75F382A8100660559D158499 /* ScrambleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3258BBC015140B21ADF6DC /* ScrambleFormat.swift */; };
-		78005890A54A002344487A02 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BA4C8B6B84DA98BECBAE64 /* NavigationCoordinator.swift */; };
 		7922D0F24C96E95EBA4ACCFE /* DiagramSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6912836CA61DC38959BDD2 /* DiagramSlides.swift */; };
 		7BE7EEE8739B18FCFEFD49A7 /* GolfFormatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E9F8C05EABA50ACF0A6915 /* GolfFormatProtocol.swift */; };
 		83CF9A0CA723F6D55184F51B /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16BA2DFA2B615DCD0CF2DEC0 /* ColorTheme.swift */; };
-		87767DE955CFB121C32D437D /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2BD6C3B011F97DE1BA544C /* ErrorHandling.swift */; };
 		89EF277547CA23C4F84C7F4B /* AdvancedScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FDD7CD736DE43C3B7E95F9 /* AdvancedScorecards.swift */; };
 		9321B1F67ED045BECC905549 /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E73C1E68975217E4ED99746 /* FormatScorecards.swift */; };
 		97055360E90D5E5016C13543 /* GlassmorphismEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72322B6A1FA00FB41934983 /* GlassmorphismEffects.swift */; };
@@ -44,23 +34,13 @@
 		A1A1A1A52B4E5F6700000005 /* FormatFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000005 /* FormatFinderTests.swift */; };
 		A1A1A1A62B4E5F6700000006 /* FormatFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000006 /* FormatFinderUITests.swift */; };
 		A3263C030EC24A5D367A4ADD /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA79DC114A28F9ECAD60009 /* CoreDataStack.swift */; };
-		A66625D4898D70BF92387B70 /* CloudKitSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1920491093646E56CCAC635 /* CloudKitSyncService.swift */; };
-		AD39C7AF7BC2CEDF1CB46338 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C79D8B57FE663F4FCB62AA /* FeatureFlags.swift */; };
-		ADDD1D2FD04FB49A7B0FD081 /* AccessibilityEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CEB65E2C5F499D9BEF6AF4 /* AccessibilityEnhancements.swift */; };
-		AFC0AF5C3418A1CB26F77E9F /* ThemeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE28DDB54D0D5C8B3728451 /* ThemeEngine.swift */; };
-		B77CF5049D3ADF1E1B81007C /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2477B0D92AC705E1387E4A3F /* TimerManager.swift */; };
-		BCD0B7E7AAE4FC76AE92882B /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2B82DCFEBCD1D8E016ECF9 /* Middleware.swift */; };
-		C20C9EFEC8AB3947D5FF9EF1 /* ModernScorecardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7A848FBAFB25428D5645 /* ModernScorecardView.swift */; };
 		C9BE1315A8F17A8D7740D56F /* SmartCaddie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF3193F1AD3E17310408B64 /* SmartCaddie.swift */; };
 		CC6595170E694C23D79452AB /* GenerateAppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD1B1AFD759891462C78F1E /* GenerateAppIcon.swift */; };
 		D182A7B08CBDF7C553FB0333 /* ScorecardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEBA4D6A86A3B2406D6E409 /* ScorecardContainer.swift */; };
 		D5000FB057240EED5A42A2E2 /* GolfTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF0F9D7FA9A66490C2191D /* GolfTheme.swift */; };
 		D94EA06C14BEE4220CD4D860 /* AppIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B5EA2A68EDE7E7206D9A31 /* AppIcon.swift */; };
 		DF47FF85B5CF9459722093E9 /* InteractiveFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA39485D34DEC87A331F28 /* InteractiveFormatView.swift */; };
-		DF58671C945E175D7C3022AE /* RoundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2659060929336B58D6F999D /* RoundRepository.swift */; };
 		E47A26213AC52B70BE537053 /* PerformanceOptimizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D28330FF8473B773BB832C99 /* PerformanceOptimizations.swift */; };
-		E5C4BB9EC9DB1AF186E6E70A /* GameStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBCCF60C49FD6AE5F0EBBA98 /* GameStore.swift */; };
-		EDB7425897D743BBBEF8FA04 /* UXEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100D24E79E9CEF8DCF95F43F /* UXEnhancements.swift */; };
 		F06A02407FE2C682066D58C1 /* StatsAndExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2E3B2D91599F9D92392278 /* StatsAndExport.swift */; };
 		F37B606348BF17829CDF98A5 /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5265C584734D5E201D9AD2F /* Middleware.swift */; };
 		F80020F2421F061A18467C61 /* AccessibilityEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CAEE839D14D7274E0F161 /* AccessibilityEnhancements.swift */; };
@@ -545,7 +525,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A1A1A42B4E5F6700000004 /* Preview Assets.xcassets in Resources */,
-				55BAD00489FB58D7A0E205F8 /* FormatFinder.xcdatamodeld in Resources */,
 				026B0728B2DF2875B47B8F24 /* FormatFinder.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,37 +570,18 @@
 				152C639AE26B232CA78E9754 /* ThemeEngine.swift in Sources */,
 				DF47FF85B5CF9459722093E9 /* InteractiveFormatView.swift in Sources */,
 				1EBCC5A98B73AF78A9F9A0BB /* FormatFinderApp.swift in Sources */,
-				5418DDD24EB084BAF3AB279B /* CoreDataStack.swift in Sources */,
-				DF58671C945E175D7C3022AE /* RoundRepository.swift in Sources */,
-				70DF1D314651DEB20B9CFFFB /* ScrambleFormat.swift in Sources */,
-				65C0378EEC460536154F7F96 /* GolfFormatProtocol.swift in Sources */,
-				A66625D4898D70BF92387B70 /* CloudKitSyncService.swift in Sources */,
-				E5C4BB9EC9DB1AF186E6E70A /* GameStore.swift in Sources */,
-				BCD0B7E7AAE4FC76AE92882B /* Middleware.swift in Sources */,
 				67E1556F707FC7814404AE15 /* GameModeSelector.swift in Sources */,
 				FD5B8E8A5318B334C2CB0DC7 /* RemainingFormatScorecards.swift in Sources */,
-				C20C9EFEC8AB3947D5FF9EF1 /* ModernScorecardView.swift in Sources */,
 				9321B1F67ED045BECC905549 /* FormatScorecards.swift in Sources */,
 				89EF277547CA23C4F84C7F4B /* AdvancedScorecards.swift in Sources */,
 				D182A7B08CBDF7C553FB0333 /* ScorecardContainer.swift in Sources */,
 				F06A02407FE2C682066D58C1 /* StatsAndExport.swift in Sources */,
 				7922D0F24C96E95EBA4ACCFE /* DiagramSlides.swift in Sources */,
-				51DAACCC83E00AEF0FC492B2 /* InteractiveFormatView.swift in Sources */,
 				C9BE1315A8F17A8D7740D56F /* SmartCaddie.swift in Sources */,
-				AFC0AF5C3418A1CB26F77E9F /* ThemeEngine.swift in Sources */,
 				83CF9A0CA723F6D55184F51B /* ColorTheme.swift in Sources */,
 				D5000FB057240EED5A42A2E2 /* GolfTheme.swift in Sources */,
 				67723E0CAEF181BC08E98CC9 /* MicroInteractions.swift in Sources */,
-				4AEBE989C54608759DF502BB /* BallPhysicsEngine.swift in Sources */,
 				97055360E90D5E5016C13543 /* GlassmorphismEffects.swift in Sources */,
-				B77CF5049D3ADF1E1B81007C /* TimerManager.swift in Sources */,
-				ADDD1D2FD04FB49A7B0FD081 /* AccessibilityEnhancements.swift in Sources */,
-				013631670A42122AFF715568 /* PerformanceOptimizations.swift in Sources */,
-				87767DE955CFB121C32D437D /* ErrorHandling.swift in Sources */,
-				AD39C7AF7BC2CEDF1CB46338 /* FeatureFlags.swift in Sources */,
-				3EF9424BE94C5293BE98F101 /* StateAdapter.swift in Sources */,
-				78005890A54A002344487A02 /* NavigationCoordinator.swift in Sources */,
-				EDB7425897D743BBBEF8FA04 /* UXEnhancements.swift in Sources */,
 				D94EA06C14BEE4220CD4D860 /* AppIcon.swift in Sources */,
 				CC6595170E694C23D79452AB /* GenerateAppIcon.swift in Sources */,
 				58B1C74790882917DB4EFAA3 /* AppIconView.swift in Sources */,
@@ -961,15 +921,6 @@
 			);
 			name = FormatFinder.xcdatamodeld;
 			path = FormatFinder/Core/DataLayer/FormatFinder.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		99EFB0EA17C1269EF2A618E0 /* FormatFinder.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-			);
-			name = FormatFinder.xcdatamodeld;
-			path = FormatFinder/DataLayer/FormatFinder.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
