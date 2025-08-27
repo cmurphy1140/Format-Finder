@@ -169,45 +169,83 @@ struct StablefordPlayerRow: View {
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(player.name)
-                    .font(.system(size: 16, weight: .medium))
+        VStack(spacing: 10) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(player.name)
+                        .font(.system(size: 16, weight: .medium))
+                    
+                    if player.handicap > 0 {
+                        Text("HCP: \(player.handicap)")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                    }
+                }
                 
-                if player.handicap > 0 {
-                    Text("HCP: \(player.handicap)")
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
+                Spacer()
+                
+                // Points Display
+                if points > 0 {
+                    Text("\(points) pts")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.blue)
+                        .frame(width: 60)
+                }
+                
+                // Score Controls
+                HStack(spacing: 15) {
+                    Button(action: { if score > 0 { onScoreChange(score - 1) } }) {
+                        Image(systemName: "minus.circle")
+                            .font(.system(size: 24))
+                            .foregroundColor(.red)
+                    }
+                    
+                    Text("\(score)")
+                        .font(.system(size: 24, weight: .bold))
+                        .frame(minWidth: 40)
+                        .foregroundColor(scoreColor)
+                    
+                    Button(action: { onScoreChange(score + 1) }) {
+                        Image(systemName: "plus.circle")
+                            .font(.system(size: 24))
+                            .foregroundColor(.green)
+                    }
                 }
             }
             
-            Spacer()
-            
-            // Points Display
-            if points > 0 {
-                Text("\(points) pts")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.blue)
-                    .frame(width: 60)
-            }
-            
-            // Score Controls
-            HStack(spacing: 15) {
-                Button(action: { if score > 0 { onScoreChange(score - 1) } }) {
-                    Image(systemName: "minus.circle")
-                        .font(.system(size: 24))
-                        .foregroundColor(.red)
+            // Quick Score Buttons (Par, Bogey, Birdie)
+            HStack(spacing: 8) {
+                // TODO: Connect to actual hole par data
+                // Using par from component property for consistency
+                
+                Button(action: { onScoreChange(par - 1) }) {
+                    Text("Birdie")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(score == par - 1 ? .white : .blue)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(score == par - 1 ? Color.blue : Color.blue.opacity(0.1))
+                        .cornerRadius(6)
                 }
                 
-                Text("\(score)")
-                    .font(.system(size: 24, weight: .bold))
-                    .frame(minWidth: 40)
-                    .foregroundColor(scoreColor)
+                Button(action: { onScoreChange(par) }) {
+                    Text("Par")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(score == par ? .white : .green)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(score == par ? Color.green : Color.green.opacity(0.1))
+                        .cornerRadius(6)
+                }
                 
-                Button(action: { onScoreChange(score + 1) }) {
-                    Image(systemName: "plus.circle")
-                        .font(.system(size: 24))
-                        .foregroundColor(.green)
+                Button(action: { onScoreChange(par + 1) }) {
+                    Text("Bogey")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(score == par + 1 ? .white : .orange)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 6)
+                        .background(score == par + 1 ? Color.orange : Color.orange.opacity(0.1))
+                        .cornerRadius(6)
                 }
             }
         }
