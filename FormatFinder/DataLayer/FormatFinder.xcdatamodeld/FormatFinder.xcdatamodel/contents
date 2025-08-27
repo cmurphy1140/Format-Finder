@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    
+    <!-- Round Entity -->
+    <entity name="Round" representedClassName="Round" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="formatName" attributeType="String"/>
+        <attribute name="numberOfHoles" attributeType="Integer 16" defaultValueString="18" usesScalarValueType="YES"/>
+        <attribute name="courseName" optional="YES" attributeType="String"/>
+        <attribute name="courseRating" optional="YES" attributeType="Double" defaultValueString="72" usesScalarValueType="YES"/>
+        <attribute name="slopeRating" optional="YES" attributeType="Integer 16" defaultValueString="113" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="players" toMany="YES" deletionRule="Cascade" destinationEntity="PlayerRound" inverseName="round" inverseEntity="PlayerRound"/>
+        <relationship name="scores" toMany="YES" deletionRule="Cascade" destinationEntity="Score" inverseName="round" inverseEntity="Score"/>
+        <relationship name="configuration" maxCount="1" deletionRule="Cascade" destinationEntity="GameConfig" inverseName="round" inverseEntity="GameConfig"/>
+    </entity>
+    
+    <!-- Player Entity -->
+    <entity name="Player" representedClassName="Player" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="handicap" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="photoData" optional="YES" attributeType="Binary"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="rounds" toMany="YES" deletionRule="Cascade" destinationEntity="PlayerRound" inverseName="player" inverseEntity="PlayerRound"/>
+        <relationship name="scores" toMany="YES" deletionRule="Cascade" destinationEntity="Score" inverseName="player" inverseEntity="Score"/>
+    </entity>
+    
+    <!-- PlayerRound Junction Entity -->
+    <entity name="PlayerRound" representedClassName="PlayerRound" syncable="YES">
+        <attribute name="teamNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isActive" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <relationship name="player" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="rounds" inverseEntity="Player"/>
+        <relationship name="round" maxCount="1" deletionRule="Nullify" destinationEntity="Round" inverseName="players" inverseEntity="Round"/>
+    </entity>
+    
+    <!-- Score Entity -->
+    <entity name="Score" representedClassName="Score" syncable="YES">
+        <attribute name="hole" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES"/>
+        <attribute name="strokes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="par" optional="YES" attributeType="Integer 16" defaultValueString="4" usesScalarValueType="YES"/>
+        <attribute name="handicapStrokes" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="netScore" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="metadata" optional="YES" attributeType="Binary"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="round" maxCount="1" deletionRule="Nullify" destinationEntity="Round" inverseName="scores" inverseEntity="Round"/>
+        <relationship name="player" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="scores" inverseEntity="Player"/>
+    </entity>
+    
+    <!-- GameConfig Entity -->
+    <entity name="GameConfig" representedClassName="GameConfig" syncable="YES">
+        <attribute name="skinValue" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nassauValue" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pressesAllowed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="handicapsUsed" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="teeBox" optional="YES" attributeType="String"/>
+        <attribute name="rulesData" optional="YES" attributeType="Binary"/>
+        <relationship name="round" maxCount="1" deletionRule="Nullify" destinationEntity="Round" inverseName="configuration" inverseEntity="Round"/>
+    </entity>
+    
+</model>
