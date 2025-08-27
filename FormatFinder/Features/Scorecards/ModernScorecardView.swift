@@ -5,13 +5,14 @@ import CoreHaptics
 // MARK: - Modern Scorecard View with Fluid Gestures
 struct ModernScorecardView: View {
     @StateObject private var scoreManager = ScorecardManager()
-    @StateObject private var hapticManager = HapticManager()
+    @StateObject private var hapticManager = ModernScorecardHapticManager()
     @State private var currentHole = 1
     @State private var isRefreshing = false
     @State private var showCelebration = false
     @State private var lastSwipeDirection: SwipeDirection = .none
     @State private var pageOffset: CGFloat = 0
     @State private var showVoiceInput = false
+    @State private var showingStats = false
     @State private var collaborators: [Collaborator] = []
     @GestureState private var dragOffset: CGSize = .zero
     @Namespace private var scoreAnimation
@@ -36,10 +37,11 @@ struct ModernScorecardView: View {
             VStack(spacing: 0) {
                 // Header with hole navigation
                 ScorecardHeader(
+                    format: scoreManager.format,
                     currentHole: $currentHole,
                     totalHoles: 18,
-                    format: scoreManager.format,
-                    onRefresh: refreshScores
+                    onMenu: { /* Menu action */ },
+                    onStats: { showingStats = true }
                 )
                 
                 // Horizontal paging for holes
@@ -436,7 +438,7 @@ struct QuickScoreButton: View {
 }
 
 // MARK: - Scorecard Header
-struct ScorecardHeader: View {
+struct ModernScorecardHeader: View {
     @Binding var currentHole: Int
     let totalHoles: Int
     let format: GolfFormat
@@ -450,7 +452,7 @@ struct ScorecardHeader: View {
                 VStack(alignment: .leading) {
                     Text(format.name)
                         .font(.title2.bold())
-                    Text("\(format.players) • \(format.type)")
+                    Text("\(format.players) • \(format.isTeamFormat ? "Team" : "Individual")")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -836,10 +838,17 @@ class ScorecardManager: ObservableObject {
     @Published var scores: [Int: ScoreData] = [:]
     @Published var format = GolfFormat(
         name: "Stroke Play",
+        icon: "flag.fill",
+        color: .blue,
         description: "Traditional scoring",
+        tagline: "Classic golf scoring",
         players: "1-4",
         difficulty: "Easy",
-        type: "Individual"
+        isTeamFormat: false,
+        overview: ["Traditional stroke play format"],
+        rules: ["Count every stroke"],
+        strategy: ["Play consistently"],
+        hasDiagramSlides: false
     )
     @Published var lastAchievement: Achievement?
     
@@ -961,7 +970,7 @@ struct Achievement {
 
 // MARK: - Haptic Manager
 
-class HapticManager: ObservableObject {
+class ModernScorecardHapticManager: ObservableObject {
     private var engine: CHHapticEngine?
     
     func prepare() {

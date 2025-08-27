@@ -2,177 +2,7 @@ import SwiftUI
 
 // MARK: - Golf Formats Data
 
-let golfFormats = [
-    GolfFormat(
-        name: "Scramble",
-        category: "Tournament",
-        players: "2-4 players (teams)",
-        difficulty: "Easy",
-        description: "All team members tee off, select the best shot, and all play from there. Repeat until the ball is holed.",
-        howToPlay: [
-            "All players tee off",
-            "Team selects the best shot",
-            "All players play from that spot",
-            "Repeat until the ball is holed"
-        ],
-        example: "Team of 4: All tee off, choose John's drive. All hit from John's ball position. Choose Mary's approach. All putt from Mary's spot."
-    ),
-    GolfFormat(
-        name: "Best Ball",
-        category: "Tournament",
-        players: "2-4 players (teams)",
-        difficulty: "Easy",
-        description: "Each player plays their own ball. The lowest score among teammates counts as the team score for each hole.",
-        howToPlay: [
-            "Everyone plays their own ball",
-            "Record each player's score",
-            "Use the best score for the team",
-            "Total best scores for final"
-        ],
-        example: "Hole 1: Player A scores 4, Player B scores 5. Team score is 4."
-    ),
-    GolfFormat(
-        name: "Match Play",
-        category: "Tournament",
-        players: "2 or 4 players",
-        difficulty: "Medium",
-        description: "Players compete hole-by-hole. The player with the lowest score wins the hole. Most holes won wins the match.",
-        howToPlay: [
-            "Play each hole as a separate competition",
-            "Lowest score wins the hole",
-            "Ties result in a 'halved' hole",
-            "Player with most holes wins"
-        ],
-        example: "Player A wins 3 holes, Player B wins 2, 4 holes halved. Player A wins 3&2."
-    ),
-    GolfFormat(
-        name: "Skins",
-        category: "Betting",
-        players: "2-4 players",
-        difficulty: "Medium",
-        description: "Each hole has a value. The player with the lowest score wins the 'skin'. Ties carry over value to next hole.",
-        howToPlay: [
-            "Assign a value to each hole",
-            "Lowest score wins the skin",
-            "Ties carry value to next hole",
-            "Settle up after the round"
-        ],
-        example: "Hole 1 ($10): Players tie, carries to Hole 2 ($20 total). Player C wins with birdie, wins $20."
-    ),
-    GolfFormat(
-        name: "Stableford",
-        category: "Tournament",
-        players: "Any number",
-        difficulty: "Easy",
-        description: "Point-based scoring where players earn points based on their score relative to par. Higher points win.",
-        howToPlay: [
-            "Eagle or better: 4 points",
-            "Birdie: 3 points",
-            "Par: 2 points",
-            "Bogey: 1 point",
-            "Double bogey+: 0 points"
-        ],
-        example: "Par 4: Score 3 (birdie) = 3 points. Score 4 (par) = 2 points."
-    ),
-    GolfFormat(
-        name: "Four-Ball",
-        category: "Tournament",
-        players: "4 players (2 teams)",
-        difficulty: "Easy",
-        description: "Two teams of two. Each player plays own ball. Best score from each team counts. Used in Ryder Cup.",
-        howToPlay: [
-            "Form two teams of two",
-            "Everyone plays own ball",
-            "Best score from each team counts",
-            "Lower team score wins hole"
-        ],
-        example: "Team 1: Player A (4), Player B (5) = 4. Team 2: Player C (3), Player D (6) = 3. Team 2 wins."
-    ),
-    GolfFormat(
-        name: "Alternate Shot",
-        category: "Tournament",
-        players: "4 players (2 teams)",
-        difficulty: "Hard",
-        description: "Partners alternate hitting the same ball. One tees off on odd holes, the other on even holes.",
-        howToPlay: [
-            "Partners share one ball",
-            "Alternate shots until holed",
-            "Player A tees off odd holes",
-            "Player B tees off even holes"
-        ],
-        example: "Hole 1: Player A drives, B hits approach, A chips, B putts."
-    ),
-    GolfFormat(
-        name: "Nassau",
-        category: "Betting",
-        players: "2 or 4 players",
-        difficulty: "Medium",
-        description: "Three separate bets: front 9, back 9, and overall 18. Common in match play format.",
-        howToPlay: [
-            "Three separate matches",
-            "Front 9 winner",
-            "Back 9 winner",
-            "Overall 18 winner"
-        ],
-        example: "Player wins front 9 (+$10), loses back 9 (-$10), wins overall (+$10) = +$10 total."
-    ),
-    GolfFormat(
-        name: "Bingo Bango Bongo",
-        category: "Betting",
-        players: "2-4 players",
-        difficulty: "Easy",
-        description: "Three points per hole: first on green (bingo), closest to pin (bango), first in hole (bongo).",
-        howToPlay: [
-            "Bingo: First on the green",
-            "Bango: Closest to pin once all on green",
-            "Bongo: First in the hole",
-            "Furthest away plays first"
-        ],
-        example: "Player A reaches green first (+1), Player B is closest (+1), Player A holes out first (+1)."
-    ),
-    GolfFormat(
-        name: "Wolf",
-        category: "Betting",
-        players: "4 players",
-        difficulty: "Hard",
-        description: "Rotating 'Wolf' chooses to play alone or with a partner after seeing tee shots. Complex betting game.",
-        howToPlay: [
-            "Rotate who is Wolf each hole",
-            "Wolf tees off last",
-            "Wolf chooses partner or goes alone",
-            "Points vary based on format"
-        ],
-        example: "Player A is Wolf, sees drives, picks Player C as partner. They win 2 points each."
-    ),
-    GolfFormat(
-        name: "Chapman",
-        category: "Tournament",
-        players: "4 players (2 teams)",
-        difficulty: "Medium",
-        description: "Both partners tee off, play each other's ball for second shot, then select one ball to alternate into the hole.",
-        howToPlay: [
-            "Both partners tee off",
-            "Switch balls for second shot",
-            "Select best ball after second shot",
-            "Alternate shots until holed"
-        ],
-        example: "Both tee off, A plays B's drive, B plays A's drive, choose best, alternate in."
-    ),
-    GolfFormat(
-        name: "Vegas",
-        category: "Betting",
-        players: "4 players (2 teams)",
-        difficulty: "Hard",
-        description: "Team scores combine into two-digit numbers. Lower number goes first. Birdies can flip opponent's score.",
-        howToPlay: [
-            "Teams of two",
-            "Combine scores (lower first)",
-            "Team A: 4,5 = 45",
-            "Birdies flip opponent's score"
-        ],
-        example: "Team A scores 4 and 5 = 45. Team B scores 3 and 6 = 36. Team B wins 9 points."
-    )
-]
+let golfFormats: [GolfFormat] = GolfFormat.allFormats
 
 // MARK: - Game Mode Selector
 
@@ -271,7 +101,7 @@ struct GameModeCard: View {
                     
                     Spacer()
                     
-                    if format.type == "Team" {
+                    if format.isTeamFormat {
                         Image(systemName: "person.2.fill")
                             .font(.system(size: 16))
                             .foregroundColor(isSelected ? .white.opacity(0.8) : AppColors.textSecondary)
@@ -380,7 +210,7 @@ struct DifficultyIndicator: View {
 
 // MARK: - Game Configuration
 
-struct GameConfiguration {
+struct GameConfiguration: Equatable {
     var selectedFormat: GolfFormat?
     var players: [Player] = [
         Player(name: "Player 1", handicap: 0),
@@ -412,13 +242,13 @@ struct Player: Identifiable, Hashable {
     }
 }
 
-struct Team: Identifiable {
+struct Team: Identifiable, Equatable {
     let id = UUID()
     var name: String
     var players: [Player]
 }
 
-struct ScoringRules {
+struct ScoringRules: Equatable {
     // Format-specific rules
     var skinsValidation: Bool = false
     var nassauPresses: Bool = true
@@ -535,7 +365,7 @@ struct FormatInfoCard: View {
             HStack {
                 Label(format.players, systemImage: "person.2")
                 Spacer()
-                Label(format.type, systemImage: "flag")
+                Label(format.isTeamFormat ? "Team" : "Individual", systemImage: "flag")
                 Spacer()
                 Label(format.difficulty, systemImage: "speedometer")
             }

@@ -189,35 +189,35 @@ class GameState: ObservableObject {
 
 // MARK: - Format-Specific State Models
 
-struct MatchPlayStatus {
+struct MatchPlayStatus: Equatable, Codable {
     var holesWon: [UUID: Int] = [:]
     var currentStatus: String = "All Square"
     var holesUp: Int = 0
 }
 
-struct NassauMatches {
+struct NassauMatches: Equatable, Codable {
     var front9: MatchStatus = MatchStatus()
     var back9: MatchStatus = MatchStatus()
     var overall: MatchStatus = MatchStatus()
     var presses: [Press] = []
 }
 
-struct MatchStatus {
+struct MatchStatus: Equatable, Codable {
     var leader: UUID?
     var holesUp: Int = 0
 }
 
-struct Press {
+struct Press: Equatable, Codable {
     let hole: Int
     let type: PressType
     let value: Int
 }
 
-enum PressType {
+enum PressType: Codable {
     case front, back, overall
 }
 
-struct WolfSelection {
+struct WolfSelection: Equatable {
     let wolf: UUID
     let partner: UUID?
     let isLoneWolf: Bool

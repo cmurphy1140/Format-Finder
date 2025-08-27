@@ -1,7 +1,7 @@
 import SwiftUI
 import CoreGraphics
 
-struct AppIconGenerator {
+struct BasicAppIconGenerator {
     static func generateIcon(size: CGFloat) -> UIImage? {
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: size, height: size))
         
@@ -69,8 +69,8 @@ struct AppIconGenerator {
             
             for angle in stride(from: 0, to: 360, by: 30) {
                 for radius in stride(from: dimpleSpacing, to: ballRadius - dimpleSpacing, by: dimpleSpacing) {
-                    let x = centerX + radius * cos(angle * .pi / 180)
-                    let y = centerY + radius * sin(angle * .pi / 180)
+                    let x = centerX + radius * cos(CGFloat(angle) * .pi / 180)
+                    let y = centerY + radius * sin(CGFloat(angle) * .pi / 180)
                     
                     let distance = sqrt(pow(x - centerX, 2) + pow(y - centerY, 2))
                     if distance < ballRadius - dimpleSize * 2 {

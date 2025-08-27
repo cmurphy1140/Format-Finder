@@ -38,8 +38,8 @@ class NavigationCoordinator: ObservableObject {
     }
     
     func navigateToFormat(withId id: String) {
-        // Find format and navigate
-        if let format = sampleGolfFormats.first(where: { $0.id == id }) {
+        // Find format by name since id is String but GolfFormat.id is UUID
+        if let format = GolfFormat.allFormats.first(where: { $0.name == id }) {
             presentedSheet = .formatDetail(format)
             addToRecentlyViewed(id)
         }

@@ -277,7 +277,7 @@ struct ParticleSystemView: View {
                 position: CGPoint(x: size.width / 2, y: size.height / 2),
                 velocity: CGVector(
                     dx: CGFloat.random(in: -100...100),
-                    dy: CGFloat.random(in: -200...-50)
+                    dy: CGFloat.random(in: -200...(-50))
                 ),
                 scale: CGFloat.random(in: 0.3...1.0),
                 opacity: 1,
@@ -308,7 +308,7 @@ struct ParticleSystemView: View {
                     particles[i].position = CGPoint(x: 200, y: 400)
                     particles[i].velocity = CGVector(
                         dx: CGFloat.random(in: -100...100),
-                        dy: CGFloat.random(in: -200...-50)
+                        dy: CGFloat.random(in: -200...(-50))
                     )
                     particles[i].opacity = 1
                 }
@@ -392,7 +392,7 @@ struct VisualEffectsDemo: View {
                         .frame(maxWidth: .infinity)
                 }
                 .neumorphism(isPressed: isPressed)
-                .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) { _ in
+                .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) {
                     isPressed = true
                 } onPressingChanged: { pressing in
                     isPressed = pressing

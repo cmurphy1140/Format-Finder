@@ -132,7 +132,7 @@ final class CloudKitSyncService {
             
             for record in records.matchResults {
                 if case .success(let recordResult) = record.1 {
-                    try await processRemoteRecord(recordResult.record)
+                    try await processRemoteRecord(recordResult)
                 }
             }
         } catch {
@@ -202,8 +202,11 @@ final class CloudKitSyncService {
         let operations = pendingOperations
         pendingOperations.removeAll()
         
+        // Execute operations - using completion handler approach
         for operation in operations {
-            privateDatabase.add(operation)
+            if let dbOperation = operation as? CKDatabaseOperation {
+                privateDatabase.add(dbOperation)
+            }
         }
         
         savePendingOperations()
@@ -293,13 +296,44 @@ extension RoundMetadata: Codable {
         case wolfSelections
         case nassauMatches
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        scrambleSelections = try container.decode([Int: PlayerIdentifier].self, forKey: .scrambleSelections)
+        matchPlayStatus = try container.decodeIfPresent(MatchPlayStatus.self, forKey: .matchPlayStatus)
+        skinsCarryover = try container.decode(Double.self, forKey: .skinsCarryover)
+        wolfSelections = try container.decode([Int: WolfSelection].self, forKey: .wolfSelections)
+        nassauMatches = try container.decodeIfPresent(NassauMatches.self, forKey: .nassauMatches)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(scrambleSelections, forKey: .scrambleSelections)
+        try container.encodeIfPresent(matchPlayStatus, forKey: .matchPlayStatus)
+        try container.encode(skinsCarryover, forKey: .skinsCarryover)
+        try container.encode(wolfSelections, forKey: .wolfSelections)
+        try container.encodeIfPresent(nassauMatches, forKey: .nassauMatches)
+    }
 }
 
 extension WolfSelection: Codable {
-    init(wolf: PlayerIdentifier, partner: PlayerIdentifier?, isLoneWolf: Bool, isBlindWolf: Bool) {
-        self.wolf = wolf
-        self.partner = partner
-        self.isLoneWolf = isLoneWolf
-        self.isBlindWolf = isBlindWolf
+    enum CodingKeys: String, CodingKey {
+        case wolf, partner, isLoneWolf, isBlindWolf
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        wolf = try container.decode(UUID.self, forKey: .wolf)
+        partner = try container.decodeIfPresent(UUID.self, forKey: .partner)
+        isLoneWolf = try container.decode(Bool.self, forKey: .isLoneWolf)
+        isBlindWolf = try container.decode(Bool.self, forKey: .isBlindWolf)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(wolf, forKey: .wolf)
+        try container.encodeIfPresent(partner, forKey: .partner)
+        try container.encode(isLoneWolf, forKey: .isLoneWolf)
+        try container.encode(isBlindWolf, forKey: .isBlindWolf)
     }
 }

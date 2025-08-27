@@ -63,7 +63,7 @@ struct BounceButton: View {
         }
         .scaleEffect(scale)
         .rotationEffect(.degrees(rotation))
-        .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) { _ in
+        .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) {
             isPressed = true
         } onPressingChanged: { pressing in
             withAnimation(.easeInOut(duration: 0.1)) {
@@ -277,7 +277,7 @@ struct ConfettiView: View {
                 position: CGPoint(x: size.width / 2, y: size.height / 2),
                 velocity: CGVector(
                     dx: CGFloat.random(in: -200...200),
-                    dy: CGFloat.random(in: -400...-200)
+                    dy: CGFloat.random(in: -400...(-200))
                 ),
                 rotation: Double.random(in: 0...360),
                 rotationSpeed: Double.random(in: -180...180),

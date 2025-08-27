@@ -288,36 +288,30 @@ struct FormatRecommenderView: View {
     
     func getRecommendedFormats() -> [GolfFormat] {
         var formats: [GolfFormat] = []
+        let allFormats = GolfFormat.allFormats
         
         // Sample recommendation logic
         if groupSize == 4 {
-            formats.append(GolfFormat(
-                name: "Scramble",
-                description: "Perfect for mixed skill levels",
-                difficulty: "Easy",
-                players: "2-4",
-                type: "Team"
-            ))
+            if let scramble = allFormats.first(where: { $0.name == "Scramble" }) {
+                formats.append(scramble)
+            }
             
             if competitiveness > 7 {
-                formats.append(GolfFormat(
-                    name: "Nassau",
-                    description: "Great competitive format",
-                    difficulty: "Medium",
-                    players: "2-4",
-                    type: "Individual"
-                ))
+                if let nassau = allFormats.first(where: { $0.name == "Nassau" }) {
+                    formats.append(nassau)
+                }
             }
         }
         
         if skillLevel == "Mixed" {
-            formats.append(GolfFormat(
-                name: "Bingo Bango Bongo",
-                description: "Equalizes different skill levels",
-                difficulty: "Easy",
-                players: "2-4",
-                type: "Individual"
-            ))
+            if let bingoBangoBongo = allFormats.first(where: { $0.name == "Bingo Bango Bongo" }) {
+                formats.append(bingoBangoBongo)
+            }
+        }
+        
+        // If no specific recommendations, return top 3 formats
+        if formats.isEmpty {
+            formats = Array(allFormats.prefix(3))
         }
         
         return formats

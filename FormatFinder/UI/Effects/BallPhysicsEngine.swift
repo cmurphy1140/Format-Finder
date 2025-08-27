@@ -600,7 +600,7 @@ struct FormatCardBack: View {
             VStack(alignment: .leading, spacing: 8) {
                 Label(format.players, systemImage: "person.2")
                 Label(format.difficulty, systemImage: "speedometer")
-                Label(format.type, systemImage: "flag")
+                Label(format.isTeamFormat ? "Team" : "Individual", systemImage: "flag")
             }
             .font(.caption)
             .foregroundColor(.white.opacity(0.9))

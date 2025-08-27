@@ -111,7 +111,7 @@ struct AppIconView: View {
 
 // MARK: - App Icon Generator
 
-struct AppIconGenerator: View {
+struct ViewAppIconGenerator: View {
     var body: some View {
         VStack(spacing: 20) {
             // 1024x1024 App Store Icon
@@ -139,7 +139,7 @@ struct AppIconGenerator: View {
 
 struct AppIconView_Previews: PreviewProvider {
     static var previews: some View {
-        AppIconGenerator()
-            .previewLayout(.sizeThatFits)
+        ViewAppIconGenerator()
+            .previewLayout(PreviewLayout.sizeThatFits)
     }
 }

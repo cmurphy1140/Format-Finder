@@ -4,24 +4,24 @@ import Foundation
 
 protocol GolfFormatProtocol {
     var formatType: FormatType { get }
-    var scoringRules: ScoringRules { get }
+    var scoringRules: ProtocolScoringRules { get }
     
-    func calculateScore(for hole: Int, scores: [PlayerScore]) -> FormatScore
-    func determineWinner(scores: [PlayerScore]) -> PlayerIdentifier?
+    func calculateScore(for hole: Int, scores: [GamePlayerScore]) -> FormatScore
+    func determineWinner(scores: [GamePlayerScore]) -> PlayerIdentifier?
     func validateScore(_ score: Int, for player: PlayerIdentifier, hole: Int) -> Bool
     func applyHandicap(_ score: Int, handicap: Int, hole: Int) -> Int
     func getRoundSummary(scores: [Int: [PlayerIdentifier: Int]]) -> RoundSummary
 }
 
 protocol TeamFormatProtocol: GolfFormatProtocol {
-    func selectBestBall(scores: [PlayerScore]) -> PlayerIdentifier
-    func calculateTeamScore(scores: [PlayerScore]) -> Int
+    func selectBestBall(scores: [GamePlayerScore]) -> PlayerIdentifier
+    func calculateTeamScore(scores: [GamePlayerScore]) -> Int
 }
 
 protocol MatchFormatProtocol: GolfFormatProtocol {
-    func determineHoleWinner(scores: [PlayerScore]) -> PlayerIdentifier?
-    func updateMatchStatus(after hole: Int, scores: [PlayerScore]) -> MatchStatus
-    func canConcede(at hole: Int, currentStatus: MatchStatus) -> Bool
+    func determineHoleWinner(scores: [GamePlayerScore]) -> PlayerIdentifier?
+    func updateMatchStatus(after hole: Int, scores: [GamePlayerScore]) -> SimpleMatchStatus
+    func canConcede(at hole: Int, currentStatus: SimpleMatchStatus) -> Bool
 }
 
 protocol BettingFormatProtocol: GolfFormatProtocol {
@@ -47,7 +47,7 @@ enum FormatType: String, CaseIterable {
     case vegas = "Vegas"
 }
 
-struct PlayerScore {
+struct GamePlayerScore {
     let playerId: PlayerIdentifier
     let strokes: Int
     let handicapStrokes: Int
@@ -79,7 +79,7 @@ struct RoundSummary {
     let statistics: RoundStatistics
 }
 
-struct RoundStatistics {
+struct RoundStatistics: Codable {
     let totalStrokes: Int
     let birdies: Int
     let pars: Int
@@ -87,4 +87,25 @@ struct RoundStatistics {
     let averageScore: Double
     let bestHole: Int?
     let worstHole: Int?
+}
+
+struct ProtocolScoringRules {
+    let maxScore: Int
+    let allowNegative: Bool
+    let useHandicaps: Bool
+    let teamPlay: Bool
+}
+
+struct SimpleMatchStatus {
+    let leader: PlayerIdentifier?
+    let holesUp: Int
+    let isComplete: Bool
+}
+
+enum ShotType: String, CaseIterable {
+    case tee = "Tee Shot"
+    case fairway = "Fairway"
+    case approach = "Approach"
+    case chip = "Chip"
+    case putt = "Putt"
 }

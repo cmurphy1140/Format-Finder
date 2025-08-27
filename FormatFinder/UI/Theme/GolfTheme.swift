@@ -247,7 +247,7 @@ struct GrassParticle: View {
                 withAnimation(.easeOut(duration: Double.random(in: 2...4))) {
                     offset = CGSize(
                         width: CGFloat.random(in: -50...50),
-                        height: CGFloat.random(in: -100...-200)
+                        height: CGFloat.random(in: (-200)...(-100))
                     )
                     opacity = 0
                 }

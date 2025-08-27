@@ -231,7 +231,7 @@ struct AccessibleListRow: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(title). \(subtitle ?? "")")
-        .accessibilityValue(value)
+        .accessibilityValue(value ?? "")
         .accessibilityHint("Double tap to view details")
         .accessibilityAddTraits(.isButton)
     }

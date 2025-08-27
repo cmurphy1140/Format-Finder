@@ -3,8 +3,22 @@ import SwiftUI
 // MARK: - Diagram Slideshow Container
 
 struct FormatDiagramSlideshow: View {
-    let formatName: String
+    let format: GolfFormat
+    @Binding var isPresented: Bool
     @State private var currentSlide = 0
+    
+    init(format: GolfFormat, isPresented: Binding<Bool>) {
+        self.format = format
+        self._isPresented = isPresented
+    }
+    
+    // Overload for backward compatibility
+    init(formatName: String) {
+        self.format = GolfFormat.allFormats.first { $0.name == formatName } ?? GolfFormat.allFormats[0]
+        self._isPresented = .constant(true)
+    }
+    
+    var formatName: String { format.name }
     
     var slides: [AnyView] {
         switch formatName {
@@ -38,30 +52,102 @@ struct FormatDiagramSlideshow: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Slide content
-            TabView(selection: $currentSlide) {
-                ForEach(0..<slides.count, id: \.self) { index in
-                    slides[index]
-                        .tag(index)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: 300)
+        ZStack {
+            // Background
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.1, green: 0.4, blue: 0.2),
+                    Color(red: 0.05, green: 0.25, blue: 0.15)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
-            // Custom page indicators
-            HStack(spacing: 8) {
-                ForEach(0..<slides.count, id: \.self) { index in
-                    Circle()
-                        .fill(currentSlide == index ? 
-                            Color(red: 46/255, green: 125/255, blue: 50/255) : 
-                            Color.gray.opacity(0.3))
-                        .frame(width: 8, height: 8)
-                        .scaleEffect(currentSlide == index ? 1.2 : 1.0)
-                        .animation(.spring(response: 0.3), value: currentSlide)
+            VStack(spacing: 0) {
+                // Header with close button
+                HStack {
+                    Text("\(formatName) Tutorial")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
                 }
+                .padding()
+                
+                // Slide content with click navigation
+                ZStack {
+                    TabView(selection: $currentSlide) {
+                        ForEach(0..<slides.count, id: \.self) { index in
+                            slides[index]
+                                .tag(index)
+                                .onTapGesture {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        if currentSlide < slides.count - 1 {
+                                            currentSlide += 1
+                                        } else {
+                                            isPresented = false
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    
+                    // Navigation hint overlay
+                    VStack {
+                        Spacer()
+                        HStack {
+                            if currentSlide > 0 {
+                                Image(systemName: "chevron.left")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+                                    .padding(.leading)
+                            }
+                            Spacer()
+                            if currentSlide < slides.count - 1 {
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+                                    .padding(.trailing)
+                            }
+                        }
+                        .padding(.bottom, 10)
+                    }
+                }
+                .frame(height: 400)
+            
+                
+                // Custom page indicators
+                HStack(spacing: 8) {
+                    ForEach(0..<slides.count, id: \.self) { index in
+                        Circle()
+                            .fill(currentSlide == index ? 
+                                Color(red: 46/255, green: 125/255, blue: 50/255) : 
+                                Color.gray.opacity(0.3))
+                            .frame(width: 8, height: 8)
+                            .scaleEffect(currentSlide == index ? 1.2 : 1.0)
+                            .animation(.spring(response: 0.3), value: currentSlide)
+                    }
+                }
+                .padding(.top, 12)
+                
+                // Click instruction
+                Text(currentSlide == slides.count - 1 ? "Tap to close" : "Tap anywhere to continue")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.7))
+                    .padding(.top, 8)
+                    .padding(.bottom, 20)
             }
-            .padding(.top, 12)
         }
     }
 }

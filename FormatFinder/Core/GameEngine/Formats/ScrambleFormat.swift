@@ -6,8 +6,8 @@ final class ScrambleFormat: TeamFormatProtocol {
     
     var formatType: FormatType { .scramble }
     
-    var scoringRules: ScoringRules {
-        ScoringRules(
+    var scoringRules: ProtocolScoringRules {
+        ProtocolScoringRules(
             maxScore: 10,
             allowNegative: false,
             useHandicaps: true,
@@ -18,7 +18,7 @@ final class ScrambleFormat: TeamFormatProtocol {
     private var ballSelections: [Int: PlayerIdentifier] = [:]
     private var shotTypeSelections: [Int: [ShotType: PlayerIdentifier]] = [:]
     
-    func calculateScore(for hole: Int, scores: [PlayerScore]) -> FormatScore {
+    func calculateScore(for hole: Int, scores: [GamePlayerScore]) -> FormatScore {
         let teamScore = calculateTeamScore(scores: scores)
         let bestPlayer = selectBestBall(scores: scores)
         
@@ -34,20 +34,20 @@ final class ScrambleFormat: TeamFormatProtocol {
         )
     }
     
-    func selectBestBall(scores: [PlayerScore]) -> PlayerIdentifier {
+    func selectBestBall(scores: [GamePlayerScore]) -> PlayerIdentifier {
         guard let bestScore = scores.min(by: { $0.netScore < $1.netScore }) else {
             fatalError("No scores provided for best ball selection")
         }
         return bestScore.playerId
     }
     
-    func calculateTeamScore(scores: [PlayerScore]) -> Int {
+    func calculateTeamScore(scores: [GamePlayerScore]) -> Int {
         // In scramble, team takes best shot and everyone plays from there
         // Return the best score among all players
         return scores.map { $0.strokes }.min() ?? 0
     }
     
-    func determineWinner(scores: [PlayerScore]) -> PlayerIdentifier? {
+    func determineWinner(scores: [GamePlayerScore]) -> PlayerIdentifier? {
         // Scramble is a team format, return nil for individual winner
         return nil
     }
@@ -153,18 +153,11 @@ final class ScrambleFormat: TeamFormatProtocol {
         return nil
     }
     
-    private func applyTeamHandicap(_ score: Int, scores: [PlayerScore]) -> Int {
+    private func applyTeamHandicap(_ score: Int, scores: [GamePlayerScore]) -> Int {
         let averageHandicap = scores.map { $0.handicapStrokes }.reduce(0, +) / scores.count
         return score - averageHandicap
     }
 }
 
 // MARK: - Supporting Types
-
-enum ShotType: String, CaseIterable {
-    case tee = "Tee Shot"
-    case fairway = "Fairway"
-    case approach = "Approach"
-    case chip = "Chip"
-    case putt = "Putt"
-}
+// ShotType is defined in GolfFormatProtocol.swift

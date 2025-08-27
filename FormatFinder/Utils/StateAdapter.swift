@@ -4,6 +4,7 @@ import Combine
 // MARK: - State Adapter
 
 /// Bridges the new Redux-style state management with existing SwiftUI views
+@MainActor
 final class StateAdapter: ObservableObject {
     @Published var legacyGameState: GameState
     
@@ -20,7 +21,7 @@ final class StateAdapter: ObservableObject {
     
     // MARK: - Setup Bindings
     
-    private func setupBindings() {
+    @MainActor private func setupBindings() {
         // Sync new store state to legacy GameState
         store.$state
             .sink { [weak self] newState in
@@ -44,7 +45,8 @@ final class StateAdapter: ObservableObject {
                 legacyGameState.matchPlayStatus = matchPlayStatus
             }
             
-            legacyGameState.skinsCarryover = round.metadata.skinsCarryover
+            // Note: GameState uses skinValues instead of skinsCarryover
+            // This would need to be adapted based on how skins carryover is handled
             
             // Update scramble selections
             for (hole, player) in round.metadata.scrambleSelections {
@@ -65,7 +67,7 @@ final class StateAdapter: ObservableObject {
     
     // MARK: - Public Interface (Used by existing views)
     
-    func startRound(format: GolfFormat, configuration: GameConfiguration) {
+    @MainActor func startRound(format: GolfFormat, configuration: GameConfiguration) {
         if featureFlags.useNewStateManagement {
             // Use new system
             let formatType = FormatType(rawValue: format.name) ?? .scramble
@@ -80,7 +82,7 @@ final class StateAdapter: ObservableObject {
         }
     }
     
-    func updateScore(hole: Int, player: UUID, score: Int) {
+    @MainActor func updateScore(hole: Int, player: UUID, score: Int) {
         if featureFlags.useNewStateManagement {
             // Find player identifier
             if let playerIdentifier = store.state.players.first(where: { $0.id == player }) {
@@ -92,7 +94,7 @@ final class StateAdapter: ObservableObject {
         }
     }
     
-    func recordScrambleSelection(hole: Int, player: UUID, shotType: String) {
+    @MainActor func recordScrambleSelection(hole: Int, player: UUID, shotType: String) {
         if featureFlags.useNewStateManagement {
             if let playerIdentifier = store.state.players.first(where: { $0.id == player }),
                let shot = ShotType(rawValue: shotType) {

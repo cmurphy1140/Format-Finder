@@ -290,8 +290,8 @@ func gameReducer(state: GameAppState, action: GameAction) -> GameAppState {
     case let .selectWolfPartner(hole, partner):
         if var round = newState.currentRound, let partner = partner {
             round.metadata.wolfSelections[hole] = WolfSelection(
-                wolf: newState.players[hole % newState.players.count],
-                partner: partner,
+                wolf: newState.players[hole % newState.players.count].id,
+                partner: partner.id,
                 isLoneWolf: false,
                 isBlindWolf: false
             )
