@@ -1140,7 +1140,7 @@ struct VegasTeamCard: View {
 
 // MARK: - Stats Cards
 
-struct OverallScoreCard: View {
+struct AdvancedOverallScoreCard: View {
     let gameState: GameState
     let configuration: GameConfiguration
     
@@ -1173,7 +1173,7 @@ struct OverallScoreCard: View {
     }
 }
 
-struct PlayerStatsCard: View {
+struct AdvancedPlayerStatsCard: View {
     let player: Player
     let gameState: GameState
     
@@ -1226,7 +1226,7 @@ struct PlayerStatsCard: View {
     }
 }
 
-struct StatItem: View {
+struct AdvancedStatItem: View {
     let label: String
     let value: String
     
@@ -1241,7 +1241,7 @@ struct StatItem: View {
     }
 }
 
-struct SkinsStatsCard: View {
+struct AdvancedSkinsStatsCard: View {
     let gameState: GameState
     
     var skinsWonByPlayer: [UUID: Int] {

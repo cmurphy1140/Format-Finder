@@ -780,7 +780,7 @@ struct MatchPlayPlayerCard: View {
 
 // MARK: - Generic Scorecard (for other formats)
 
-struct GenericScorecardView: View {
+struct BasicGenericScorecardView: View {
     let hole: Int
     let configuration: GameConfiguration
     let gameState: GameState

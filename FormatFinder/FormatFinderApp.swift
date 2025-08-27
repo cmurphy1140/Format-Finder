@@ -7,7 +7,7 @@ struct FormatFinderApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentView()
+                MainNavigationView()
                 
                 if showLaunchScreen {
                     LaunchScreenView()
@@ -21,6 +21,27 @@ struct FormatFinderApp: App {
                         showLaunchScreen = false
                     }
                 }
+            }
+        }
+    }
+}
+
+// MARK: - Main Navigation View
+
+struct MainNavigationView: View {
+    @State private var showGameModeSelector = false
+    
+    var body: some View {
+        ZStack {
+            ContentView(showGameModeSelector: $showGameModeSelector)
+            
+            if showGameModeSelector {
+                GameModeSelectorView()
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .bottom).combined(with: .opacity),
+                        removal: .move(edge: .bottom).combined(with: .opacity)
+                    ))
+                    .zIndex(1)
             }
         }
     }
@@ -188,6 +209,13 @@ struct GolfFormat: Identifiable, Hashable {
     let description: String
     let howToPlay: [String]
     let example: String
+    
+    var type: String {
+        if players.contains("team") || players.contains("Team") {
+            return "Team"
+        }
+        return "Individual"
+    }
 }
 
 // MARK: - Sample Data
@@ -365,10 +393,11 @@ let sampleFormats = [
 struct ContentView: View {
     @State private var selectedTab = 0
     @AppStorage("bookmarks") private var bookmarkData = Data()
+    @Binding var showGameModeSelector: Bool
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            HomeView()
+            HomeView(showGameModeSelector: $showGameModeSelector)
                 .tabItem {
                     Label("Browse", systemImage: "square.grid.2x2")
                 }
@@ -379,6 +408,12 @@ struct ContentView: View {
                     Label("Saved", systemImage: "bookmark.fill")
                 }
                 .tag(1)
+            
+            PlayView(showGameModeSelector: $showGameModeSelector)
+                .tabItem {
+                    Label("Play", systemImage: "play.circle.fill")
+                }
+                .tag(2)
         }
         .tint(Color(red: 46/255, green: 125/255, blue: 50/255))
     }
@@ -390,6 +425,7 @@ struct HomeView: View {
     @State private var searchText = ""
     @State private var selectedFilter = "All"
     @State private var selectedFormat: GolfFormat?
+    @Binding var showGameModeSelector: Bool
     
     let filters = ["All", "Tournament", "Betting"]
     
@@ -2265,6 +2301,112 @@ struct StrategyPoint: View {
             Text(text)
                 .font(.system(size: 14))
                 .foregroundColor(.white.opacity(0.9))
+        }
+    }
+}
+
+// MARK: - Play View
+
+struct PlayView: View {
+    @Binding var showGameModeSelector: Bool
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // Background gradient
+                LinearGradient(
+                    colors: [
+                        Color(red: 46/255, green: 125/255, blue: 50/255),
+                        Color(red: 102/255, green: 187/255, blue: 106/255)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+                
+                VStack(spacing: 30) {
+                    // Header
+                    VStack(spacing: 12) {
+                        Image(systemName: "flag.checkered.2.crossed")
+                            .font(.system(size: 60))
+                            .foregroundColor(.white)
+                        
+                        Text("Play a Game")
+                            .font(.system(size: 36, weight: .bold))
+                            .foregroundColor(.white)
+                        
+                        Text("Track your scores and compete with friends")
+                            .font(.system(size: 16))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.top, 40)
+                    
+                    Spacer()
+                    
+                    // Start Game Button
+                    Button(action: {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+                            showGameModeSelector = true
+                        }
+                    }) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "play.fill")
+                                .font(.system(size: 24))
+                            
+                            Text("Start New Game")
+                                .font(.system(size: 20, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [Color.blue, Color.blue.opacity(0.7)],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.2), radius: 10, y: 5)
+                    }
+                    .padding(.horizontal, 40)
+                    
+                    // Features list
+                    VStack(spacing: 20) {
+                        FeatureRow(icon: "person.2.fill", text: "2-4 Players")
+                        FeatureRow(icon: "flag.fill", text: "12 Game Formats")
+                        FeatureRow(icon: "chart.bar.fill", text: "Live Statistics")
+                        FeatureRow(icon: "square.and.arrow.up", text: "Export Scorecards")
+                    }
+                    .padding(.horizontal, 40)
+                    
+                    Spacer()
+                }
+            }
+            .navigationBarHidden(true)
+        }
+    }
+}
+
+struct FeatureRow: View {
+    let icon: String
+    let text: String
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundColor(.white.opacity(0.9))
+                .frame(width: 30)
+            
+            Text(text)
+                .font(.system(size: 16))
+                .foregroundColor(.white.opacity(0.9))
+            
+            Spacer()
         }
     }
 }

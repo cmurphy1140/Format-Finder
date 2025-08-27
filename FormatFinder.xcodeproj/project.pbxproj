@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		315B3AC6792C49E971ECB3E7 /* AdvancedScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */; };
+		3F580E2F832021A72F53EC64 /* ScorecardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1402314DC38B946024A9E6A7 /* ScorecardContainer.swift */; };
+		601FD49D65F7F533E8ECBB47 /* StatsAndExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A136CD5F2F94ED23353815B /* StatsAndExport.swift */; };
 		A1A1A1A12B4E5F6700000001 /* FormatFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000001 /* FormatFinderApp.swift */; };
 		A1A1A1A32B4E5F6700000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000003 /* Assets.xcassets */; };
 		A1A1A1A42B4E5F6700000004 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000004 /* Preview Assets.xcassets */; };
 		A1A1A1A52B4E5F6700000005 /* FormatFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000005 /* FormatFinderTests.swift */; };
 		A1A1A1A62B4E5F6700000006 /* FormatFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000006 /* FormatFinderUITests.swift */; };
+		C5EEAE310F6B1031186C048C /* RemainingFormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */; };
+		C9EB064C00F3EF84079673DA /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */; };
+		F366975F7D8E6AF4FF26516A /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F8DDD4E936A54B1027630 /* GameModeSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		116F8DDD4E936A54B1027630 /* GameModeSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GameModeSelector.swift; sourceTree = "<group>"; };
+		1402314DC38B946024A9E6A7 /* ScorecardContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScorecardContainer.swift; sourceTree = "<group>"; };
+		37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FormatScorecards.swift; sourceTree = "<group>"; };
+		6A136CD5F2F94ED23353815B /* StatsAndExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatsAndExport.swift; sourceTree = "<group>"; };
 		A1A1A1972B4E5F6700000001 /* FormatFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormatFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A1A1A02B4E5F6700000001 /* FormatFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatFinderApp.swift; sourceTree = "<group>"; };
 		A1A1A1A02B4E5F6700000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -40,6 +50,8 @@
 		A1A1A1A02B4E5F6700000006 /* FormatFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatFinderUITests.swift; sourceTree = "<group>"; };
 		A1A1A1AD2B4E5F6800000001 /* FormatFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FormatFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A1A1B72B4E5F6800000001 /* FormatFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FormatFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemainingFormatScorecards.swift; sourceTree = "<group>"; };
+		D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedScorecards.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +105,12 @@
 				A1A1A1A02B4E5F6700000001 /* FormatFinderApp.swift */,
 				A1A1A1A02B4E5F6700000003 /* Assets.xcassets */,
 				A1A1A1A52B4E5F6700000001 /* Preview Content */,
+				116F8DDD4E936A54B1027630 /* GameModeSelector.swift */,
+				1402314DC38B946024A9E6A7 /* ScorecardContainer.swift */,
+				37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */,
+				D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */,
+				A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */,
+				6A136CD5F2F94ED23353815B /* StatsAndExport.swift */,
 			);
 			path = FormatFinder;
 			sourceTree = "<group>";
@@ -252,6 +270,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1A1A1A12B4E5F6700000001 /* FormatFinderApp.swift in Sources */,
+				F366975F7D8E6AF4FF26516A /* GameModeSelector.swift in Sources */,
+				3F580E2F832021A72F53EC64 /* ScorecardContainer.swift in Sources */,
+				C9EB064C00F3EF84079673DA /* FormatScorecards.swift in Sources */,
+				315B3AC6792C49E971ECB3E7 /* AdvancedScorecards.swift in Sources */,
+				C5EEAE310F6B1031186C048C /* RemainingFormatScorecards.swift in Sources */,
+				601FD49D65F7F533E8ECBB47 /* StatsAndExport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
