@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Golf course background -->
+  <rect width="300" height="200" fill="#7CB342"/>
+  
+  <!-- Fairway -->
+  <path d="M50 150 Q150 130 250 150" stroke="none" fill="#8BC34A"/>
+  
+  <!-- Tee box -->
+  <rect x="40" y="140" width="20" height="20" fill="#5D4037" rx="2"/>
+  
+  <!-- Flag/hole -->
+  <circle cx="250" cy="150" r="3" fill="#212121"/>
+  <line x1="250" y1="150" x2="250" y2="130" stroke="#212121" stroke-width="2"/>
+  <polygon points="250,130 250,140 260,135" fill="#F44336"/>
+  
+  <!-- Player paths (each plays own ball) -->
+  <!-- Player 1 -->
+  <circle cx="50" cy="150" r="4" fill="#1976D2"/>
+  <path d="M50 150 Q120 120 200 140" stroke="#1976D2" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <circle cx="200" cy="140" r="3" fill="#1976D2"/>
+  <path d="M200 140 L250 150" stroke="#1976D2" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <text x="265" y="145" font-family="Arial" font-size="10" fill="#1976D2">5</text>
+  
+  <!-- Player 2 (BEST SCORE) -->
+  <circle cx="50" cy="145" r="4" fill="#388E3C"/>
+  <path d="M50 145 Q130 110 210 135" stroke="#388E3C" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <circle cx="210" cy="135" r="3" fill="#388E3C"/>
+  <path d="M210 135 L250 150" stroke="#388E3C" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <text x="265" y="135" font-family="Arial" font-size="12" font-weight="bold" fill="#388E3C">4</text>
+  
+  <!-- Player 3 -->
+  <circle cx="50" cy="155" r="4" fill="#FFA726"/>
+  <path d="M50 155 Q125 125 195 145" stroke="#FFA726" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <circle cx="195" cy="145" r="3" fill="#FFA726"/>
+  <path d="M195 145 L250 150" stroke="#FFA726" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+  <text x="265" y="155" font-family="Arial" font-size="10" fill="#FFA726">6</text>
+  
+  <!-- Best score highlight -->
+  <rect x="260" y="125" width="25" height="18" fill="none" stroke="#388E3C" stroke-width="2" rx="3"/>
+  
+  <!-- Title -->
+  <text x="150" y="30" font-family="Arial" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">BEST BALL</text>
+  <text x="150" y="50" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle">Each plays own ball, count best score</text>
+  
+  <!-- Score legend -->
+  <text x="150" y="190" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle">Team Score: 4 (Best)</text>
+</svg>
