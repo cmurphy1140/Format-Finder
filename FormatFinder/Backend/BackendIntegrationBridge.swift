@@ -41,6 +41,8 @@ protocol SocialDataSource {
 
 /// Central backend service orchestrating all data sources
 class BackendService: ObservableObject {
+    // Singleton instance
+    static let shared = BackendService()
     // Published state for UI reactivity
     @Published var connectionStatus: ConnectionStatus = .connecting
     @Published var syncStatus: SyncStatus = .idle
