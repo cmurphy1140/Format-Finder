@@ -19,7 +19,7 @@ final class GameStore: ObservableObject {
     
     init(
         initialState: GameAppState = GameAppState(),
-        middleware: [Middleware] = GameStore.defaultMiddleware,
+        middleware: [Middleware] = [],
         reducer: @escaping Reducer<GameAppState, GameAction> = gameReducer
     ) {
         self.state = initialState
@@ -271,7 +271,7 @@ func gameReducer(state: GameAppState, action: GameAction) -> GameAppState {
             newState.currentRound = round
         }
         
-    case let .selectScrambleBall(hole, player, shotType):
+    case let .selectScrambleBall(hole, player, _):
         if var round = newState.currentRound {
             round.metadata.scrambleSelections[hole] = player
             newState.currentRound = round
@@ -283,7 +283,7 @@ func gameReducer(state: GameAppState, action: GameAction) -> GameAppState {
             newState.currentRound = round
         }
         
-    case let .recordSkinWinner(hole, player):
+    case .recordSkinWinner:
         // Handle skins logic
         break
         
@@ -298,7 +298,7 @@ func gameReducer(state: GameAppState, action: GameAction) -> GameAppState {
             newState.currentRound = round
         }
         
-    case let .recordNassauPress(hole, type):
+    case .recordNassauPress:
         // Handle Nassau press logic
         break
         

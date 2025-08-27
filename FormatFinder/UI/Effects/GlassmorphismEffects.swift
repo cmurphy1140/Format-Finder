@@ -215,7 +215,7 @@ struct WaterRippleView: View {
     }
     
     private func addRipple(at location: CGPoint) {
-        var newRipple = Ripple(position: location)
+        let newRipple = Ripple(position: location)
         ripples.append(newRipple)
         
         withAnimation(.easeOut(duration: 1.5)) {

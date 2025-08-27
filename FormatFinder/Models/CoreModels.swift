@@ -115,17 +115,29 @@ struct Round: Identifiable, Codable {
     let id: UUID
     let course: String
     let date: Date
-    let scores: [Score]
-    let players: [Player]
-    let format: GolfFormat
+    let scores: [Int: Int]  // [Hole: Score] mapping
+    let players: [String]   // Player names for compatibility
     
-    init(id: UUID = UUID(), course: String, date: Date = Date(), scores: [Score] = [], players: [Player] = [], format: GolfFormat = .strokePlay) {
+    init(id: UUID = UUID(), course: String, date: Date = Date(), players: [String] = [], scores: [Int: Int] = [:]) {
         self.id = id
         self.course = course
         self.date = date
-        self.scores = scores
         self.players = players
-        self.format = format
+        self.scores = scores
+    }
+    
+    // Computed properties for statistics
+    var totalScore: Int {
+        scores.values.reduce(0, +)
+    }
+    
+    var averageScore: Double {
+        guard !scores.isEmpty else { return 0 }
+        return Double(totalScore) / Double(scores.count)
+    }
+    
+    func scoreTo(par: Int) -> Int {
+        totalScore - (scores.count * par)
     }
 }
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02A09CA406D2CBFF87A58E37 /* StatsAndExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B85AE35DB758D960F43A7 /* StatsAndExport.swift */; };
-		06AF56052FA5EF7CAFE634F7 /* MastersTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67CBFF3EC46B36AAD8CED18 /* MastersTheme.swift */; };
 		10106D86FD0214B020A2CB1B /* DiagramSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108CD63A781625B33C9DB80 /* DiagramSlides.swift */; };
 		131BEA85452BA2B7730E094B /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA86C08C421C79A3BE73B04F /* NavigationCoordinator.swift */; };
 		1E4D179A119D0CF919B7D3FA /* FormatFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC09AE74289919090FCE8F30 /* FormatFinderApp.swift */; };
@@ -77,7 +76,6 @@
 		963DDD2D427935039AE7C865 /* ScrambleFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScrambleFormat.swift; path = FormatFinder/Core/GameEngine/Formats/ScrambleFormat.swift; sourceTree = "<group>"; };
 		9705B466CEAC35FCE3F2E62E /* TimerManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = FormatFinder/Utils/TimerManager.swift; sourceTree = "<group>"; };
 		98A5A31F2F4BA3FE7D488E98 /* CloudKitSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudKitSyncService.swift; path = FormatFinder/Core/Services/CloudKitSyncService.swift; sourceTree = "<group>"; };
-		A67CBFF3EC46B36AAD8CED18 /* MastersTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FormatFinder/UI/Theme/MastersTheme.swift; sourceTree = "<group>"; };
 		B0586F2BCAA1F87419687770 /* AppIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppIcon.swift; path = FormatFinder/Resources/AppIcon.swift; sourceTree = "<group>"; };
 		C49B85AE35DB758D960F43A7 /* StatsAndExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatsAndExport.swift; path = FormatFinder/Features/Statistics/StatsAndExport.swift; sourceTree = "<group>"; };
 		C4DC61D3938E3A265B76ED9C /* GameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameStore.swift; path = FormatFinder/Core/Services/GameStore.swift; sourceTree = "<group>"; };
@@ -269,7 +267,6 @@
 				392934F775E7718BCBC7CD2E /* ColorTheme.swift */,
 				42F5281BA663AEF927639186 /* GolfTheme.swift */,
 				DB82E2AC0C8C94FB87010171 /* ThemeEngine.swift */,
-				A67CBFF3EC46B36AAD8CED18 /* MastersTheme.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -446,7 +443,6 @@
 				2D24CD249A2CF6849916EE52 /* TimerManager.swift in Sources */,
 				4A485194E5222EF7DAC6999C /* UXEnhancements.swift in Sources */,
 				BF95F59860048498028606CB /* GolfFormat.swift in Sources */,
-				06AF56052FA5EF7CAFE634F7 /* MastersTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
