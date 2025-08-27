@@ -20,6 +20,8 @@
 		C9EB064C00F3EF84079673DA /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */; };
 		F366975F7D8E6AF4FF26516A /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F8DDD4E936A54B1027630 /* GameModeSelector.swift */; };
 		FF3997E895076114747F05D8 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182877525877902FC10D764C /* AppIconView.swift */; };
+		B1B1B1B12B4E5F6700000010 /* GlassmorphismEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B1B1B02B4E5F6700000010 /* GlassmorphismEffects.swift */; };
+		B1B1B1B22B4E5F6700000011 /* MicroInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B1B1B02B4E5F6700000011 /* MicroInteractions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemainingFormatScorecards.swift; sourceTree = "<group>"; };
 		A44EDB5DDD0CD651F2B33650 /* ColorTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedScorecards.swift; sourceTree = "<group>"; };
+		B1B1B1B02B4E5F6700000010 /* GlassmorphismEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI/Effects/GlassmorphismEffects.swift"; sourceTree = "<group>"; };
+		B1B1B1B02B4E5F6700000011 /* MicroInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI/Interactions/MicroInteractions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 				6A136CD5F2F94ED23353815B /* StatsAndExport.swift */,
 				A44EDB5DDD0CD651F2B33650 /* ColorTheme.swift */,
 				182877525877902FC10D764C /* AppIconView.swift */,
+				B1B1B1B02B4E5F6700000010 /* GlassmorphismEffects.swift */,
+				B1B1B1B02B4E5F6700000011 /* MicroInteractions.swift */,
 			);
 			path = FormatFinder;
 			sourceTree = "<group>";
@@ -284,6 +290,8 @@
 				601FD49D65F7F533E8ECBB47 /* StatsAndExport.swift in Sources */,
 				A74FB7F6361D052A2C7A58B1 /* ColorTheme.swift in Sources */,
 				FF3997E895076114747F05D8 /* AppIconView.swift in Sources */,
+				B1B1B1B12B4E5F6700000010 /* GlassmorphismEffects.swift in Sources */,
+				B1B1B1B22B4E5F6700000011 /* MicroInteractions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
