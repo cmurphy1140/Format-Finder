@@ -15,9 +15,11 @@
 		A1A1A1A42B4E5F6700000004 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000004 /* Preview Assets.xcassets */; };
 		A1A1A1A52B4E5F6700000005 /* FormatFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000005 /* FormatFinderTests.swift */; };
 		A1A1A1A62B4E5F6700000006 /* FormatFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1A1A02B4E5F6700000006 /* FormatFinderUITests.swift */; };
+		A74FB7F6361D052A2C7A58B1 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44EDB5DDD0CD651F2B33650 /* ColorTheme.swift */; };
 		C5EEAE310F6B1031186C048C /* RemainingFormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */; };
 		C9EB064C00F3EF84079673DA /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */; };
 		F366975F7D8E6AF4FF26516A /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116F8DDD4E936A54B1027630 /* GameModeSelector.swift */; };
+		FF3997E895076114747F05D8 /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182877525877902FC10D764C /* AppIconView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,7 @@
 /* Begin PBXFileReference section */
 		116F8DDD4E936A54B1027630 /* GameModeSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GameModeSelector.swift; sourceTree = "<group>"; };
 		1402314DC38B946024A9E6A7 /* ScorecardContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScorecardContainer.swift; sourceTree = "<group>"; };
+		182877525877902FC10D764C /* AppIconView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppIconView.swift; sourceTree = "<group>"; };
 		37FF5B7BE6A3E9A7B650A769 /* FormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FormatScorecards.swift; sourceTree = "<group>"; };
 		6A136CD5F2F94ED23353815B /* StatsAndExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatsAndExport.swift; sourceTree = "<group>"; };
 		A1A1A1972B4E5F6700000001 /* FormatFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormatFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +54,7 @@
 		A1A1A1AD2B4E5F6800000001 /* FormatFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FormatFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A1A1B72B4E5F6800000001 /* FormatFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FormatFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RemainingFormatScorecards.swift; sourceTree = "<group>"; };
+		A44EDB5DDD0CD651F2B33650 /* ColorTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AdvancedScorecards.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +115,8 @@
 				D4C34F3CF4845D1882D9AEA1 /* AdvancedScorecards.swift */,
 				A310DB8EE1C4FD36EC0925CD /* RemainingFormatScorecards.swift */,
 				6A136CD5F2F94ED23353815B /* StatsAndExport.swift */,
+				A44EDB5DDD0CD651F2B33650 /* ColorTheme.swift */,
+				182877525877902FC10D764C /* AppIconView.swift */,
 			);
 			path = FormatFinder;
 			sourceTree = "<group>";
@@ -276,6 +282,8 @@
 				315B3AC6792C49E971ECB3E7 /* AdvancedScorecards.swift in Sources */,
 				C5EEAE310F6B1031186C048C /* RemainingFormatScorecards.swift in Sources */,
 				601FD49D65F7F533E8ECBB47 /* StatsAndExport.swift in Sources */,
+				A74FB7F6361D052A2C7A58B1 /* ColorTheme.swift in Sources */,
+				FF3997E895076114747F05D8 /* AppIconView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

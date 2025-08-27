@@ -58,16 +58,9 @@ struct LaunchScreenView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [
-                    Color(red: 46/255, green: 125/255, blue: 50/255),
-                    Color(red: 102/255, green: 187/255, blue: 106/255)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            // Light background
+            AppColors.backgroundPrimary
+                .ignoresSafeArea()
             
             VStack(spacing: 30) {
                 Spacer()
@@ -415,7 +408,7 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
-        .tint(Color(red: 46/255, green: 125/255, blue: 50/255))
+        .tint(AppColors.primaryGreen)
     }
 }
 
@@ -2313,31 +2306,24 @@ struct PlayView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [
-                        Color(red: 46/255, green: 125/255, blue: 50/255),
-                        Color(red: 102/255, green: 187/255, blue: 106/255)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                // Light background
+                AppColors.lightGradient
+                    .ignoresSafeArea()
                 
                 VStack(spacing: 30) {
                     // Header
                     VStack(spacing: 12) {
                         Image(systemName: "flag.checkered.2.crossed")
                             .font(.system(size: 60))
-                            .foregroundColor(.white)
+                            .foregroundColor(AppColors.primaryGreen)
                         
                         Text("Play a Game")
                             .font(.system(size: 36, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(AppColors.textPrimary)
                         
                         Text("Track your scores and compete with friends")
                             .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.8))
+                            .foregroundColor(AppColors.textSecondary)
                             .multilineTextAlignment(.center)
                     }
                     .padding(.top, 40)

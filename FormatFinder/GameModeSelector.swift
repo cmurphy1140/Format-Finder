@@ -191,24 +191,17 @@ struct GameModeSelectorView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    colors: [
-                        Color(red: 46/255, green: 125/255, blue: 50/255),
-                        Color(red: 102/255, green: 187/255, blue: 106/255)
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                AppColors.backgroundPrimary
+                    .ignoresSafeArea()
                 
                 VStack(spacing: 20) {
                     Text("Select Game Mode")
                         .font(.system(size: 32, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
+                        .foregroundColor(AppColors.textPrimary)
                     
                     Text("Choose your format and start playing")
                         .font(.system(size: 16))
-                        .foregroundColor(.white.opacity(0.8))
+                        .foregroundColor(AppColors.textSecondary)
                     
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 15) {
@@ -274,14 +267,14 @@ struct GameModeCard: View {
                 HStack {
                     Image(systemName: getFormatIcon(format.name))
                         .font(.system(size: 28))
-                        .foregroundColor(.white)
+                        .foregroundColor(isSelected ? .white : AppColors.primaryGreen)
                     
                     Spacer()
                     
                     if format.type == "Team" {
                         Image(systemName: "person.2.fill")
                             .font(.system(size: 16))
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(isSelected ? .white.opacity(0.8) : AppColors.textSecondary)
                     }
                 }
                 
@@ -304,12 +297,13 @@ struct GameModeCard: View {
                     .fill(
                         LinearGradient(
                             colors: isSelected ? 
-                                [Color.blue, Color.purple] : 
-                                [Color.white.opacity(0.2), Color.white.opacity(0.1)],
+                                [AppColors.primaryGreen, AppColors.lightGreen] : 
+                                [Color.white, Color.white.opacity(0.95)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
+                    .shadow(color: AppColors.cardShadow, radius: 6, x: 0, y: 3)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 16)

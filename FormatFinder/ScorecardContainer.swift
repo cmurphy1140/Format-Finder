@@ -13,16 +13,9 @@ struct ScorecardContainerView: View {
     
     var body: some View {
         ZStack {
-            // Background with course image or gradient
-            LinearGradient(
-                colors: [
-                    Color(red: 34/255, green: 139/255, blue: 34/255),
-                    Color(red: 0/255, green: 100/255, blue: 0/255)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // Light background
+            AppColors.backgroundPrimary
+                .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Header
@@ -42,8 +35,9 @@ struct ScorecardContainerView: View {
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .background(Color.white.opacity(0.95))
+                .background(AppColors.cardBackground)
                 .cornerRadius(20, corners: [.topLeft, .topRight])
+                .shadow(color: AppColors.cardShadow, radius: 8, x: 0, y: -2)
                 
                 // Bottom Navigation
                 ScorecardBottomNav(
@@ -268,7 +262,9 @@ struct ScorecardHeader: View {
             }
         }
         .padding()
-        .background(Color.black.opacity(0.3))
+        .background(AppColors.headerGradient)
+        .cornerRadius(12)
+        .shadow(color: AppColors.cardShadow, radius: 4, x: 0, y: 2)
     }
 }
 
@@ -334,7 +330,9 @@ struct ScorecardBottomNav: View {
             .disabled(currentHole == totalHoles)
         }
         .padding()
-        .background(Color.black.opacity(0.3))
+        .background(AppColors.headerGradient)
+        .cornerRadius(12)
+        .shadow(color: AppColors.cardShadow, radius: 4, x: 0, y: 2)
     }
 }
 
