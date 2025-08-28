@@ -25,6 +25,7 @@
 		5A808D4CB1FCEF8ACA86281C /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351B7922749B3F2A593CEA8 /* GameModeSelector.swift */; };
 		5F2065C4BD7D631A46C02EEA /* GolfFormatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BA31ED6A0F14A27E2F3B4 /* GolfFormatProtocol.swift */; };
 		60105C96A3D5523799F37297 /* BallPhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F307B73AF99260257A987D7 /* BallPhysicsEngine.swift */; };
+		6FD05214AD3463AF5999D4BE /* IntuitiveDemonstration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03059A54275CE63F669148 /* IntuitiveDemonstration.swift */; };
 		791F77F30598E713353E0EDD /* PerformanceOptimizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD784F77B9B0D6542A9818B7 /* PerformanceOptimizations.swift */; };
 		7B591622D391731B4014281C /* GolfFormatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237FC10D8A792814F4AED828 /* GolfFormatsData.swift */; };
 		9B7C80767594F615A579D4AA /* GolfTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F5281BA663AEF927639186 /* GolfTheme.swift */; };
@@ -92,6 +93,7 @@
 		B0586F2BCAA1F87419687770 /* AppIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppIcon.swift; path = FormatFinder/Resources/AppIcon.swift; sourceTree = "<group>"; };
 		C49B85AE35DB758D960F43A7 /* StatsAndExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatsAndExport.swift; path = FormatFinder/Features/Statistics/StatsAndExport.swift; sourceTree = "<group>"; };
 		C4DC61D3938E3A265B76ED9C /* GameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameStore.swift; path = FormatFinder/Core/Services/GameStore.swift; sourceTree = "<group>"; };
+		CA03059A54275CE63F669148 /* IntuitiveDemonstration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IntuitiveDemonstration.swift; path = FormatFinder/Features/Formats/IntuitiveDemonstration.swift; sourceTree = "<group>"; };
 		D351B7922749B3F2A593CEA8 /* GameModeSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameModeSelector.swift; path = FormatFinder/Features/GameModes/GameModeSelector.swift; sourceTree = "<group>"; };
 		D501CF90AF73D6898FCBC09F /* EnhancedScorecardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EnhancedScorecardView.swift; path = FormatFinder/Features/Scorecards/EnhancedScorecardView.swift; sourceTree = "<group>"; };
 		DB82E2AC0C8C94FB87010171 /* ThemeEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeEngine.swift; path = FormatFinder/UI/Theme/ThemeEngine.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				75AED8FA7F57258E1BAEEFC3 /* AnimatedFormatExplainer.swift */,
 				A3DBE0C7668C701B94F60AE3 /* EnhancedFormatsGrid.swift */,
 				88E8333E91D08829813029D8 /* StickFigureGolfAnimations.swift */,
+				CA03059A54275CE63F669148 /* IntuitiveDemonstration.swift */,
 			);
 			name = Formats;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				F1B6B129BB9AC19D0C3065D3 /* EnhancedFormatsGrid.swift in Sources */,
 				3885A59E0C00F4782048A391 /* ExtendedGolfFormats.swift in Sources */,
 				2FD832BDDA404F520E59D025 /* StickFigureGolfAnimations.swift in Sources */,
+				6FD05214AD3463AF5999D4BE /* IntuitiveDemonstration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

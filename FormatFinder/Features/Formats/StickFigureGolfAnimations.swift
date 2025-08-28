@@ -6,7 +6,7 @@ struct StickFigureGolfAnimation: View {
     let format: GolfFormat
     @State private var animationStep = 0
     @State private var ballPositions: [CGPoint] = []
-    @State private var playerActions: [PlayerAction] = []
+    @State private var playerActions: [StickFigurePlayerAction] = []
     @State private var explanationText = ""
     @State private var isPlaying = false
     @State private var showTrajectories = false
@@ -726,7 +726,7 @@ struct StickFigureGolfAnimation: View {
         )
     }
     
-    func currentAction(for playerIndex: Int) -> PlayerAction {
+    func currentAction(for playerIndex: Int) -> StickFigurePlayerAction {
         guard playerIndex < playerActions.count else { return .standing }
         return playerActions[playerIndex]
     }
@@ -791,7 +791,7 @@ struct StickFigureGolfAnimation: View {
 struct StickFigurePlayer: View {
     let playerNumber: Int
     let position: CGPoint
-    let action: PlayerAction
+    let action: StickFigurePlayerAction
     let color: Color
     let isActive: Bool
     
@@ -824,7 +824,7 @@ struct StickFigurePlayer: View {
 }
 
 struct StickFigureShape: Shape {
-    let action: PlayerAction
+    let action: StickFigurePlayerAction
     let animationPhase: CGFloat
     
     func path(in rect: CGRect) -> Path {
@@ -1157,7 +1157,7 @@ struct StepIndicator: View {
 
 // MARK: - Player Actions
 
-enum PlayerAction {
+enum StickFigurePlayerAction {
     case standing
     case walking
     case teeing

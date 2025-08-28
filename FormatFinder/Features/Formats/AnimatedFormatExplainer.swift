@@ -151,9 +151,8 @@ struct AnimatedFormatExplainer: View {
         case 0:
             OverviewSlide(format: format, animationPhase: animationPhase)
         case 1:
-            // Use stick figure animations for rules demonstration
-            StickFigureGolfAnimation(format: format)
-                .padding()
+            // Use intuitive demonstration for rules
+            IntuitiveFormatDemonstration(format: format)
         case 2:
             StrategySlide(format: format, animationPhase: animationPhase)
         case 3 where format.hasDiagramSlides:
