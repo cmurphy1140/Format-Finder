@@ -948,6 +948,21 @@ struct MastersTabBar: View {
     }
 }
 
+// MARK: - View Extensions
+extension View {
+    func mastersCard() -> some View {
+        self
+            .background(MastersColors.azaleaWhite)
+            .cornerRadius(MastersLayout.cardRadius)
+            .shadow(
+                color: MastersColors.shadow,
+                radius: 8,
+                x: 0,
+                y: 4
+            )
+    }
+}
+
 #Preview {
     MastersFormatView()
 }
