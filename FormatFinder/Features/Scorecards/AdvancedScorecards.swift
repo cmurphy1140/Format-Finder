@@ -148,6 +148,41 @@ struct PointBadge: View {
     }
 }
 
+struct PlayerScoreRow: View {
+    let player: Player
+    let hole: Int = 1 // Default hole
+    let score: Int
+    let isBestScore: Bool
+    let onScoreChange: (Int) -> Void
+    
+    var body: some View {
+        HStack {
+            Text(player.name)
+                .font(.headline)
+            Spacer()
+            HStack(spacing: 12) {
+                Button(action: {
+                    if score > 0 {
+                        onScoreChange(score - 1)
+                    }
+                }) {
+                    Image(systemName: "minus.circle")
+                }
+                Text("\(score)")
+                    .font(.title2)
+                    .fontWeight(isBestScore ? .bold : .regular)
+                    .foregroundColor(isBestScore ? .green : .primary)
+                Button(action: {
+                    onScoreChange(score + 1)
+                }) {
+                    Image(systemName: "plus.circle")
+                }
+            }
+        }
+        .padding(.vertical, 8)
+    }
+}
+
 struct StablefordPlayerRow: View {
     let player: Player
     let score: Int

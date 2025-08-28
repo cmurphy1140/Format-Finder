@@ -620,6 +620,14 @@ struct UnifiedColors {
     static let graphite = Color(hex: "34495E")
     static let silver = Color(hex: "95A5A6")
     static let fog = Color(hex: "BDC3C7")
+    static let pearl = Color(hex: "F5F5F0")
+    
+    // Gradients
+    static let headerGradient = LinearGradient(
+        gradient: Gradient(colors: [mastersGreen, mastersGreen.opacity(0.8)]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
     
     // App Colors (Legacy)
     static let primaryGreen = mastersGreen
@@ -656,10 +664,26 @@ struct UnifiedTypography {
     static func captionText() -> Font { Font.custom("Georgia", size: 13) }
     static func scoreDisplay() -> Font { Font.custom("SF Pro Display", size: 24).weight(.bold) }
     static func dataLabel() -> Font { Font.custom("SF Pro Display", size: 17).weight(.semibold) }
+    static func microText() -> Font { Font.custom("SF Pro Display", size: 10) }
 }
 
 struct UnifiedLayout {
     static let cardRadius: CGFloat = 16
     static let buttonRadius: CGFloat = 12
     static let cardShadow = (color: Color.black.opacity(0.1), radius: CGFloat(8), x: CGFloat(0), y: CGFloat(4))
+    
+    // Spacing constants
+    static let microSpacing: CGFloat = 2
+    static let tinySpacing: CGFloat = 4
+    static let smallSpacing: CGFloat = 8
+    static let mediumSpacing: CGFloat = 12
+    static let standardSpacing: CGFloat = 16
+    static let largeSpacing: CGFloat = 16
+    static let xLargeSpacing: CGFloat = 24
+    static let heroSpacing: CGFloat = 32
+    
+    // Radius constants
+    static let smallRadius: CGFloat = 8
+    static let standardRadius: CGFloat = 12
+    static let largeRadius: CGFloat = 16
 }

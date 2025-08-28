@@ -894,6 +894,60 @@ struct MastersFormatGuideView: View {
     }
 }
 
+// MARK: - Masters Tab Bar
+struct MastersTabBar: View {
+    @Binding var selectedTab: Int
+    
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(1...4, id: \.self) { tab in
+                Button(action: {
+                    withAnimation(.spring()) {
+                        selectedTab = tab
+                    }
+                }) {
+                    VStack(spacing: 4) {
+                        Image(systemName: tabIcon(for: tab))
+                            .font(.system(size: 22))
+                        Text(tabTitle(for: tab))
+                            .font(.caption)
+                    }
+                    .foregroundColor(selectedTab == tab ? MastersColors.mastersGreen : MastersColors.silver)
+                    .frame(maxWidth: .infinity)
+                }
+            }
+        }
+        .padding(.vertical, 8)
+        .background(MastersColors.magnoliaLane)
+        .overlay(
+            Rectangle()
+                .fill(MastersColors.divider.opacity(0.3))
+                .frame(height: 1),
+            alignment: .top
+        )
+    }
+    
+    private func tabIcon(for tab: Int) -> String {
+        switch tab {
+        case 1: return "square.grid.2x2"
+        case 2: return "star.fill"
+        case 3: return "chart.bar.fill"
+        case 4: return "gear"
+        default: return "circle"
+        }
+    }
+    
+    private func tabTitle(for tab: Int) -> String {
+        switch tab {
+        case 1: return "Formats"
+        case 2: return "Featured"
+        case 3: return "Stats"
+        case 4: return "Settings"
+        default: return "Tab"
+        }
+    }
+}
+
 #Preview {
     MastersFormatView()
 }

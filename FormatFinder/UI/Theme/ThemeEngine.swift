@@ -30,45 +30,116 @@ class ThemeEngine: ObservableObject {
         case tritanopia = "Tritanopia"
     }
     
-    struct Theme {
+    struct Theme: ThemeProtocol {
         let type: ThemeType
-        let colors: ColorScheme
-        let animations: AnimationSettings
-        let typography: Typography
+        let colorScheme: ColorScheme
+        let animationSettings: AnimationSettings
+        let typographySettings: Typography
+        
+        // ThemeProtocol conformance
+        var colors: ThemeColors {
+            ThemeColors(
+                primary: colorScheme.primary,
+                primaryLight: colorScheme.secondary,
+                primaryDark: colorScheme.primary.opacity(0.8),
+                secondary: colorScheme.secondary,
+                secondaryLight: colorScheme.tertiary,
+                secondaryDark: colorScheme.secondary.opacity(0.8),
+                accent: colorScheme.tertiary,
+                accentGold: Color(hex: "FFD700"),
+                accentRed: colorScheme.error,
+                background: Color.clear, // Will use gradient
+                backgroundSecondary: colorScheme.surface.opacity(0.95),
+                surface: colorScheme.surface,
+                card: colorScheme.surface,
+                textPrimary: colorScheme.text,
+                textSecondary: colorScheme.textSecondary,
+                textTertiary: colorScheme.textSecondary.opacity(0.7),
+                textOnPrimary: Color.white,
+                success: colorScheme.success,
+                warning: colorScheme.warning,
+                error: colorScheme.error,
+                info: Color.blue,
+                fairway: colorScheme.primary,
+                bunker: colorScheme.bunker,
+                water: Color.blue,
+                sky: Color(hex: "87CEEB"),
+                divider: Color.gray.opacity(0.3),
+                shadow: Color.black.opacity(0.1),
+                overlay: Color.black.opacity(0.4),
+                primaryGradient: colorScheme.fairway,
+                backgroundGradient: colorScheme.background,
+                cardGradient: LinearGradient(colors: [colorScheme.surface, colorScheme.surface], startPoint: .top, endPoint: .bottom)
+            )
+        }
+        
+        var typography: ThemeTypography {
+            ThemeTypography(
+                heroTitle: typographySettings.heroTitle,
+                displayTitle: typographySettings.displayTitle,
+                sectionHeader: typographySettings.sectionHeader,
+                cardTitle: typographySettings.cardTitle,
+                headline: typographySettings.headline,
+                body: typographySettings.body,
+                callout: typographySettings.callout,
+                caption: typographySettings.caption,
+                footnote: typographySettings.footnote,
+                scoreDisplay: .system(size: 24, weight: .bold, design: .rounded),
+                dataLabel: .system(size: 17, weight: .semibold, design: .default),
+                statValue: .system(size: 20, weight: .medium, design: .default),
+                primaryFontFamily: "SF Pro",
+                secondaryFontFamily: "SF Pro Display"
+            )
+        }
+        
+        var layout: ThemeLayout {
+            ThemeLayout(
+                cardRadius: 16,
+                cardPadding: 16,
+                cardShadow: (color: Color.black.opacity(0.1), radius: 10, x: 0, y: 4),
+                buttonRadius: 12,
+                buttonPadding: EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24),
+                buttonHeight: 44
+            )
+        }
+        
+        var animations: ThemeAnimations {
+            ThemeAnimations()
+        }
         
         static let classic = Theme(
             type: .classic,
-            colors: ColorScheme.classic,
-            animations: AnimationSettings.standard,
-            typography: Typography.standard
+            colorScheme: ColorScheme.classic,
+            animationSettings: AnimationSettings.standard,
+            typographySettings: Typography.standard
         )
         
         static let dark = Theme(
             type: .dark,
-            colors: ColorScheme.dark,
-            animations: AnimationSettings.smooth,
-            typography: Typography.modern
+            colorScheme: ColorScheme.dark,
+            animationSettings: AnimationSettings.smooth,
+            typographySettings: Typography.modern
         )
         
         static let highContrast = Theme(
             type: .highContrast,
-            colors: ColorScheme.highContrast,
-            animations: AnimationSettings.reduced,
-            typography: Typography.accessible
+            colorScheme: ColorScheme.highContrast,
+            animationSettings: AnimationSettings.reduced,
+            typographySettings: Typography.accessible
         )
         
         static let dawn = Theme(
             type: .dawn,
-            colors: ColorScheme.dawn,
-            animations: AnimationSettings.gentle,
-            typography: Typography.elegant
+            colorScheme: ColorScheme.dawn,
+            animationSettings: AnimationSettings.gentle,
+            typographySettings: Typography.elegant
         )
         
         static let dusk = Theme(
             type: .dusk,
-            colors: ColorScheme.dusk,
-            animations: AnimationSettings.dramatic,
-            typography: Typography.modern
+            colorScheme: ColorScheme.dusk,
+            animationSettings: AnimationSettings.dramatic,
+            typographySettings: Typography.modern
         )
     }
     
@@ -298,6 +369,14 @@ class ThemeEngine: ObservableObject {
         let callout: Font
         let caption: Font
         
+        // Additional properties for ThemeProtocol conformance
+        var heroTitle: Font { largeTitle }
+        var displayTitle: Font { largeTitle }
+        var sectionHeader: Font { title }
+        var cardTitle: Font { headline }
+        var subheadline: Font { callout }
+        var footnote: Font { caption }
+        
         static let standard = Typography(
             largeTitle: .system(size: 34, weight: .bold, design: .rounded),
             title: .system(size: 28, weight: .semibold, design: .rounded),
@@ -401,23 +480,23 @@ class ThemeEngine: ObservableObject {
             case .links:
                 currentTheme = Theme(
                     type: .links,
-                    colors: ColorScheme.classic,
-                    animations: AnimationSettings.standard,
-                    typography: Typography.elegant
+                    colorScheme: ColorScheme.classic,
+                    animationSettings: AnimationSettings.standard,
+                    typographySettings: Typography.elegant
                 )
             case .desert:
                 currentTheme = Theme(
                     type: .desert,
-                    colors: ColorScheme.dawn,
-                    animations: AnimationSettings.gentle,
-                    typography: Typography.modern
+                    colorScheme: ColorScheme.dawn,
+                    animationSettings: AnimationSettings.gentle,
+                    typographySettings: Typography.modern
                 )
             case .autumn:
                 currentTheme = Theme(
                     type: .autumn,
-                    colors: ColorScheme.dusk,
-                    animations: AnimationSettings.dramatic,
-                    typography: Typography.elegant
+                    colorScheme: ColorScheme.dusk,
+                    animationSettings: AnimationSettings.dramatic,
+                    typographySettings: Typography.elegant
                 )
             }
         }
@@ -607,7 +686,7 @@ struct ThemePreviewCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Format Finder")
-                .font(themeEngine.currentTheme.typography.title)
+                .font(themeEngine.currentTheme.typography.displayTitle)
                 .foregroundColor(themeEngine.currentTheme.colors.primary)
             
             Text("Your golf game, perfected")
