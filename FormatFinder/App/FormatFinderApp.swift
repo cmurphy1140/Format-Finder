@@ -60,7 +60,7 @@ struct MainNavigationView: View {
                 .ignoresSafeArea()
             
             TabView(selection: $selectedTab) {
-                EnhancedFormatsGrid()
+                SwipeableFormatCards()
                     .tabItem {
                         Image(systemName: "square.grid.3x3.fill")
                         Text("Formats")
@@ -80,15 +80,8 @@ struct MainNavigationView: View {
                         Text("Stats")
                     }
                     .tag(2)
-                
-                ProfileView()
-                    .tabItem {
-                        Image(systemName: "person.circle.fill")
-                        Text("Profile")
-                    }
-                    .tag(3)
             }
-            .accentColor(AppColors.primaryGreen)
+            .accentColor(MastersColors.mastersGreen)
             
             if showGameModeSelector {
                 EnhancedGameModeSelector(showGameModeSelector: $showGameModeSelector)
@@ -110,250 +103,238 @@ struct MainNavigationView: View {
     }
 }
 
-// MARK: - Enhanced Launch Screen with Green Theme
+// MARK: - Masters-Inspired Professional Loading Screen
 
 struct EnhancedLaunchScreen: View {
-    @State private var animateGolf = false
-    @State private var animateText = false
-    @State private var animateBall = false
+    @State private var logoScale: CGFloat = 0.3
+    @State private var logoOpacity: Double = 0
+    @State private var titleSlideIn = false
     @State private var loadingProgress: CGFloat = 0
-    @State private var ballPosition = CGPoint(x: -100, y: 200)
-    @StateObject private var physicsEngine = PhysicsSimulationEngine.shared
+    @State private var loadingPhase = 0 // 0: initial, 1: loading, 2: completing
+    @State private var progressShimmer = false
+    @State private var statusText = "Initializing..."
+    
+    let loadingSteps = [
+        "Initializing...",
+        "Loading golf formats...", 
+        "Preparing scorecard engine...",
+        "Synchronizing analytics...",
+        "Ready to play!"
+    ]
     
     var body: some View {
         ZStack {
-            // Golf course green gradient
+            // Masters-inspired gradient background
             LinearGradient(
                 gradient: Gradient(colors: [
-                    AppColors.fairwayGreen,
-                    AppColors.primaryGreen,
-                    AppColors.darkGreen
+                    MastersColors.mastersGreen,
+                    MastersColors.shadowGreen,
+                    Color.black
                 ]),
-                startPoint: .top,
-                endPoint: .bottom
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
             )
             .ignoresSafeArea()
             
-            // Animated grass particles
-            ForEach(0..<20, id: \.self) { index in
-                LaunchGrassParticle()
+            // Subtle background pattern
+            ForEach(0..<12, id: \.self) { index in
+                Circle()
+                    .fill(Color.white.opacity(0.02))
+                    .frame(width: CGFloat.random(in: 40...120))
                     .position(
                         x: CGFloat.random(in: 0...UIScreen.main.bounds.width),
                         y: CGFloat.random(in: 0...UIScreen.main.bounds.height)
                     )
-                    .opacity(0.3)
                     .animation(
-                        .easeInOut(duration: Double.random(in: 3...6))
+                        .easeInOut(duration: Double.random(in: 8...15))
                         .repeatForever(autoreverses: true)
-                        .delay(Double(index) * 0.1),
-                        value: animateGolf
+                        .delay(Double(index) * 0.3),
+                        value: titleSlideIn
                     )
             }
             
-            VStack(spacing: 40) {
+            VStack(spacing: 60) {
                 Spacer()
                 
-                // Animated golf ball with physics
+                // Elegant golf club logo with Masters aesthetic
                 ZStack {
-                    // Golf hole
+                    // Outer glow effect
                     Circle()
-                        .fill(Color.black.opacity(0.8))
-                        .frame(width: 40, height: 40)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white, lineWidth: 2)
+                        .fill(
+                            RadialGradient(
+                                colors: [
+                                    MastersColors.augustaGold.opacity(0.4),
+                                    MastersColors.augustaGold.opacity(0.1),
+                                    Color.clear
+                                ],
+                                center: .center,
+                                startRadius: 0,
+                                endRadius: 120
+                            )
                         )
+                        .frame(width: 240, height: 240)
+                        .opacity(logoOpacity > 0.5 ? 1 : 0)
                     
-                    // Flag pole
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 2, height: 100)
-                        .offset(y: -50)
-                    
-                    // Flag
-                    Path { path in
-                        path.move(to: CGPoint(x: 2, y: -100))
-                        path.addLine(to: CGPoint(x: 40, y: -80))
-                        path.addLine(to: CGPoint(x: 2, y: -60))
-                        path.closeSubpath()
-                    }
-                    .fill(Color.red)
-                    
-                    // Animated golf ball
+                    // Main logo circle
                     Circle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 20)
-                        .overlay(
-                            Circle()
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 10, height: 10)
-                                .offset(x: -3, y: -3)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    MastersColors.azaleaWhite,
+                                    MastersColors.magnoliaLane
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
                         )
-                        .position(ballPosition)
-                        .onAppear {
-                            // Simulate ball rolling into hole
-                            withAnimation(.interpolatingSpring(stiffness: 50, damping: 5).delay(0.5)) {
-                                ballPosition = CGPoint(x: 0, y: 0)
-                            }
+                        .frame(width: 140, height: 140)
+                        .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 8)
+                    
+                    // Golf flag icon
+                    VStack(spacing: 0) {
+                        // Flag
+                        Path { path in
+                            path.move(to: CGPoint(x: 0, y: 0))
+                            path.addLine(to: CGPoint(x: 30, y: 8))
+                            path.addLine(to: CGPoint(x: 0, y: 16))
+                            path.closeSubpath()
                         }
+                        .fill(MastersColors.mastersGreen)
+                        .frame(width: 30, height: 16)
+                        
+                        // Flag pole
+                        Rectangle()
+                            .fill(MastersColors.graphite)
+                            .frame(width: 2, height: 60)
+                    }
+                    .rotationEffect(.degrees(logoScale > 0.8 ? 0 : 45))
                 }
-                .frame(width: 200, height: 200)
-                .scaleEffect(animateGolf ? 1 : 0.5)
-                .rotation3DEffect(
-                    .degrees(animateGolf ? 0 : 180),
-                    axis: (x: 0, y: 1, z: 0)
-                )
+                .scaleEffect(logoScale)
+                .opacity(logoOpacity)
                 
-                // App title with green theme
-                VStack(spacing: 8) {
-                    Text("FORMAT")
-                        .font(.system(size: 50, weight: .black, design: .rounded))
-                        .foregroundColor(.white)
-                        .shadow(color: AppColors.darkGreen, radius: 10, x: 0, y: 5)
-                        .scaleEffect(animateText ? 1 : 0)
-                        .opacity(animateText ? 1 : 0)
+                // App title with Masters typography
+                VStack(spacing: 16) {
+                    Text("FORMAT FINDER")
+                        .font(MastersTypography.heroTitle())
+                        .foregroundColor(MastersColors.azaleaWhite)
+                        .tracking(2)
+                        .shadow(color: Color.black.opacity(0.5), radius: 8, x: 0, y: 4)
+                        .offset(x: titleSlideIn ? 0 : -50)
+                        .opacity(titleSlideIn ? 1 : 0)
                     
-                    Text("FINDER")
-                        .font(.system(size: 50, weight: .black, design: .rounded))
-                        .foregroundColor(AppColors.brightGreen)
-                        .shadow(color: AppColors.darkGreen, radius: 10, x: 0, y: 5)
-                        .scaleEffect(animateText ? 1 : 0)
-                        .opacity(animateText ? 1 : 0)
-                        .animation(.spring(response: 0.5, dampingFraction: 0.6).delay(0.2), value: animateText)
-                    
-                    Text("Master Every Golf Format")
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white.opacity(0.9))
-                        .opacity(animateText ? 1 : 0)
-                        .animation(.easeOut.delay(0.5), value: animateText)
+                    Text("PROFESSIONAL GOLF COMPANION")
+                        .font(MastersTypography.captionText())
+                        .foregroundColor(MastersColors.augustaGold)
+                        .tracking(1.5)
+                        .offset(x: titleSlideIn ? 0 : 50)
+                        .opacity(titleSlideIn ? 1 : 0)
+                        .animation(.easeOut(duration: 0.8).delay(0.3), value: titleSlideIn)
                 }
                 
                 Spacer()
                 
-                // Loading bar
-                VStack(spacing: 20) {
+                // Professional loading bar with Masters styling
+                VStack(spacing: 24) {
+                    // Progress container
                     ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.2))
-                            .frame(width: 250, height: 8)
+                        // Track
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white.opacity(0.15))
+                            .frame(height: 6)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                            )
                         
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(AppColors.brightGreen)
-                            .frame(width: 250 * loadingProgress, height: 8)
+                        // Progress bar with gradient and shimmer
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        MastersColors.augustaGold,
+                                        MastersColors.eagleGold,
+                                        MastersColors.augustaGold
+                                    ],
+                                    startPoint: progressShimmer ? .leading : .trailing,
+                                    endPoint: progressShimmer ? .trailing : .leading
+                                )
+                            )
+                            .frame(height: 6)
+                            .scaleEffect(x: loadingProgress, y: 1, anchor: .leading)
+                            .shadow(color: MastersColors.augustaGold.opacity(0.6), radius: 8, x: 0, y: 0)
                     }
+                    .frame(maxWidth: 280)
                     
-                    Text("Loading golf formats...")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white.opacity(0.8))
+                    // Status text
+                    Text(statusText)
+                        .font(MastersTypography.bodyText())
+                        .foregroundColor(MastersColors.magnoliaLane)
+                        .opacity(0.9)
+                        .animation(.easeInOut(duration: 0.3), value: statusText)
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 80)
             }
+            .padding(.horizontal, 40)
         }
         .onAppear {
-            animateGolf = true
-            
-            withAnimation(.easeOut(duration: 0.8)) {
-                animateText = true
-            }
-            
-            withAnimation(.linear(duration: 3)) {
-                loadingProgress = 1
-            }
+            startLoadingSequence()
         }
     }
-}
-
-// MARK: - Format Hub View (Main Screen)
-
-struct FormatHubView: View {
-    @Binding var showGameModeSelector: Bool
-    @State private var selectedCategory = "All"
-    @State private var animateIn = false
-    @EnvironmentObject var physicsEngine: PhysicsSimulationEngine
-    @EnvironmentObject var timeEnvironmentService: TimeEnvironmentService
     
-    let categories = ["All", "Tournament", "Betting", "Team", "Individual"]
+    private func startLoadingSequence() {
+        // Logo entrance animation
+        withAnimation(.spring(response: 1.2, dampingFraction: 0.7)) {
+            logoScale = 1.0
+            logoOpacity = 1.0
+        }
+        
+        // Title slide in
+        withAnimation(.easeOut(duration: 0.6).delay(0.4)) {
+            titleSlideIn = true
+        }
+        
+        // Start shimmering effect
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
+            withAnimation(.easeInOut(duration: 1.5)) {
+                progressShimmer.toggle()
+            }
+        }
+        
+        // Loading progress simulation
+        loadProgressSimulation()
+    }
     
-    var body: some View {
-        NavigationView {
-            ZStack {
-                // Dynamic gradient background
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        AppColors.fairwayGreen.opacity(0.3),
-                        AppColors.backgroundPrimary
-                    ]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+    private func loadProgressSimulation() {
+        let totalDuration: Double = 3.5
+        let steps = loadingSteps.count
+        let stepDuration = totalDuration / Double(steps)
+        
+        for i in 0..<steps {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * stepDuration) {
+                withAnimation(.easeInOut(duration: stepDuration * 0.8)) {
+                    loadingProgress = CGFloat(i + 1) / CGFloat(steps)
+                }
                 
-                VStack(spacing: 0) {
-                    // Header
-                    VStack(spacing: 20) {
-                        Text("Choose Your Format")
-                            .font(.system(size: 34, weight: .bold, design: .rounded))
-                            .foregroundColor(AppColors.darkGreen)
-                        
-                        // Category selector
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
-                                ForEach(categories, id: \.self) { category in
-                                    CategoryChip(
-                                        title: category,
-                                        isSelected: selectedCategory == category,
-                                        action: {
-                                            withAnimation(.spring()) {
-                                                selectedCategory = category
-                                            }
-                                        }
-                                    )
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .clipShape(AppRoundedCorner(radius: 20, corners: [.bottomLeft, .bottomRight]))
-                    .shadow(color: AppColors.cardShadow, radius: 10, x: 0, y: 5)
-                    
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            // Quick Start Button
-                            QuickStartCard(action: { showGameModeSelector = true })
-                                .offset(y: animateIn ? 0 : 30)
-                                .opacity(animateIn ? 1 : 0)
-                                .animation(.spring().delay(0.1), value: animateIn)
-                            
-                            // Popular Formats
-                            PopularFormatsSection(
-                                selectedCategory: selectedCategory,
-                                onSelectFormat: { showGameModeSelector = true }
-                            )
-                            .offset(y: animateIn ? 0 : 30)
-                            .opacity(animateIn ? 1 : 0)
-                            .animation(.spring().delay(0.2), value: animateIn)
-                            
-                            // Format Tips
-                            FormatTipsCard()
-                                .offset(y: animateIn ? 0 : 30)
-                                .opacity(animateIn ? 1 : 0)
-                                .animation(.spring().delay(0.3), value: animateIn)
-                        }
-                        .padding()
-                    }
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    statusText = loadingSteps[i]
                 }
-            }
-            .navigationBarHidden(true)
-            .onAppear {
-                withAnimation {
-                    animateIn = true
+                
+                // Add subtle haptic feedback for each step
+                if i < steps - 1 {
+                    let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                    impactFeedback.impactOccurred()
                 }
             }
         }
+        
+        // Final completion haptic
+        DispatchQueue.main.asyncAfter(deadline: .now() + totalDuration - 0.2) {
+            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+            impactFeedback.impactOccurred()
+        }
     }
 }
+
 
 // MARK: - Enhanced Game Mode Selector
 
@@ -453,176 +434,6 @@ struct EnhancedGameModeSelector: View {
 
 // MARK: - Supporting Components
 
-struct CategoryChip: View {
-    let title: String
-    let isSelected: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(isSelected ? .white : AppColors.darkGreen)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(isSelected ? AppColors.primaryGreen : Color.white)
-                        .shadow(color: isSelected ? AppColors.primaryGreen.opacity(0.3) : .clear, radius: 5)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(isSelected ? Color.clear : AppColors.primaryGreen.opacity(0.3), lineWidth: 1)
-                )
-        }
-    }
-}
-
-struct QuickStartCard: View {
-    let action: () -> Void
-    @State private var isPressed = false
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 20) {
-                ZStack {
-                    Circle()
-                        .fill(AppColors.brightGreen)
-                        .frame(width: 60, height: 60)
-                    
-                    Image(systemName: "play.fill")
-                        .font(.system(size: 28))
-                        .foregroundColor(.white)
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Quick Start")
-                        .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(AppColors.darkGreen)
-                    
-                    Text("Jump into a game with smart format selection")
-                        .font(.system(size: 14))
-                        .foregroundColor(AppColors.textSecondary)
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 20))
-                    .foregroundColor(AppColors.primaryGreen)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(
-                        LinearGradient(
-                            colors: [Color.white, AppColors.lightGreen.opacity(0.1)],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    )
-                    .shadow(color: AppColors.cardShadow, radius: 8, x: 0, y: 4)
-            )
-            .scaleEffect(isPressed ? 0.95 : 1)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(minimumDuration: 0.1, maximumDistance: .infinity, pressing: { pressing in
-            isPressed = pressing
-        }, perform: {})
-    }
-}
-
-struct PopularFormatsSection: View {
-    let selectedCategory: String
-    let onSelectFormat: () -> Void
-    
-    var filteredFormats: [GolfFormat] {
-        if selectedCategory == "All" {
-            return Array(golfFormats.prefix(6))
-        } else if selectedCategory == "Team" {
-            return golfFormats.filter { $0.type == "Team" }
-        } else {
-            return golfFormats.filter { $0.category == selectedCategory }
-        }
-    }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            Text("Popular Formats")
-                .font(.system(size: 20, weight: .bold))
-                .foregroundColor(AppColors.darkGreen)
-            
-            ForEach(filteredFormats.prefix(4)) { format in
-                PopularFormatRow(format: format, action: onSelectFormat)
-            }
-        }
-    }
-}
-
-struct PopularFormatRow: View {
-    let format: GolfFormat
-    let action: () -> Void
-    @State private var isPressed = false
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 15) {
-                // Icon
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(AppColors.primaryGreen.opacity(0.1))
-                        .frame(width: 50, height: 50)
-                    
-                    Image(systemName: getFormatIcon(format.name))
-                        .font(.system(size: 24))
-                        .foregroundColor(AppColors.primaryGreen)
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(format.name)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(AppColors.textPrimary)
-                    
-                    HStack(spacing: 8) {
-                        Label(format.players, systemImage: "person.2.fill")
-                            .font(.system(size: 12))
-                            .foregroundColor(AppColors.textSecondary)
-                        
-                        DifficultyBadge(difficulty: format.difficulty)
-                    }
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 16))
-                    .foregroundColor(AppColors.textTertiary)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.white)
-                    .shadow(color: AppColors.cardShadow, radius: 4, x: 0, y: 2)
-            )
-            .scaleEffect(isPressed ? 0.98 : 1)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(minimumDuration: 0.1, maximumDistance: .infinity, pressing: { pressing in
-            isPressed = pressing
-        }, perform: {})
-    }
-    
-    func getFormatIcon(_ name: String) -> String {
-        switch name {
-        case "Scramble": return "arrow.triangle.merge"
-        case "Best Ball": return "star.circle.fill"
-        case "Match Play": return "person.2.square.stack"
-        case "Skins": return "dollarsign.circle.fill"
-        case "Stableford": return "chart.line.uptrend.xyaxis"
-        default: return "flag.fill"
-        }
-    }
-}
 
 struct EnhancedFormatCard: View {
     let format: GolfFormat
@@ -753,66 +564,6 @@ struct DifficultyBadge: View {
     }
 }
 
-struct FormatTipsCard: View {
-    @State private var currentTip = 0
-    let tips = [
-        ("Scramble", "Perfect for mixed skill levels - everyone contributes!"),
-        ("Match Play", "Focus on each hole, not total score"),
-        ("Skins", "Ties carry over - pressure builds each hole!"),
-        ("Stableford", "Rewards aggressive play - go for birdies!")
-    ]
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: "lightbulb.fill")
-                    .font(.system(size: 20))
-                    .foregroundColor(AppColors.brightGreen)
-                
-                Text("Format Tip")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(AppColors.darkGreen)
-            }
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text(tips[currentTip].0)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(AppColors.primaryGreen)
-                
-                Text(tips[currentTip].1)
-                    .font(.system(size: 14))
-                    .foregroundColor(AppColors.textSecondary)
-                    .lineSpacing(4)
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            AppColors.lightGreen.opacity(0.1),
-                            AppColors.primaryGreen.opacity(0.05)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(AppColors.primaryGreen.opacity(0.2), lineWidth: 1)
-                )
-        )
-        .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
-                withAnimation {
-                    currentTip = (currentTip + 1) % tips.count
-                }
-            }
-        }
-    }
-}
 
 
 struct LaunchGrassParticle: View {
@@ -853,34 +604,118 @@ struct PlayView: View {
 }
 
 struct StatsView: View {
+    @State private var roundsPlayed = 0
+    @State private var avgScore = 0
+    @State private var favoriteFormat = "Scramble"
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Your Statistics")
-                    .font(.largeTitle)
-                    .padding()
+            ZStack {
+                // Masters-inspired gradient background
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        MastersColors.fairwayMist,
+                        MastersColors.azaleaWhite
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
                 
-                Spacer()
+                ScrollView {
+                    VStack(spacing: 24) {
+                        // Stats Header
+                        VStack(spacing: 8) {
+                            Text("Performance Analytics")
+                                .font(MastersTypography.sectionHeader())
+                                .foregroundColor(MastersColors.graphite)
+                            
+                            Text("Track your golf journey")
+                                .font(MastersTypography.bodyText())
+                                .foregroundColor(MastersColors.silver)
+                        }
+                        .padding(.top, 20)
+                        
+                        // Quick Stats Cards
+                        HStack(spacing: 16) {
+                            StatCard(title: "Rounds", value: "\(roundsPlayed)", icon: "flag.fill", color: MastersColors.mastersGreen)
+                            StatCard(title: "Avg Score", value: "\(avgScore)", icon: "chart.line.uptrend.xyaxis", color: MastersColors.augustaGold)
+                        }
+                        .padding(.horizontal)
+                        
+                        // Favorite Format Card
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Most Played Format")
+                                .font(MastersTypography.dataLabel())
+                                .foregroundColor(MastersColors.graphite)
+                            
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(MastersColors.eagleGold)
+                                
+                                Text(favoriteFormat)
+                                    .font(MastersTypography.cardTitle())
+                                    .foregroundColor(MastersColors.mastersGreen)
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(MastersColors.azaleaWhite)
+                            .cornerRadius(MastersLayout.cardRadius)
+                            .shadow(color: MastersLayout.cardShadow.color, radius: MastersLayout.cardShadow.radius)
+                        }
+                        .padding(.horizontal)
+                        
+                        // Coming Soon
+                        VStack(spacing: 16) {
+                            Text("Coming Soon")
+                                .font(MastersTypography.dataLabel())
+                                .foregroundColor(MastersColors.silver)
+                            
+                            Text("Detailed analytics, handicap tracking, and performance insights")
+                                .font(MastersTypography.bodyText())
+                                .foregroundColor(MastersColors.fog)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                        }
+                        .padding(.top, 40)
+                        
+                        Spacer(minLength: 100)
+                    }
+                }
             }
-            .navigationTitle("Stats")
+            .navigationTitle("Statistics")
             .navigationBarTitleDisplayMode(.large)
         }
     }
 }
 
-struct ProfileView: View {
+struct StatCard: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Profile Settings")
-                    .font(.largeTitle)
-                    .padding()
-                
-                Spacer()
-            }
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.large)
+        VStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 28))
+                .foregroundColor(color)
+            
+            Text(value)
+                .font(MastersTypography.scoreDisplay())
+                .foregroundColor(MastersColors.graphite)
+            
+            Text(title)
+                .font(MastersTypography.captionText())
+                .foregroundColor(MastersColors.silver)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .background(MastersColors.azaleaWhite)
+        .cornerRadius(MastersLayout.cardRadius)
+        .shadow(color: MastersLayout.cardShadow.color, radius: MastersLayout.cardShadow.radius)
     }
 }
 

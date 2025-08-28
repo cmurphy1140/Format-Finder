@@ -945,7 +945,7 @@ struct FormatDemonstration {
                         BallPosition(x: 0.45, y: 0.55, playerNumber: 1, showTrajectory: true)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.18, y: 0.8), text: "A", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.18, y: 0.8), color: .blue, text: "A")
                     ],
                     scores: nil
                 ),
@@ -963,8 +963,8 @@ struct FormatDemonstration {
                         BallPosition(x: 0.7, y: 0.3, playerNumber: 2, showTrajectory: true)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.45, y: 0.48), text: "B", color: .green),
-                        Indicator(type: .line, position: CGPoint(x: 0.45, y: 0.55), endPosition: CGPoint(x: 0.7, y: 0.3), color: .gray)
+                        Indicator(type: .text, position: CGPoint(x: 0.45, y: 0.48), color: .green, text: "B"),
+                        Indicator(type: .line, position: CGPoint(x: 0.45, y: 0.55), color: .gray, endPosition: CGPoint(x: 0.7, y: 0.3))
                     ],
                     scores: nil
                 ),
@@ -982,7 +982,7 @@ struct FormatDemonstration {
                         BallPosition(x: 0.82, y: 0.21, playerNumber: 1)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.25), text: "A", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.25), color: .blue, text: "A")
                     ],
                     scores: nil
                 ),
@@ -1000,8 +1000,8 @@ struct FormatDemonstration {
                         BallPosition(x: 0.825, y: 0.20, playerNumber: 0, isHighlighted: true)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.82, y: 0.15), text: "B HOLES OUT", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.1), text: "TEAM: 5", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.82, y: 0.15), color: .green, text: "B HOLES OUT"),
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.1), color: .blue, text: "TEAM: 5")
                     ],
                     scores: [PlayerScore(playerNumber: 0, score: 5)]
                 )
@@ -1028,7 +1028,7 @@ struct FormatDemonstration {
                         BallPosition(x: 0.5, y: 0.5, playerNumber: 2)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.8), text: "HOLE 1", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.8), color: .blue, text: "HOLE 1")
                     ],
                     scores: nil
                 ),
@@ -1044,8 +1044,8 @@ struct FormatDemonstration {
                     ],
                     ballPositions: [],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.4, y: 0.5), text: "P1: 4", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.6, y: 0.5), text: "P2: 5", color: .red)
+                        Indicator(type: .text, position: CGPoint(x: 0.4, y: 0.5), color: .green, text: "P1: 4"),
+                        Indicator(type: .text, position: CGPoint(x: 0.6, y: 0.5), color: .red, text: "P2: 5")
                     ],
                     scores: [
                         PlayerScore(playerNumber: 1, score: 4),
@@ -1065,7 +1065,7 @@ struct FormatDemonstration {
                     ballPositions: [],
                     visualIndicators: [
                         Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.3), color: .green, size: 60, text: "P1 WINS HOLE"),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.4), text: "MATCH: 1 UP", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.4), color: .blue, text: "MATCH: 1 UP")
                     ],
                     scores: nil
                 ),
@@ -1081,7 +1081,7 @@ struct FormatDemonstration {
                     ],
                     ballPositions: [],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.5), text: "NEXT HOLE", color: .blue),
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.5), color: .blue, text: "NEXT HOLE"),
                         Indicator(type: .arrow, position: CGPoint(x: 0.3, y: 0.7), direction: .right, color: .gray, size: 30)
                     ],
                     scores: nil
@@ -1111,7 +1111,7 @@ struct FormatDemonstration {
                         BallPosition(x: 0.5, y: 0.5, playerNumber: 4)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.8), text: "$10 SKIN", color: .yellow)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.8), color: .yellow, text: "$10 SKIN")
                     ],
                     scores: nil
                 ),
@@ -1147,7 +1147,7 @@ struct FormatDemonstration {
                     ballPositions: [],
                     visualIndicators: [
                         Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.3), color: .orange, size: 60, text: "TIE!"),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.4), text: "CARRIES TO NEXT", color: .gray),
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.4), color: .gray, text: "CARRIES TO NEXT"),
                         Indicator(type: .arrow, position: CGPoint(x: 0.5, y: 0.6), direction: .right, color: .yellow, size: 40)
                     ],
                     scores: nil
@@ -1165,7 +1165,7 @@ struct FormatDemonstration {
                     ballPositions: [],
                     visualIndicators: [
                         Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.5), color: .yellow, size: 50, text: "$20 SKIN!"),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.6), text: "HOLE 2", color: .blue)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.6), color: .blue, text: "HOLE 2")
                     ],
                     scores: nil
                 )
@@ -1189,11 +1189,11 @@ struct FormatDemonstration {
                     ],
                     ballPositions: [],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.3), text: "Eagle: 4pts", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.4), text: "Birdie: 3pts", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.5), text: "Par: 2pts", color: .blue),
-                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.6), text: "Bogey: 1pt", color: .orange),
-                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.7), text: "Double+: 0pts", color: .red)
+                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.3), color: .green, text: "Eagle: 4pts"),
+                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.4), color: .green, text: "Birdie: 3pts"),
+                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.5), color: .blue, text: "Par: 2pts"),
+                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.6), color: .orange, text: "Bogey: 1pt"),
+                        Indicator(type: .text, position: CGPoint(x: 0.2, y: 0.7), color: .red, text: "Double+: 0pts")
                     ],
                     scores: nil
                 ),
@@ -1228,10 +1228,10 @@ struct FormatDemonstration {
                     ],
                     ballPositions: [],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.3, y: 0.3), text: "P1: 3 POINTS", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.3), text: "P2: 2 POINTS", color: .blue),
-                        Indicator(type: .text, position: CGPoint(x: 0.3, y: 0.7), text: "P3: 1 POINT", color: .orange),
-                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.7), text: "P4: 0 POINTS", color: .red)
+                        Indicator(type: .text, position: CGPoint(x: 0.3, y: 0.3), color: .green, text: "P1: 3 POINTS"),
+                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.3), color: .blue, text: "P2: 2 POINTS"),
+                        Indicator(type: .text, position: CGPoint(x: 0.3, y: 0.7), color: .orange, text: "P3: 1 POINT"),
+                        Indicator(type: .text, position: CGPoint(x: 0.7, y: 0.7), color: .red, text: "P4: 0 POINTS")
                     ],
                     scores: nil
                 ),
@@ -1248,9 +1248,9 @@ struct FormatDemonstration {
                     ballPositions: [],
                     visualIndicators: [
                         Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.3), color: .blue, size: 40, text: "TOTAL AFTER 9"),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.45), text: "P1: 24 pts", color: .green),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.55), text: "P2: 18 pts", color: .blue),
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.65), text: "P3: 15 pts", color: .orange)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.45), color: .green, text: "P1: 24 pts"),
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.55), color: .blue, text: "P2: 18 pts"),
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.65), color: .orange, text: "P3: 15 pts")
                     ],
                     scores: nil
                 )
@@ -1306,7 +1306,7 @@ struct FormatDemonstration {
                         BallPosition(x: 0.825, y: 0.20, playerNumber: 0, isHighlighted: true)
                     ],
                     visualIndicators: [
-                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.5), text: format.tagline, color: format.color)
+                        Indicator(type: .text, position: CGPoint(x: 0.5, y: 0.5), color: format.color, text: format.tagline)
                     ],
                     scores: nil
                 )
