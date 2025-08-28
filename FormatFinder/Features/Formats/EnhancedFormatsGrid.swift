@@ -230,7 +230,7 @@ struct FormatGridCard: View {
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 10) {
+            VStack(spacing: 8) {
                 // Icon container
                 ZStack {
                     // Background gradient
@@ -242,11 +242,11 @@ struct FormatGridCard: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
-                    .frame(width: 60, height: 60)
-                    .cornerRadius(15)
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(12)
                     
                     // Format icon
-                    FormatIconView(format: format, size: 45)
+                    FormatIconView(format: format, size: 35)
                 }
                 .scaleEffect(isPressed ? 0.9 : isHovered ? 1.1 : 1.0)
                 .rotationEffect(.degrees(isHovered ? 5 : 0))
@@ -255,36 +255,51 @@ struct FormatGridCard: View {
                 Text(format.name)
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.primary)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .multilineTextAlignment(.center)
                 
-                // Difficulty indicator
-                HStack(spacing: 2) {
-                    ForEach(0..<3) { i in
-                        Circle()
-                            .fill(i < difficultyLevel(format.difficulty) ? 
-                                  difficultyColor(format.difficulty) : 
-                                  Color.gray.opacity(0.2))
-                            .frame(width: 4, height: 4)
-                    }
-                }
+                // Quick description
+                Text(quickDescription(for: format))
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 5)
+                    .fixedSize(horizontal: false, vertical: true)
                 
-                // Team/Individual badge
-                Text(format.isTeamFormat ? "TEAM" : "SOLO")
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundColor(format.isTeamFormat ? .blue : .orange)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 3)
-                    .background(
-                        Capsule()
-                            .fill(format.isTeamFormat ? 
-                                  Color.blue.opacity(0.1) : 
-                                  Color.orange.opacity(0.1))
-                    )
+                Spacer(minLength: 2)
+                
+                // Bottom info row
+                HStack(spacing: 8) {
+                    // Difficulty indicator
+                    HStack(spacing: 1) {
+                        ForEach(0..<3) { i in
+                            Circle()
+                                .fill(i < difficultyLevel(format.difficulty) ? 
+                                      difficultyColor(format.difficulty) : 
+                                      Color.gray.opacity(0.2))
+                                .frame(width: 3, height: 3)
+                        }
+                    }
+                    
+                    // Team/Individual badge
+                    Text(format.isTeamFormat ? "TEAM" : "SOLO")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(format.isTeamFormat ? .blue : .orange)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(
+                            Capsule()
+                                .fill(format.isTeamFormat ? 
+                                      Color.blue.opacity(0.1) : 
+                                      Color.orange.opacity(0.1))
+                        )
+                }
             }
-            .padding()
+            .padding(.vertical, 12)
+            .padding(.horizontal, 8)
             .frame(maxWidth: .infinity)
-            .frame(height: 150)
+            .frame(height: 160)
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.white)
@@ -334,6 +349,59 @@ struct FormatGridCard: View {
         case "Intermediate": return .orange
         case "Advanced", "Expert": return .red
         default: return .gray
+        }
+    }
+    
+    func quickDescription(for format: GolfFormat) -> String {
+        switch format.name {
+        case "Scramble":
+            return "All tee off, play best shot"
+        case "Best Ball":
+            return "Play own ball, take best score"
+        case "Alternate Shot":
+            return "Partners alternate every shot"
+        case "Stableford":
+            return "Points for scores, not strokes"
+        case "Skins":
+            return "Win hole outright for the pot"
+        case "Wolf":
+            return "Captain picks partner each hole"
+        case "Nassau":
+            return "Three bets: front, back, total"
+        case "Match Play":
+            return "Win holes, not total score"
+        case "Chapman":
+            return "Switch balls, then choose one"
+        case "Bingo Bango Bongo":
+            return "Points for first on, closest, first in"
+        case "Texas Scramble":
+            return "Scramble with required drives"
+        case "Foursomes":
+            return "True alternate shot from tee"
+        case "Greensome":
+            return "Both tee off, then alternate"
+        case "Vegas":
+            return "Combine scores, birdie flips"
+        case "Rabbit":
+            return "Hold the rabbit at 9 & 18 to win"
+        case "Defender":
+            return "One vs three each hole"
+        case "Ghost":
+            return "Play against par every hole"
+        case "Dots":
+            return "Points for achievements"
+        case "String":
+            return "Use string to improve lies"
+        case "Quota":
+            return "Beat your point target"
+        case "Yellows":
+            return "Double points for hard pins"
+        case "Bridges":
+            return "Connect same scores"
+        case "Four-Ball":
+            return "Two vs two, best scores"
+        default:
+            return format.tagline
         }
     }
 }
