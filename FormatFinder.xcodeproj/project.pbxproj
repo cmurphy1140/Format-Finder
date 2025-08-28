@@ -42,6 +42,7 @@
 		BC58B3E3B357F26385C8AC92 /* ScrambleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963DDD2D427935039AE7C865 /* ScrambleFormat.swift */; };
 		BD5E162E7A58E3A45C9C0B27 /* ThemeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82E2AC0C8C94FB87010171 /* ThemeEngine.swift */; };
 		UNIFIEDTHEME1234567890ABC /* UnifiedTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = UNIFIEDTHEME1234567890ABD /* UnifiedTheme.swift */; };
+		COURSEDATA12345678901234 /* CourseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = COURSEDATA12345678901235 /* CourseData.swift */; };
 		GOLFFORMATHOME123456789AB /* GolfFormatHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = GOLFFORMATHOME123456789AC /* GolfFormatHomeView.swift */; };
 		BF2D542766A37FF3D1FB9D03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50526F4B93CF2A77DED989DC /* Preview Assets.xcassets */; };
 		BF95F59860048498028606CB /* GolfFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D78C4042A786D416B21661D /* GolfFormat.swift */; };
@@ -113,6 +114,7 @@
 		FF76B3B95836CC383CD7F973 /* AppIconView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppIconView.swift; path = FormatFinder/Resources/AppIconView.swift; sourceTree = "<group>"; };
 		AABBCCDD1234567890ABCDE0 /* SwipeableFormatCards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeableFormatCards.swift; path = FormatFinder/Features/Formats/SwipeableFormatCards.swift; sourceTree = "<group>"; };
 		AABBCCDD1234567890ABCDE2 /* FormatDataService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatDataService.swift; path = FormatFinder/Core/Services/FormatDataService.swift; sourceTree = "<group>"; };
+		COURSEDATA12345678901235 /* CourseData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CourseData.swift; path = FormatFinder/Core/Models/CourseData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				37BE70F8E616FFB8ECED2AD7 /* DataLayer */,
 				E4CCC0B122781FB274BDFD98 /* GameEngine */,
+				COREMODELS12345678901234 /* Models */,
 				709DE828F29109447A232E93 /* Services */,
 			);
 			name = Core;
@@ -425,6 +428,14 @@
 			name = TaskList;
 			sourceTree = "<group>";
 		};
+		COREMODELS12345678901234 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				COURSEDATA12345678901235 /* CourseData.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -539,6 +550,7 @@
 				6FD05214AD3463AF5999D4BE /* IntuitiveDemonstration.swift in Sources */,
 				F0FCE69AF07A8A8F43037BA9 /* MastersFormatView.swift in Sources */,
 				77646A97F5FBEC475E550C23 /* FormatComparisonVisualizer.swift in Sources */,
+				COURSEDATA12345678901234 /* CourseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
