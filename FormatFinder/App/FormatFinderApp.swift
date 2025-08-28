@@ -80,6 +80,13 @@ struct MainNavigationView: View {
                         Text("Stats")
                     }
                     .tag(2)
+                
+                TaskListView()
+                    .tabItem {
+                        Image(systemName: "checklist")
+                        Text("Tasks")
+                    }
+                    .tag(3)
             }
             .accentColor(MastersColors.mastersGreen)
             
