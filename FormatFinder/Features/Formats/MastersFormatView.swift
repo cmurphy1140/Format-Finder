@@ -948,6 +948,47 @@ struct MastersTabBar: View {
     }
 }
 
+// MARK: - Masters Leaderboard Row
+struct MastersLeaderboardRow: View {
+    let position: Int
+    let playerName: String
+    let score: Int
+    let parDiff: String
+    
+    var body: some View {
+        HStack {
+            Text("\(position)")
+                .font(.headline)
+                .foregroundColor(MastersColors.mastersGreen)
+                .frame(width: 30)
+            
+            Text(playerName)
+                .font(.body)
+            
+            Spacer()
+            
+            Text(parDiff)
+                .font(.headline)
+                .foregroundColor(scoreColor)
+            
+            Text("\(score)")
+                .font(.body)
+                .foregroundColor(.secondary)
+        }
+        .padding(.vertical, 8)
+    }
+    
+    private var scoreColor: Color {
+        if parDiff.starts(with: "-") {
+            return MastersColors.mastersGreen
+        } else if parDiff == "E" {
+            return MastersColors.graphite
+        } else {
+            return MastersColors.scoreRed
+        }
+    }
+}
+
 // MARK: - View Extensions
 extension View {
     func mastersCard() -> some View {

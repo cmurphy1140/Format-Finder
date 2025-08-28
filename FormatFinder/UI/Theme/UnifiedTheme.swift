@@ -624,6 +624,8 @@ struct UnifiedColors {
     static let slate = Color(hex: "708090")
     static let divider = Color.gray.opacity(0.3)
     static let shadow = Color.black.opacity(0.1)
+    static let scoreRed = Color(hex: "DC143C")
+    static let par = Color(hex: "4169E1")
     
     // Gradients
     static let headerGradient = LinearGradient(
