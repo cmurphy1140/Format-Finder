@@ -8,6 +8,7 @@ struct GolfFormatHomeView: View {
     @State private var showRandomFormat = false
     @State private var randomFormat: EnhancedGolfFormat?
     @State private var selectedFormat: EnhancedGolfFormat?
+    @State private var showFormatDetail = false
     @State private var animateHeader = false
     @State private var animateCards = false
     @StateObject private var formatDataService = FormatDataService.shared
@@ -108,6 +109,84 @@ struct GolfFormatHomeView: View {
             .navigationBarHidden(true)
             .onAppear {
                 startAnimations()
+            }
+            .sheet(isPresented: $showFormatDetail) {
+                if let format = selectedFormat {
+                    NavigationView {
+                        VStack(spacing: 20) {
+                            // Format header
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(format.name)
+                                        .font(.largeTitle)
+                                        .fontWeight(.bold)
+                                    Text(format.tagline)
+                                        .font(.headline)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            // Quick info
+                            HStack(spacing: 30) {
+                                VStack {
+                                    Image(systemName: "person.2.fill")
+                                        .font(.title2)
+                                        .foregroundColor(MastersColors.mastersGreen)
+                                    Text("\(format.idealGroupSize.lowerBound)-\(format.idealGroupSize.upperBound) Players")
+                                        .font(.caption)
+                                }
+                                
+                                VStack {
+                                    Image(systemName: "speedometer")
+                                        .font(.title2)
+                                        .foregroundColor(MastersColors.mastersGreen)
+                                    Text(format.difficulty)
+                                        .font(.caption)
+                                }
+                            }
+                            
+                            // Description
+                            Text(format.description)
+                                .padding()
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(10)
+                            
+                            // Rules
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("How to Play")
+                                    .font(.headline)
+                                ForEach(format.quickRules, id: \.self) { rule in
+                                    HStack(alignment: .top) {
+                                        Text("•")
+                                        Text(rule)
+                                            .font(.subheadline)
+                                    }
+                                }
+                            }
+                            .padding()
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showFormatDetail = false
+                            }) {
+                                Text("Got it!")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(MastersColors.mastersGreen)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
+                        }
+                        .navigationBarItems(trailing: Button("Close") {
+                            showFormatDetail = false
+                        })
+                    }
+                }
             }
         }
     }
@@ -357,6 +436,7 @@ struct GolfFormatHomeView: View {
                 ForEach(filteredFormats.prefix(8)) { format in
                     FormatGridCard(format: format) {
                         selectedFormat = format
+                        showFormatDetail = true
                     }
                     .scaleEffect(animateCards ? 1 : 0.8)
                     .opacity(animateCards ? 1 : 0)
@@ -435,6 +515,7 @@ struct GolfFormatHomeView: View {
             showRandomFormat = false
             if let format = randomFormat {
                 selectedFormat = format
+                showFormatDetail = true
             }
         }
     }

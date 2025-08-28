@@ -88,7 +88,7 @@ struct MainNavigationView: View {
                     }
                     .tag(3)
                 
-                EnhancedTaskListView()
+                MastersTaskListView()
                     .tabItem {
                         Image(systemName: "checklist")
                         Text("Tasks")
