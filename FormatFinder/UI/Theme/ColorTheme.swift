@@ -3,10 +3,12 @@ import SwiftUI
 // MARK: - App Color Theme
 
 struct AppColors {
-    // Light, Modern Color Palette
+    // Golf Course Green Palette
     static let primaryGreen = Color(red: 76/255, green: 175/255, blue: 80/255)  // Material Green 500
     static let lightGreen = Color(red: 129/255, green: 199/255, blue: 132/255)  // Material Green 300
     static let darkGreen = Color(red: 56/255, green: 142/255, blue: 60/255)     // Material Green 700
+    static let fairwayGreen = Color(red: 124/255, green: 179/255, blue: 66/255) // Fairway green
+    static let brightGreen = Color(red: 102/255, green: 204/255, blue: 0/255)   // Bright golf green
     
     // Background Colors
     static let backgroundPrimary = Color(red: 248/255, green: 250/255, blue: 252/255)  // Very light gray-blue

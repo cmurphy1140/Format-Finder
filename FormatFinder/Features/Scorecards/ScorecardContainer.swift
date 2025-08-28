@@ -19,7 +19,7 @@ struct ScorecardContainerView: View {
             
             VStack(spacing: 0) {
                 // Header
-                ScorecardHeader(
+                ContainerScorecardHeader(
                     format: format,
                     currentHole: $currentHole,
                     totalHoles: configuration.numberOfHoles,
@@ -224,9 +224,9 @@ struct WolfSelection: Equatable {
     let isBlindWolf: Bool
 }
 
-// MARK: - Scorecard Header
+// MARK: - Container Scorecard Header
 
-struct ScorecardHeader: View {
+struct ContainerScorecardHeader: View {
     let format: GolfFormat
     @Binding var currentHole: Int
     let totalHoles: Int

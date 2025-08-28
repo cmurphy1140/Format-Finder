@@ -9,18 +9,24 @@
 /* Begin PBXBuildFile section */
 		02A09CA406D2CBFF87A58E37 /* StatsAndExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B85AE35DB758D960F43A7 /* StatsAndExport.swift */; };
 		10106D86FD0214B020A2CB1B /* DiagramSlides.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108CD63A781625B33C9DB80 /* DiagramSlides.swift */; };
+		102EF490AA64380D7D31FFAB /* EnhancedScorecardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D501CF90AF73D6898FCBC09F /* EnhancedScorecardView.swift */; };
 		131BEA85452BA2B7730E094B /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA86C08C421C79A3BE73B04F /* NavigationCoordinator.swift */; };
 		1E4D179A119D0CF919B7D3FA /* FormatFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC09AE74289919090FCE8F30 /* FormatFinderApp.swift */; };
+		1FEE17158570A42E72679C8D /* AnimatedFormatExplainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AED8FA7F57258E1BAEEFC3 /* AnimatedFormatExplainer.swift */; };
 		217B447BCEF6240A41D3FCCD /* InteractiveFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED86648EA2F41A97F3DCB9C /* InteractiveFormatView.swift */; };
 		2D24CD249A2CF6849916EE52 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9705B466CEAC35FCE3F2E62E /* TimerManager.swift */; };
+		2FD832BDDA404F520E59D025 /* StickFigureGolfAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88E8333E91D08829813029D8 /* StickFigureGolfAnimations.swift */; };
+		363CCA0A492C0FA56A8A1C15 /* GameConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF17F1AC343984E7C3F22D3 /* GameConfigurationView.swift */; };
 		36CF14537E663182EE6FD684 /* CloudKitSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5A31F2F4BA3FE7D488E98 /* CloudKitSyncService.swift */; };
 		37CAD5B8B5AE702E29363D96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08899AF940B684FE919708EF /* Assets.xcassets */; };
+		3885A59E0C00F4782048A391 /* ExtendedGolfFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC238EDDA87FA71B2F523C04 /* ExtendedGolfFormats.swift */; };
 		4A485194E5222EF7DAC6999C /* UXEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502EE0BC2BA8E5999BD2CAAE /* UXEnhancements.swift */; };
 		56EC1D0EC2761367E6413AA1 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7AF4009716EA45FFFD94E /* FeatureFlags.swift */; };
 		5A808D4CB1FCEF8ACA86281C /* GameModeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D351B7922749B3F2A593CEA8 /* GameModeSelector.swift */; };
 		5F2065C4BD7D631A46C02EEA /* GolfFormatProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338BA31ED6A0F14A27E2F3B4 /* GolfFormatProtocol.swift */; };
 		60105C96A3D5523799F37297 /* BallPhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F307B73AF99260257A987D7 /* BallPhysicsEngine.swift */; };
 		791F77F30598E713353E0EDD /* PerformanceOptimizations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD784F77B9B0D6542A9818B7 /* PerformanceOptimizations.swift */; };
+		7B591622D391731B4014281C /* GolfFormatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237FC10D8A792814F4AED828 /* GolfFormatsData.swift */; };
 		9B7C80767594F615A579D4AA /* GolfTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F5281BA663AEF927639186 /* GolfTheme.swift */; };
 		A41D63234948C89AFF49DE81 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D6896D6A4558B4295825C /* CoreDataStack.swift */; };
 		A5931879232C836BA361BDF8 /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC6E800A974423FBA2FA0 /* ErrorHandling.swift */; };
@@ -30,6 +36,7 @@
 		ACDBEF145B73C934AF57DD99 /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDA5F4D94EAD4DCF495BE /* Middleware.swift */; };
 		ACDC2EF19DC5A8E4B9C0FF30 /* RoundRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297879072AB0C78C77261FFA /* RoundRepository.swift */; };
 		AEE9F5FA470316C2741C86E9 /* AccessibilityEnhancements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90B204E74B06FD59AFFCFAD /* AccessibilityEnhancements.swift */; };
+		B21707DE43AE25887E585898 /* BackendServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D04EDF00D893E83E7888AB /* BackendServices.swift */; };
 		B6E8D0CA126D27ECFEEB3D3B /* ModernScorecardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAB065B31BA04CE2BEE8A0A /* ModernScorecardView.swift */; };
 		BB7AB800E9682545A977BC28 /* AdvancedScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495DA8EECB5F48BAF626FB60 /* AdvancedScorecards.swift */; };
 		BC58B3E3B357F26385C8AC92 /* ScrambleFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963DDD2D427935039AE7C865 /* ScrambleFormat.swift */; };
@@ -44,6 +51,7 @@
 		D9548664BD7C9FD0681821A3 /* ScorecardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2940609A3A5192395662247F /* ScorecardContainer.swift */; };
 		E474712D3EB5CD39DE1C9EDA /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76B3B95836CC383CD7F973 /* AppIconView.swift */; };
 		EF51095FCA0F16A240D4EA65 /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D40F03962862BBE0D25520 /* FormatScorecards.swift */; };
+		F1B6B129BB9AC19D0C3065D3 /* EnhancedFormatsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DBE0C7668C701B94F60AE3 /* EnhancedFormatsGrid.swift */; };
 		F20F65D82E9B9AA74B56BC05 /* StateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1F4511C97BE1AC7F0A5F7 /* StateAdapter.swift */; };
 		F4CFB4677C831A6D5B7FC574 /* SmartCaddie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E38F143E19FACB0188B41B /* SmartCaddie.swift */; };
 /* End PBXBuildFile section */
@@ -52,12 +60,14 @@
 		08899AF940B684FE919708EF /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = FormatFinder/Assets.xcassets; sourceTree = "<group>"; };
 		18A7AF4009716EA45FFFD94E /* FeatureFlags.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FeatureFlags.swift; path = FormatFinder/Utils/FeatureFlags.swift; sourceTree = "<group>"; };
 		22D536D37878D9F1C1784346 /* RemainingFormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RemainingFormatScorecards.swift; path = FormatFinder/Features/Scorecards/RemainingFormatScorecards.swift; sourceTree = "<group>"; };
+		237FC10D8A792814F4AED828 /* GolfFormatsData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GolfFormatsData.swift; path = FormatFinder/Data/GolfFormatsData.swift; sourceTree = "<group>"; };
 		2940609A3A5192395662247F /* ScorecardContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScorecardContainer.swift; path = FormatFinder/Features/Scorecards/ScorecardContainer.swift; sourceTree = "<group>"; };
 		297879072AB0C78C77261FFA /* RoundRepository.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RoundRepository.swift; path = FormatFinder/Core/DataLayer/Repositories/RoundRepository.swift; sourceTree = "<group>"; };
 		338BA31ED6A0F14A27E2F3B4 /* GolfFormatProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GolfFormatProtocol.swift; path = FormatFinder/Core/GameEngine/Protocols/GolfFormatProtocol.swift; sourceTree = "<group>"; };
 		392934F775E7718BCBC7CD2E /* ColorTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorTheme.swift; path = FormatFinder/UI/Theme/ColorTheme.swift; sourceTree = "<group>"; };
 		3AAB065B31BA04CE2BEE8A0A /* ModernScorecardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ModernScorecardView.swift; path = FormatFinder/Features/Scorecards/ModernScorecardView.swift; sourceTree = "<group>"; };
 		42F5281BA663AEF927639186 /* GolfTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GolfTheme.swift; path = FormatFinder/UI/Theme/GolfTheme.swift; sourceTree = "<group>"; };
+		46D04EDF00D893E83E7888AB /* BackendServices.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BackendServices.swift; path = FormatFinder/Core/Services/BackendServices.swift; sourceTree = "<group>"; };
 		495DA8EECB5F48BAF626FB60 /* AdvancedScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AdvancedScorecards.swift; path = FormatFinder/Features/Scorecards/AdvancedScorecards.swift; sourceTree = "<group>"; };
 		4F7EBCB7180FC49D9578FC02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		502EE0BC2BA8E5999BD2CAAE /* UXEnhancements.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UXEnhancements.swift; path = FormatFinder/Utils/UXEnhancements.swift; sourceTree = "<group>"; };
@@ -66,8 +76,10 @@
 		5F307B73AF99260257A987D7 /* BallPhysicsEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BallPhysicsEngine.swift; path = FormatFinder/UI/Effects/BallPhysicsEngine.swift; sourceTree = "<group>"; };
 		70A24190754BA3185FED2178 /* GlassmorphismEffects.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GlassmorphismEffects.swift; path = FormatFinder/UI/Effects/GlassmorphismEffects.swift; sourceTree = "<group>"; };
 		72D70042D993682246FF5589 /* GenerateAppIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GenerateAppIcon.swift; path = FormatFinder/Resources/GenerateAppIcon.swift; sourceTree = "<group>"; };
+		75AED8FA7F57258E1BAEEFC3 /* AnimatedFormatExplainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedFormatExplainer.swift; path = FormatFinder/Features/Formats/AnimatedFormatExplainer.swift; sourceTree = "<group>"; };
 		75D40F03962862BBE0D25520 /* FormatScorecards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatScorecards.swift; path = FormatFinder/Features/Scorecards/FormatScorecards.swift; sourceTree = "<group>"; };
 		846CC6E800A974423FBA2FA0 /* ErrorHandling.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorHandling.swift; path = FormatFinder/Utils/ErrorHandling.swift; sourceTree = "<group>"; };
+		88E8333E91D08829813029D8 /* StickFigureGolfAnimations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StickFigureGolfAnimations.swift; path = FormatFinder/Features/Formats/StickFigureGolfAnimations.swift; sourceTree = "<group>"; };
 		895D6896D6A4558B4295825C /* CoreDataStack.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = FormatFinder/Core/DataLayer/CoreDataStack.swift; sourceTree = "<group>"; };
 		8C10D3EADB5201B292A3C5CD /* MicroInteractions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MicroInteractions.swift; path = FormatFinder/UI/Effects/MicroInteractions.swift; sourceTree = "<group>"; };
 		8D78C4042A786D416B21661D /* GolfFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GolfFormat.swift; path = FormatFinder/Models/GolfFormat.swift; sourceTree = "<group>"; };
@@ -76,15 +88,19 @@
 		963DDD2D427935039AE7C865 /* ScrambleFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScrambleFormat.swift; path = FormatFinder/Core/GameEngine/Formats/ScrambleFormat.swift; sourceTree = "<group>"; };
 		9705B466CEAC35FCE3F2E62E /* TimerManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimerManager.swift; path = FormatFinder/Utils/TimerManager.swift; sourceTree = "<group>"; };
 		98A5A31F2F4BA3FE7D488E98 /* CloudKitSyncService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CloudKitSyncService.swift; path = FormatFinder/Core/Services/CloudKitSyncService.swift; sourceTree = "<group>"; };
+		A3DBE0C7668C701B94F60AE3 /* EnhancedFormatsGrid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EnhancedFormatsGrid.swift; path = FormatFinder/Features/Formats/EnhancedFormatsGrid.swift; sourceTree = "<group>"; };
 		B0586F2BCAA1F87419687770 /* AppIcon.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppIcon.swift; path = FormatFinder/Resources/AppIcon.swift; sourceTree = "<group>"; };
 		C49B85AE35DB758D960F43A7 /* StatsAndExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatsAndExport.swift; path = FormatFinder/Features/Statistics/StatsAndExport.swift; sourceTree = "<group>"; };
 		C4DC61D3938E3A265B76ED9C /* GameStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameStore.swift; path = FormatFinder/Core/Services/GameStore.swift; sourceTree = "<group>"; };
 		D351B7922749B3F2A593CEA8 /* GameModeSelector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameModeSelector.swift; path = FormatFinder/Features/GameModes/GameModeSelector.swift; sourceTree = "<group>"; };
+		D501CF90AF73D6898FCBC09F /* EnhancedScorecardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EnhancedScorecardView.swift; path = FormatFinder/Features/Scorecards/EnhancedScorecardView.swift; sourceTree = "<group>"; };
 		DB82E2AC0C8C94FB87010171 /* ThemeEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeEngine.swift; path = FormatFinder/UI/Theme/ThemeEngine.swift; sourceTree = "<group>"; };
+		DCF17F1AC343984E7C3F22D3 /* GameConfigurationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GameConfigurationView.swift; path = FormatFinder/Features/Configuration/GameConfigurationView.swift; sourceTree = "<group>"; };
 		DD784F77B9B0D6542A9818B7 /* PerformanceOptimizations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PerformanceOptimizations.swift; path = FormatFinder/Utils/PerformanceOptimizations.swift; sourceTree = "<group>"; };
 		E0E38F143E19FACB0188B41B /* SmartCaddie.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SmartCaddie.swift; path = FormatFinder/Features/SmartCaddie.swift; sourceTree = "<group>"; };
 		E90B204E74B06FD59AFFCFAD /* AccessibilityEnhancements.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AccessibilityEnhancements.swift; path = FormatFinder/Utils/AccessibilityEnhancements.swift; sourceTree = "<group>"; };
 		EC09AE74289919090FCE8F30 /* FormatFinderApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatFinderApp.swift; path = FormatFinder/App/FormatFinderApp.swift; sourceTree = "<group>"; };
+		EC238EDDA87FA71B2F523C04 /* ExtendedGolfFormats.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtendedGolfFormats.swift; path = FormatFinder/Models/ExtendedGolfFormats.swift; sourceTree = "<group>"; };
 		EED86648EA2F41A97F3DCB9C /* InteractiveFormatView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InteractiveFormatView.swift; path = FormatFinder/Features/Tutorials/InteractiveFormatView.swift; sourceTree = "<group>"; };
 		F4B1F4511C97BE1AC7F0A5F7 /* StateAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StateAdapter.swift; path = FormatFinder/Utils/StateAdapter.swift; sourceTree = "<group>"; };
 		FA86C08C421C79A3BE73B04F /* NavigationCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NavigationCoordinator.swift; path = FormatFinder/Utils/NavigationCoordinator.swift; sourceTree = "<group>"; };
@@ -200,6 +216,7 @@
 				08899AF940B684FE919708EF /* Assets.xcassets */,
 				3C3AA2009AD3389F6D81DE30 /* Preview Content */,
 				C47434AF28676C4ACEC2AAE2 /* Models */,
+				D07089B6D27A980872E61277 /* Data */,
 			);
 			name = FormatFinder;
 			sourceTree = "<group>";
@@ -227,8 +244,17 @@
 				98A5A31F2F4BA3FE7D488E98 /* CloudKitSyncService.swift */,
 				C4DC61D3938E3A265B76ED9C /* GameStore.swift */,
 				93AEDA5F4D94EAD4DCF495BE /* Middleware.swift */,
+				46D04EDF00D893E83E7888AB /* BackendServices.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		7294AF27906ED9BC760A9132 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				DCF17F1AC343984E7C3F22D3 /* GameConfigurationView.swift */,
+			);
+			name = Configuration;
 			sourceTree = "<group>";
 		};
 		7CC76F4C503D325A07DD2BCC /* Frameworks */ = {
@@ -257,6 +283,8 @@
 				2C7912282C7B92118EF405FB /* Statistics */,
 				C7BC10FEC40612417BC94DF8 /* Tutorials */,
 				E0E38F143E19FACB0188B41B /* SmartCaddie.swift */,
+				7294AF27906ED9BC760A9132 /* Configuration */,
+				D7A23A7F911FB8F04ACFAB93 /* Formats */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -291,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				8D78C4042A786D416B21661D /* GolfFormat.swift */,
+				EC238EDDA87FA71B2F523C04 /* ExtendedGolfFormats.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -302,6 +331,24 @@
 				EED86648EA2F41A97F3DCB9C /* InteractiveFormatView.swift */,
 			);
 			name = Tutorials;
+			sourceTree = "<group>";
+		};
+		D07089B6D27A980872E61277 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				237FC10D8A792814F4AED828 /* GolfFormatsData.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		D7A23A7F911FB8F04ACFAB93 /* Formats */ = {
+			isa = PBXGroup;
+			children = (
+				75AED8FA7F57258E1BAEEFC3 /* AnimatedFormatExplainer.swift */,
+				A3DBE0C7668C701B94F60AE3 /* EnhancedFormatsGrid.swift */,
+				88E8333E91D08829813029D8 /* StickFigureGolfAnimations.swift */,
+			);
+			name = Formats;
 			sourceTree = "<group>";
 		};
 		E4CCC0B122781FB274BDFD98 /* GameEngine */ = {
@@ -321,6 +368,7 @@
 				3AAB065B31BA04CE2BEE8A0A /* ModernScorecardView.swift */,
 				22D536D37878D9F1C1784346 /* RemainingFormatScorecards.swift */,
 				2940609A3A5192395662247F /* ScorecardContainer.swift */,
+				D501CF90AF73D6898FCBC09F /* EnhancedScorecardView.swift */,
 			);
 			name = Scorecards;
 			sourceTree = "<group>";
@@ -443,6 +491,14 @@
 				2D24CD249A2CF6849916EE52 /* TimerManager.swift in Sources */,
 				4A485194E5222EF7DAC6999C /* UXEnhancements.swift in Sources */,
 				BF95F59860048498028606CB /* GolfFormat.swift in Sources */,
+				B21707DE43AE25887E585898 /* BackendServices.swift in Sources */,
+				7B591622D391731B4014281C /* GolfFormatsData.swift in Sources */,
+				363CCA0A492C0FA56A8A1C15 /* GameConfigurationView.swift in Sources */,
+				102EF490AA64380D7D31FFAB /* EnhancedScorecardView.swift in Sources */,
+				1FEE17158570A42E72679C8D /* AnimatedFormatExplainer.swift in Sources */,
+				F1B6B129BB9AC19D0C3065D3 /* EnhancedFormatsGrid.swift in Sources */,
+				3885A59E0C00F4782048A391 /* ExtendedGolfFormats.swift in Sources */,
+				2FD832BDDA404F520E59D025 /* StickFigureGolfAnimations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

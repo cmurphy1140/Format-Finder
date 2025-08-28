@@ -8,12 +8,14 @@ struct Player: Identifiable, Codable, Hashable {
     let name: String
     let handicap: Int
     let profileImage: String?
+    var isActive: Bool = true
     
-    init(id: UUID = UUID(), name: String, handicap: Int = 0, profileImage: String? = nil) {
+    init(id: UUID = UUID(), name: String, handicap: Int = 0, profileImage: String? = nil, isActive: Bool = true) {
         self.id = id
         self.name = name
         self.handicap = handicap
         self.profileImage = profileImage
+        self.isActive = isActive
     }
 }
 
@@ -59,19 +61,33 @@ class GameState: ObservableObject {
 }
 
 struct GameConfiguration {
-    let format: GolfFormat
-    let numberOfHoles: Int
-    let courseName: String
-    let teeTime: Date?
-    let difficulty: CourseDifficulty
-    
-    init(format: GolfFormat, numberOfHoles: Int = 18, courseName: String = "", teeTime: Date? = nil, difficulty: CourseDifficulty = .regular) {
-        self.format = format
-        self.numberOfHoles = numberOfHoles
-        self.courseName = courseName
-        self.teeTime = teeTime
-        self.difficulty = difficulty
-    }
+    var selectedFormat: GolfFormat?
+    var players: [Player] = [
+        Player(name: "Player 1", handicap: 0),
+        Player(name: "Player 2", handicap: 0),
+        Player(name: "Player 3", handicap: 0),
+        Player(name: "Player 4", handicap: 0)
+    ]
+    var numberOfHoles: Int = 18
+    var courseRating: Double = 72.0
+    var slopeRating: Int = 130
+    var teams: [Team] = []
+    var startingHole: Int = 1
+    var teeBox: String = "White"
+    var scoringRules: ScoringRules = ScoringRules()
+}
+
+struct Team: Identifiable {
+    let id = UUID()
+    var name: String
+    var players: [Player]
+}
+
+struct ScoringRules {
+    var strokePlay = true
+    var matchPlay = false
+    var stableford = false
+    var handicapsEnabled = true
 }
 
 enum CourseDifficulty: String, CaseIterable {

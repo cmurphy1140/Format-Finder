@@ -40,8 +40,7 @@ struct ModernScorecardView: View {
                     format: scoreManager.format,
                     currentHole: $currentHole,
                     totalHoles: 18,
-                    onMenu: { /* Menu action */ },
-                    onStats: { showingStats = true }
+                    onDismiss: { /* Dismiss action */ }
                 )
                 
                 // Horizontal paging for holes
@@ -297,7 +296,7 @@ struct HoleScoreView: View {
             if isActive && !isEditing {
                 HStack(spacing: 15) {
                     ForEach([scoreData.par - 1, scoreData.par, scoreData.par + 1], id: \.self) { quickScore in
-                        QuickScoreButton(
+                        ModernQuickScoreButton(
                             score: quickScore,
                             par: scoreData.par,
                             isSelected: score == quickScore
@@ -401,8 +400,8 @@ struct ScoreInputWheel: View {
     }
 }
 
-// MARK: - Quick Score Button
-struct QuickScoreButton: View {
+// MARK: - Modern Quick Score Button
+struct ModernQuickScoreButton: View {
     let score: Int
     let par: Int
     let isSelected: Bool

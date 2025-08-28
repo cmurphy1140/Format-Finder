@@ -1,9 +1,5 @@
 import SwiftUI
 
-// MARK: - Golf Formats Data
-
-let golfFormats: [GolfFormat] = GolfFormat.allFormats
-
 // MARK: - Game Mode Selector
 
 struct GameModeSelectorView: View {
@@ -63,7 +59,7 @@ struct GameModeSelectorView: View {
                 }
             }
             .sheet(isPresented: $showConfiguration) {
-                GameConfigurationView(
+                GameConfigurationModalView(
                     configuration: $gameConfiguration,
                     onStart: {
                         showConfiguration = false
@@ -263,9 +259,9 @@ enum StablefordScoring {
     case aggressive // Eagle: 5, Birdie: 4, Par: 2, Bogey: 0
 }
 
-// MARK: - Game Configuration View
+// MARK: - Game Configuration Modal View
 
-struct GameConfigurationView: View {
+struct GameConfigurationModalView: View {
     @Binding var configuration: GameConfiguration
     let onStart: () -> Void
     @Environment(\.dismiss) var dismiss
