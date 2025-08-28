@@ -98,12 +98,11 @@ struct DataVisualizationSuite: View {
                 scores.append(score)
             }
         }
-        return scores.isEmpty ? [4, 5, 3, 4, 5, 4, 4, 3, 5] : scores // Mock data fallback
+        return scores.isEmpty ? (1...9).map { _ in Int.random(in: 3...6) } : scores // Mock data fallback
     }
     
     private func getPars() -> [Int] {
-        // TODO: Get from course data
-        return [4, 4, 3, 5, 4, 4, 3, 4, 5, 4, 4, 3, 5, 4, 4, 3, 4, 5]
+        return GolfConstants.ParManagement.service.getAllPars()
     }
     
     private func getMockRounds() -> [Round] {
@@ -138,7 +137,7 @@ struct ScoreFlowVisualization: View {
         path.move(to: CGPoint(x: 0, y: centerY))
         
         for (index, score) in scores.enumerated() {
-            let par = index < pars.count ? pars[index] : 4
+            let par = index < pars.count ? pars[index] : GolfConstants.ParManagement.parForHole(index + 1)
             let diff = score - par
             
             // River width based on score relative to par
@@ -189,7 +188,7 @@ struct ScoreFlowVisualization: View {
             // Flow river
             ForEach(0..<scores.count, id: \.self) { index in
                 let score = scores[index]
-                let par = index < pars.count ? pars[index] : 4
+                let par = index < pars.count ? pars[index] : GolfConstants.ParManagement.parForHole(index + 1)
                 
                 FlowSegment(
                     score: score,
@@ -324,7 +323,7 @@ struct RadialHoleAnalyzer: View {
             // Score spikes
             ForEach(0..<scores.count, id: \.self) { index in
                 let score = scores[index]
-                let par = index < pars.count ? pars[index] : 4
+                let par = index < pars.count ? pars[index] : GolfConstants.ParManagement.parForHole(index + 1)
                 let angle = angleForHole(index)
                 let radius = radiusForScore(score, par: par)
                 
@@ -350,7 +349,7 @@ struct RadialHoleAnalyzer: View {
                         .font(.system(size: 14, weight: .bold))
                     Text("Score: \(scores[selected])")
                         .font(.system(size: 12))
-                    Text("Par: \(selected < pars.count ? pars[selected] : 4)")
+                    Text("Par: \(selected < pars.count ? pars[selected] : GolfConstants.ParManagement.parForHole(selected + 1))")
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
                 }
@@ -464,7 +463,7 @@ struct EmotionalTimelineView: View {
                         path.move(to: CGPoint(x: 0, y: centerY))
                         
                         for (index, score) in scores.enumerated() {
-                            let par = index < pars.count ? pars[index] : 4
+                            let par = index < pars.count ? pars[index] : GolfConstants.ParManagement.parForHole(index + 1)
                             let emotion = emotionForScore(score, par: par)
                             let x = CGFloat(index) * segmentWidth
                             let y = centerY - (emotion.intensity - 0.5) * 100
@@ -498,7 +497,7 @@ struct EmotionalTimelineView: View {
                     // Emotion markers
                     ForEach(0..<scores.count, id: \.self) { index in
                         let score = scores[index]
-                        let par = index < pars.count ? pars[index] : 4
+                        let par = index < pars.count ? pars[index] : GolfConstants.ParManagement.parForHole(index + 1)
                         let emotion = emotionForScore(score, par: par)
                         let segmentWidth = geometry.size.width / CGFloat(scores.count - 1)
                         let x = CGFloat(index) * segmentWidth
@@ -533,7 +532,7 @@ struct EmotionalTimelineView: View {
                 ForEach([(diff: -2, label: "Eagle"), (diff: -1, label: "Birdie"),
                          (diff: 0, label: "Par"), (diff: 1, label: "Bogey"),
                          (diff: 2, label: "Double")], id: \.diff) { item in
-                    let emotion = emotionForScore(4 + item.diff, par: 4)
+                    let emotion = emotionForScore(GolfConstants.ParDefaults.defaultPar + item.diff, par: GolfConstants.ParDefaults.defaultPar)
                     HStack(spacing: 4) {
                         Image(systemName: emotion.emoji)
                             .font(.system(size: 12))
@@ -620,7 +619,7 @@ struct RoundLayer: View {
             
             for (index, score) in scores.enumerated() {
                 let x = CGFloat(index) * segmentWidth
-                let par = 4 // TODO: Get actual par
+                let par = GolfConstants.ParManagement.parForHole(index + 1)
                 let diff = score - par
                 let y = size.height / 2 - CGFloat(diff) * 20
                 
@@ -656,7 +655,7 @@ struct CourseHeatMapView: View {
         
         for round in roundHistory {
             if let score = round.scores[hole] {
-                totalDiff += score - 4 // TODO: Get actual par
+                totalDiff += score - GolfConstants.ParManagement.parForHole(hole)
                 count += 1
             }
         }

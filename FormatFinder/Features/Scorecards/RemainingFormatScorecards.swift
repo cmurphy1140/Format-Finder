@@ -14,7 +14,7 @@ struct FourBallScorecardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Hole Header
-                HoleHeaderView(hole: hole, par: 4, yards: 385)
+                HoleHeaderView(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Team 1 Scores
                 TeamScorecardSection(
@@ -103,7 +103,7 @@ struct TeamScorecardSection: View {
                             get: { gameState.getScore(hole: hole, player: player.id) },
                             set: { gameState.setScore(hole: hole, player: player.id, score: $0) }
                         ),
-                        par: 4
+                        hole: hole
                     )
                 }
                 .padding(.horizontal, 12)
@@ -183,7 +183,7 @@ struct AlternateShotScorecardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Hole Header
-                HoleHeaderView(hole: hole, par: 4, yards: 385)
+                HoleHeaderView(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Team 1 Alternate Shot
                 AlternateShotTeamSection(
@@ -282,7 +282,7 @@ struct AlternateShotTeamSection: View {
                                 }
                             }
                         ),
-                        par: 4
+                        hole: hole
                     )
                 }
             }
@@ -377,7 +377,7 @@ struct BingoBangoBongoScorecardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Hole Header
-                HoleHeaderView(hole: hole, par: 4, yards: 385)
+                HoleHeaderView(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Point Awards Section
                 VStack(alignment: .leading, spacing: 16) {
@@ -442,7 +442,7 @@ struct BingoBangoBongoScorecardView: View {
                                     get: { gameState.getScore(hole: hole, player: player.id) },
                                     set: { gameState.setScore(hole: hole, player: player.id, score: $0) }
                                 ),
-                                par: 4
+                                hole: hole
                             )
                         }
                         .padding(.horizontal, 12)
@@ -582,7 +582,7 @@ struct ChapmanScorecardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Hole Header
-                HoleHeaderView(hole: hole, par: 4, yards: 385)
+                HoleHeaderView(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Chapman Format Phases
                 ChapmanPhaseIndicator()
@@ -723,7 +723,7 @@ struct ChapmanTeamSection: View {
                             }
                         }
                     ),
-                    par: 4
+                    hole: hole
                 )
             }
             
@@ -875,7 +875,11 @@ struct HoleHeaderView: View {
 
 struct ScoreInputView: View {
     @Binding var score: Int
-    let par: Int
+    let hole: Int
+    
+    var par: Int {
+        GolfConstants.ParManagement.parForHole(hole)
+    }
     
     var scoreColor: Color {
         if score == 0 { return .gray }
@@ -947,7 +951,7 @@ struct GenericScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleHeaderView(hole: hole, par: 4, yards: 385)
+                HoleHeaderView(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Player Scores")
@@ -965,7 +969,7 @@ struct GenericScorecardView: View {
                                     get: { gameState.getScore(hole: hole, player: player.id) },
                                     set: { gameState.setScore(hole: hole, player: player.id, score: $0) }
                                 ),
-                                par: 4
+                                hole: hole
                             )
                         }
                         .padding()

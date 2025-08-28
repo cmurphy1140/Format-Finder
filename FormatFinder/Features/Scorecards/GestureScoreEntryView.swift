@@ -238,15 +238,16 @@ struct GestureScoreEntryView: View {
     }
     
     private func loadPredictions() {
+        let par = GolfConstants.ParManagement.parForHole(hole)
         _ = gestureService.preCalculateProbabilities(
             for: player,
             hole: hole,
-            par: 4
+            par: par
         )
     }
     
     private func scoreColor(for score: Int) -> Color {
-        let par = 4 // TODO: Get actual par
+        let par = GolfConstants.ParManagement.parForHole(hole)
         let diff = score - par
         
         switch diff {

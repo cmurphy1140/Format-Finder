@@ -161,7 +161,7 @@ struct SyncedGridCell: View {
     }
     
     private var scoreColor: Color {
-        let par = 4 // TODO: Get actual par
+        let par = GolfConstants.ParManagement.parForHole(hole)
         let diff = displayValue - par
         
         switch diff {

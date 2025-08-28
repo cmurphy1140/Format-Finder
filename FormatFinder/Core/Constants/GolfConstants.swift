@@ -147,6 +147,33 @@ public enum GolfConstants {
         public static let calculationError = "Error calculating score"
     }
     
+    // MARK: - Par Management Integration
+    public enum ParManagement {
+        /// Get par service instance
+        public static var service: ParManagementService {
+            return ParManagementService.shared
+        }
+        
+        /// Quick access to par for hole
+        public static func parForHole(_ hole: Int) -> Int {
+            return service.getParForHole(hole)
+        }
+        
+        /// Quick access to scoring context
+        public static func scoringContext(for hole: Int) -> (par: Int, yardage: Int, handicap: Int) {
+            return service.getScoringContext(for: hole)
+        }
+    }
+    
+    // MARK: - Par Defaults
+    public enum ParDefaults {
+        public static let defaultPar: Int = 4
+        public static let defaultYardage: Int = 385
+        public static let frontNinePar: Int = 36
+        public static let backNinePar: Int = 36
+        public static let standardRoundPar: Int = 72
+    }
+    
     // MARK: - Confirmation Messages
     public enum ConfirmationMessages {
         public static func suspiciousScore(score: Int, par: Int) -> String {
@@ -164,6 +191,17 @@ public enum GolfConstants {
         
         public static func exceptionalScore(score: Int, par: Int) -> String {
             return "Exceptional score! \(score) on a par \(par). Please confirm."
+        }
+        
+        /// Enhanced confirmation using par service
+        public static func suspiciousScore(score: Int, hole: Int) -> String {
+            let par = ParManagement.parForHole(hole)
+            return suspiciousScore(score: score, par: par)
+        }
+        
+        public static func exceptionalScore(score: Int, hole: Int) -> String {
+            let par = ParManagement.parForHole(hole)
+            return exceptionalScore(score: score, par: par)
         }
     }
 }
