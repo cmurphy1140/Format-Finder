@@ -793,9 +793,9 @@ struct CreateGroupView: View {
     }
 }
 
-// MARK: - Theme Manager
+// MARK: - Theme Manager (removed duplicate - using UnifiedTheme.swift implementation)
 
-struct ThemeManager {
+struct SmartCaddieThemeHelper {
     static func textColor(for scheme: ColorScheme) -> Color {
         scheme == .dark ? .white : .black
     }

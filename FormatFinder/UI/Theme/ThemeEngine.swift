@@ -442,17 +442,7 @@ class ThemeEngine: ObservableObject {
     }
 }
 
-// MARK: - Theme Environment Key
-struct ThemeEnvironmentKey: EnvironmentKey {
-    static let defaultValue = ThemeEngine.Theme.classic
-}
-
-extension EnvironmentValues {
-    var theme: ThemeEngine.Theme {
-        get { self[ThemeEnvironmentKey.self] }
-        set { self[ThemeEnvironmentKey.self] = newValue }
-    }
-}
+// MARK: - Theme Environment Key (removed duplicate - using UnifiedTheme.swift implementation)
 
 // MARK: - Color Extensions
 extension Color {

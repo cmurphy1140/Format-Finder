@@ -488,7 +488,7 @@ extension EnvironmentValues {
 
 // MARK: - View Extensions for Easy Access
 extension View {
-    func withTheme(_ theme: Theme = .masters) -> some View {
+    func withTheme(_ theme: ThemeManager.Theme = .masters) -> some View {
         self.environment(\.theme, theme.implementation)
     }
     

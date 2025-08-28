@@ -143,7 +143,9 @@ final class ScrambleFormat: TeamFormatProtocol {
     }
     
     private func getParForHole(_ hole: Int) -> Int {
-        return GolfConstants.ParManagement.parForHole(hole)
+        // Use standard pars until centralized system is properly integrated
+        let standardPars = [4, 4, 3, 5, 4, 4, 3, 4, 5, 4, 4, 3, 5, 4, 4, 4, 3, 5]
+        return standardPars[(hole - 1) % 18]
     }
     
     private func getPreviousScore(for player: PlayerIdentifier, hole: Int) -> Int? {

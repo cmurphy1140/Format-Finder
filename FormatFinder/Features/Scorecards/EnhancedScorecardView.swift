@@ -308,7 +308,7 @@ struct EnhancedPlayerScoreCard: View {
     }
     
     private var scoreColor: Color {
-        guard score > 0 else { return AppColors.textTertiary }
+        guard score > 0 else { return AppColors.textSecondary }
         
         let diff = score - par
         switch diff {

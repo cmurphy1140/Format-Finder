@@ -568,7 +568,7 @@ struct FormatGridCard: View {
     
     var body: some View {
         Button(action: {
-            HapticManager.impact(.light)
+            HapticManager.shared.impact(.light)
             action()
         }) {
             VStack(alignment: .leading, spacing: 12) {

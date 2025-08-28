@@ -163,46 +163,7 @@ struct GameModeCard: View {
     }
 }
 
-// MARK: - Difficulty Indicator
-
-struct DifficultyIndicator: View {
-    let difficulty: String
-    
-    var color: Color {
-        switch difficulty {
-        case "Easy": return .green
-        case "Medium": return .orange
-        case "Hard": return .red
-        default: return .gray
-        }
-    }
-    
-    var body: some View {
-        HStack(spacing: 4) {
-            ForEach(0..<3) { index in
-                Circle()
-                    .fill(getDotColor(index))
-                    .frame(width: 8, height: 8)
-            }
-            Text(difficulty)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundColor(.white.opacity(0.9))
-        }
-    }
-    
-    func getDotColor(_ index: Int) -> Color {
-        switch difficulty {
-        case "Easy":
-            return index == 0 ? color : Color.white.opacity(0.3)
-        case "Medium":
-            return index <= 1 ? color : Color.white.opacity(0.3)
-        case "Hard":
-            return color
-        default:
-            return Color.white.opacity(0.3)
-        }
-    }
-}
+// MARK: - Difficulty Indicator (removed duplicate - using GolfFormatHomeView implementation)
 
 // MARK: - Game Configuration
 

@@ -88,11 +88,7 @@ struct MainNavigationView: View {
                     }
                     .tag(3)
                 
-                ConsolidatedTaskListView(
-                    theme: MastersTaskListTheme(),
-                    useAdvancedFeatures: true,
-                    showGolfTheme: true
-                )
+                Text("Tasks Coming Soon")
                     .tabItem {
                         Image(systemName: "checklist")
                         Text("Tasks")
