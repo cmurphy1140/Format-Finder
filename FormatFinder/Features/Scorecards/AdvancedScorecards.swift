@@ -13,12 +13,12 @@ struct StablefordScorecardView: View {
         configuration.players.filter { $0.isActive }
     }
     
-    let par = 4 // This should come from course data
+    var par: Int { GolfConstants.ParManagement.parForHole(hole) }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: par, yards: 380)
+                HoleInfoHeader(hole: hole, par: par, yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Stableford Points Reference
                 StablefordPointsReference(scoringSystem: configuration.scoringRules.stablefordPoints)
@@ -322,7 +322,7 @@ struct NassauScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Nassau Match Status
                 NassauStatusCard(
@@ -579,7 +579,7 @@ struct WolfScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Wolf Selection
                 VStack(spacing: 15) {
@@ -995,7 +995,7 @@ struct VegasScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Team 1
                 VegasTeamCard(
@@ -1080,7 +1080,8 @@ struct VegasScorecardView: View {
     
     func hasBirdie(team: Int) -> Bool {
         let scores = team == 1 ? team1.compactMap { team1Scores[$0.id] } : team2.compactMap { team2Scores[$0.id] }
-        return scores.contains { $0 < 4 } // Assuming par 4
+        let holePar = GolfConstants.ParManagement.parForHole(hole)
+        return scores.contains { $0 < holePar }
     }
     
     func checkForFlip() {

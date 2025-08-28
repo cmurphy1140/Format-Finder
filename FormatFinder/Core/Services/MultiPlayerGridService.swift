@@ -198,7 +198,7 @@ final class MultiPlayerGridService: ObservableObject {
             
         case .validation:
             // Take the most reasonable score
-            let par = 4 // TODO: Get actual par
+            let par = GolfConstants.ParManagement.parForHole(conflict.hole)
             let winner = conflict.updates.min { abs($0.score - par) < abs($1.score - par) }!
             resolution = ConflictResolution(
                 conflict: conflict,

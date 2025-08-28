@@ -64,9 +64,10 @@ final class GestureScoreService: ObservableObject {
     }
     
     /// Pre-calculate score probabilities for a player on a specific hole
-    func preCalculateProbabilities(for player: Player, hole: Int, par: Int = 4) -> ScoreProbabilityDistribution {
+    func preCalculateProbabilities(for player: Player, hole: Int, holePar: Int? = nil) -> ScoreProbabilityDistribution {
+        let holePar = holePar ?? GolfConstants.ParManagement.holeParForHole(hole)
         // Fetch player's scoring history
-        let history = fetchScoringHistory(for: player, par: par)
+        let history = fetchScoringHistory(for: player, holePar: holePar)
         
         // Calculate current form (last 3-5 holes)
         let recentForm = calculateRecentForm(for: player, holesBack: 5)
@@ -75,7 +76,7 @@ final class GestureScoreService: ObservableObject {
         let distribution = generateProbabilityDistribution(
             history: history,
             recentForm: recentForm,
-            par: par
+            holePar: holePar
         )
         
         // Cache the predictions
@@ -201,22 +202,22 @@ final class GestureScoreService: ObservableObject {
         }
     }
     
-    private func fetchScoringHistory(for player: Player, par: Int) -> ScoringHistory {
+    private func fetchScoringHistory(for player: Player, holePar: Int) -> ScoringHistory {
         // In a real app, this would fetch from Core Data
         // For now, return mock data based on handicap
-        let avgScore = Double(par) + Double(player.handicap) / 18.0
+        let avgScore = Double(holePar) + Double(player.handicap) / 18.0
         
         return ScoringHistory(
             averageScore: avgScore,
             standardDeviation: 1.2,
             scoreCounts: [
-                par - 2: 2,
-                par - 1: 8,
-                par: 35,
-                par + 1: 30,
-                par + 2: 15,
-                par + 3: 7,
-                par + 4: 3
+                holePar - 2: 2,
+                holePar - 1: 8,
+                holePar: 35,
+                holePar + 1: 30,
+                holePar + 2: 15,
+                holePar + 3: 7,
+                holePar + 4: 3
             ]
         )
     }
@@ -234,14 +235,14 @@ final class GestureScoreService: ObservableObject {
     private func generateProbabilityDistribution(
         history: ScoringHistory,
         recentForm: RecentForm,
-        par: Int
+        holePar: Int
     ) -> ScoreProbabilityDistribution {
         
         var probabilities: [Int: Double] = [:]
         let mostLikely = Int(round(history.averageScore))
         
         // Generate bell curve around average
-        for score in (par - 3)...(par + 5) {
+        for score in (holePar - 3)...(holePar + 5) {
             let distance = Double(score) - history.averageScore
             let probability = gaussianProbability(
                 x: Double(score),
@@ -260,7 +261,7 @@ final class GestureScoreService: ObservableObject {
         return ScoreProbabilityDistribution(
             mostLikely: mostLikely,
             distribution: probabilities,
-            preloadRange: (par - 2)...(par + 4),
+            preloadRange: (holePar - 2)...(holePar + 4),
             confidence: recentForm.confidence
         )
     }

@@ -412,7 +412,7 @@ struct StablefordStatsView: View {
             let score = gameState.getScore(hole: hole, player: playerId)
             if score > 0 {
                 // Standard Stableford scoring
-                let par = 4 // Would need actual par
+                let par = GolfConstants.ParManagement.parForHole(hole)
                 let diff = score - par
                 switch diff {
                 case ...(-2): points += 4 // Eagle or better
@@ -979,7 +979,7 @@ struct HoleDetailsCard: View {
                         Spacer()
                         
                         if score > 0 {
-                            ScoreBadge(score: score, par: 4)
+                            ScoreBadge(score: score, par: GolfConstants.ParDefaults.defaultPar)
                         } else {
                             Text("-")
                                 .font(.system(size: 14))

@@ -19,7 +19,7 @@ struct ScrambleScorecardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Hole Information
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Shot Tracking
                 VStack(alignment: .leading, spacing: 15) {
@@ -278,7 +278,7 @@ struct BestBallScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Individual Scores
                 VStack(alignment: .leading, spacing: 15) {
@@ -290,6 +290,7 @@ struct BestBallScorecardView: View {
                             player: player,
                             score: playerScores[player.id] ?? 0,
                             isBestScore: playerScores[player.id] == bestScore && bestScore != nil,
+                            hole: hole,
                             onScoreChange: { newScore in
                                 playerScores[player.id] = newScore
                             }
@@ -364,7 +365,7 @@ struct MatchPlayScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Match Status
                 VStack(spacing: 10) {
@@ -388,6 +389,7 @@ struct MatchPlayScorecardView: View {
                             player: players[index],
                             score: index == 0 ? player1Score : player2Score,
                             isWinner: holeWinner == players[index].id,
+                            hole: hole,
                             onScoreChange: { newScore in
                                 if index == 0 {
                                     player1Score = newScore
@@ -505,7 +507,7 @@ struct SkinsScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 // Skin Value Display
                 VStack(spacing: 10) {
@@ -544,6 +546,7 @@ struct SkinsScorecardView: View {
                             player: player,
                             score: playerScores[player.id] ?? 0,
                             isBestScore: player.id == skinWinner?.id,
+                            hole: hole,
                             onScoreChange: { newScore in
                                 playerScores[player.id] = newScore
                             }
@@ -678,6 +681,7 @@ struct PlayerScoreRow: View {
     let player: Player
     let score: Int
     let isBestScore: Bool
+    let hole: Int
     let onScoreChange: (Int) -> Void
     
     var body: some View {
@@ -718,8 +722,8 @@ struct PlayerScoreRow: View {
             
             // Quick Score Buttons (Par, Bogey, Birdie)
             HStack(spacing: 8) {
-                // TODO: Connect to actual hole par data
-                let par = 4 // Hardcoded for now
+                // Using centralized par management
+                let par = GolfConstants.ParManagement.parForHole(hole)
                 
                 Button(action: { onScoreChange(par - 1) }) {
                     Text("Birdie")
@@ -768,6 +772,7 @@ struct MatchPlayPlayerCard: View {
     let player: Player
     let score: Int
     let isWinner: Bool
+    let hole: Int
     let onScoreChange: (Int) -> Void
     
     var body: some View {
@@ -805,8 +810,8 @@ struct MatchPlayPlayerCard: View {
             
             // Quick Score Buttons (Par, Bogey, Birdie)
             HStack(spacing: 8) {
-                // TODO: Connect to actual hole par data
-                let par = 4 // Hardcoded for now
+                // Using centralized par management
+                let par = GolfConstants.ParManagement.parForHole(hole)
                 
                 Button(action: { onScoreChange(par - 1) }) {
                     Text("Birdie")
@@ -867,7 +872,7 @@ struct BasicGenericScorecardView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                HoleInfoHeader(hole: hole, par: 4, yards: 380)
+                HoleInfoHeader(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole))
                 
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Player Scores")
@@ -878,6 +883,7 @@ struct BasicGenericScorecardView: View {
                             player: player,
                             score: playerScores[player.id] ?? 0,
                             isBestScore: false,
+                            hole: hole,
                             onScoreChange: { newScore in
                                 playerScores[player.id] = newScore
                             }

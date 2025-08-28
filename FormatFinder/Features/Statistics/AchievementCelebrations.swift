@@ -451,7 +451,7 @@ class AchievementDetector: ObservableObject {
     
     private func checkForEagle(player: Player, gameState: GameState, hole: Int) -> Achievement? {
         guard let score = gameState.scores[hole]?[player.id] else { return nil }
-        let par = 4 // TODO: Get actual par
+        let par = GolfConstants.ParManagement.parForHole(hole)
         
         if score <= par - 2 {
             return Achievement(
@@ -472,7 +472,7 @@ class AchievementDetector: ObservableObject {
         var birdieStreak = 0
         for h in max(1, hole - 2)...hole {
             if let score = gameState.scores[h]?[player.id] {
-                let par = 4 // TODO: Get actual par
+                let par = GolfConstants.ParManagement.parForHole(h)
                 if score < par {
                     birdieStreak += 1
                 } else {

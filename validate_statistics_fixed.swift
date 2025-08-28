@@ -2,6 +2,13 @@
 
 import Foundation
 
+// MARK: - Inline GolfConstants for validation script
+public enum GolfConstants {
+    public enum ParDefaults {
+        public static let defaultPar: Int = 4
+    }
+}
+
 // MARK: - Test Data Structures
 
 struct Player {
@@ -306,7 +313,8 @@ class StatisticsValidator {
         
         for round in rounds {
             if let score = round.scores[hole] {
-                totalDiff += score - 4 // Assuming par 4
+                // Use default par since we don't have specific course data
+                totalDiff += score - GolfConstants.ParDefaults.defaultPar
                 count += 1
             }
         }

@@ -292,7 +292,7 @@ final class StatisticsCalculator {
     
     private func getParForHole(_ hole: Int) -> Int {
         // Mock par - would come from course data
-        let pars = [4, 4, 3, 5, 4, 4, 3, 4, 5, 4, 4, 3, 5, 4, 4, 4, 3, 5]
+        let pars = GolfConstants.ParManagement.service.getAllPars()
         return pars[(hole - 1) % 18]
     }
 }

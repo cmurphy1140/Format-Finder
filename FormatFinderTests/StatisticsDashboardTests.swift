@@ -87,7 +87,7 @@ class StatisticsDashboardTests: XCTestCase {
     func testStoryGeneration() {
         let storyGenerator = RoundStoryGenerator()
         let scores = [3, 4, 5, 4, 3, 4, 6, 4, 3] // Mixed performance
-        let pars = [4, 4, 4, 4, 4, 4, 4, 4, 4] // All par 4s
+        let pars = Array(repeating: GolfConstants.ParDefaults.defaultPar, count: 9) // Test data
         let playerName = "Test Player"
         
         let story = storyGenerator.generateStory(scores: scores, pars: pars, playerName: playerName)
@@ -127,7 +127,7 @@ class StatisticsDashboardTests: XCTestCase {
         
         // Test differential calculation
         let scores = getPlayerScores(player: player)
-        let pars = Array(repeating: 4, count: scores.count)
+        let pars = Array(repeating: GolfConstants.ParDefaults.defaultPar, count: scores.count)
         let differential = calculateDifferential(scores: scores, pars: pars)
         
         // Verify differential is reasonable
@@ -417,11 +417,11 @@ class StatisticsDashboardTests: XCTestCase {
     }
     
     private func calculateDifferential(scores: [Int], pars: [Int]) -> Int {
-        return scores.enumerated().reduce(0) { $0 + ($1.element - (pars[safe: $1.offset] ?? 4)) }
+        return scores.enumerated().reduce(0) { $0 + ($1.element - (pars[safe: $1.offset] ?? GolfConstants.ParDefaults.defaultPar)) }
     }
     
     private func countBirdies(scores: [Int], pars: [Int]) -> Int {
-        return scores.enumerated().filter { $0.element < (pars[safe: $0.offset] ?? 4) }.count
+        return scores.enumerated().filter { $0.element < (pars[safe: $0.offset] ?? GolfConstants.ParDefaults.defaultPar) }.count
     }
     
     private func calculateAverage(scores: [Int]) -> Double {
@@ -541,7 +541,7 @@ class StatisticsDashboardTests: XCTestCase {
         
         for round in rounds {
             if let score = round.scores[hole] {
-                totalDiff += score - 4 // Assuming par 4
+                totalDiff += score - GolfConstants.ParDefaults.defaultPar // Using default par
                 count += 1
             }
         }

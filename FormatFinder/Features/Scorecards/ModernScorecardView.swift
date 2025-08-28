@@ -879,8 +879,8 @@ class ScorecardManager: ObservableObject {
         for hole in 1...18 {
             scores[hole] = ScoreData(
                 hole: hole,
-                par: [3, 4, 5].randomElement()!,
-                yards: Int.random(in: 150...550),
+                par: GolfConstants.ParManagement.parForHole(hole),
+                yards: GolfConstants.ParManagement.service.getYardageForHole(hole),
                 score: 0,
                 hasAchievement: false
             )
@@ -888,7 +888,7 @@ class ScorecardManager: ObservableObject {
     }
     
     func scoreFor(hole: Int) -> ScoreData {
-        scores[hole] ?? ScoreData(hole: hole, par: 4, yards: 400, score: 0, hasAchievement: false)
+        scores[hole] ?? ScoreData(hole: hole, par: GolfConstants.ParManagement.parForHole(hole), yards: GolfConstants.ParManagement.service.getYardageForHole(hole), score: 0, hasAchievement: false)
     }
     
     func updateScore(for hole: Int, score: Int) {
