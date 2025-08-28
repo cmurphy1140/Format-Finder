@@ -277,42 +277,10 @@ struct RadarChartComparison: View {
                 .foregroundColor(MastersColors.silver)
             
             GeometryReader { geometry in
-                let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
-                let radius = min(geometry.size.width, geometry.size.height) / 2 - 40
-                
                 ZStack {
-                    // Background grid
-                    RadarGrid(
-                        center: center,
-                        radius: radius,
-                        dimensions: dimensions.count
-                    )
-                    
-                    // Data polygons
-                    ForEach(analytics.filter { selectedFormats.contains($0.format.name) }, 
-                            id: \.format.id) { data in
-                        RadarPolygon(
-                            data: data,
-                            dimensions: dimensions.map { $0.1 },
-                            center: center,
-                            radius: radius,
-                            color: formatColor(for: data.format.name),
-                            animationProgress: animationProgress
-                        )
-                    }
-                    
-                    // Dimension labels
-                    ForEach(0..<dimensions.count, id: \.self) { index in
-                        let angle = (Double(index) * 2 * .pi / Double(dimensions.count)) - .pi / 2
-                        let labelRadius = radius + 25
-                        let x = center.x + cos(angle) * labelRadius
-                        let y = center.y + sin(angle) * labelRadius
-                        
-                        Text(dimensions[index].0)
-                            .font(MastersTypography.microText())
-                            .foregroundColor(MastersColors.graphite)
-                            .position(x: x, y: y)
-                    }
+                    radarChartBackground(geometry: geometry)
+                    radarChartPolygons(geometry: geometry)
+                    radarChartLabels(geometry: geometry)
                 }
             }
             .frame(height: 350)
@@ -343,6 +311,58 @@ struct RadarChartComparison: View {
                 animationProgress = 1.0
             }
         }
+    }
+    
+    @ViewBuilder
+    private func radarChartBackground(geometry: GeometryProxy) -> some View {
+        let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+        let radius = min(geometry.size.width, geometry.size.height) / 2 - 40
+        
+        RadarGrid(
+            center: center,
+            radius: radius,
+            dimensions: dimensions.count
+        )
+    }
+    
+    @ViewBuilder
+    private func radarChartPolygons(geometry: GeometryProxy) -> some View {
+        let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+        let radius = min(geometry.size.width, geometry.size.height) / 2 - 40
+        
+        ForEach(analytics.filter { selectedFormats.contains($0.format.name) }, 
+                id: \.format.id) { data in
+            RadarPolygon(
+                data: data,
+                dimensions: dimensions.map { $0.1 },
+                center: center,
+                radius: radius,
+                color: formatColor(for: data.format.name),
+                animationProgress: animationProgress
+            )
+        }
+    }
+    
+    @ViewBuilder
+    private func radarChartLabels(geometry: GeometryProxy) -> some View {
+        let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
+        let radius = min(geometry.size.width, geometry.size.height) / 2 - 40
+        
+        ForEach(0..<dimensions.count, id: \.self) { index in
+            radarLabel(index: index, center: center, radius: radius)
+        }
+    }
+    
+    private func radarLabel(index: Int, center: CGPoint, radius: CGFloat) -> some View {
+        let angle = (Double(index) * 2 * .pi / Double(dimensions.count)) - .pi / 2
+        let labelRadius = radius + 25
+        let x = center.x + cos(angle) * labelRadius
+        let y = center.y + sin(angle) * labelRadius
+        
+        return Text(dimensions[index].0)
+            .font(MastersTypography.microText())
+            .foregroundColor(MastersColors.graphite)
+            .position(x: x, y: y)
     }
     
     private func formatColor(for name: String) -> Color {
@@ -410,42 +430,41 @@ struct RadarPolygon: View {
     let animationProgress: Double
     
     var body: some View {
+        ZStack {
+            polygonFill
+            polygonStroke
+        }
+    }
+    
+    private var polygonFill: some View {
         Path { path in
-            for (index, dimension) in dimensions.enumerated() {
-                let value = normalizeValue(data[keyPath: dimension])
-                let angle = (Double(index) * 2 * .pi / Double(dimensions.count)) - .pi / 2
-                let r = radius * CGFloat(value) * CGFloat(animationProgress)
-                let x = center.x + cos(angle) * r
-                let y = center.y + sin(angle) * r
-                
-                if index == 0 {
-                    path.move(to: CGPoint(x: x, y: y))
-                } else {
-                    path.addLine(to: CGPoint(x: x, y: y))
-                }
-            }
-            path.closeSubpath()
+            buildPolygonPath(&path)
         }
         .fill(color.opacity(0.2))
-        .overlay(
-            Path { path in
-                for (index, dimension) in dimensions.enumerated() {
-                    let value = normalizeValue(data[keyPath: dimension])
-                    let angle = (Double(index) * 2 * .pi / Double(dimensions.count)) - .pi / 2
-                    let r = radius * CGFloat(value) * CGFloat(animationProgress)
-                    let x = center.x + cos(angle) * r
-                    let y = center.y + sin(angle) * r
-                    
-                    if index == 0 {
-                        path.move(to: CGPoint(x: x, y: y))
-                    } else {
-                        path.addLine(to: CGPoint(x: x, y: y))
-                    }
-                }
-                path.closeSubpath()
+    }
+    
+    private var polygonStroke: some View {
+        Path { path in
+            buildPolygonPath(&path)
+        }
+        .stroke(color, lineWidth: 2)
+    }
+    
+    private func buildPolygonPath(_ path: inout Path) {
+        for (index, dimension) in dimensions.enumerated() {
+            let value = normalizeValue(data[keyPath: dimension])
+            let angle = (Double(index) * 2 * .pi / Double(dimensions.count)) - .pi / 2
+            let r = radius * CGFloat(value) * CGFloat(animationProgress)
+            let x = center.x + cos(angle) * r
+            let y = center.y + sin(angle) * r
+            
+            if index == 0 {
+                path.move(to: CGPoint(x: x, y: y))
+            } else {
+                path.addLine(to: CGPoint(x: x, y: y))
             }
-            .stroke(color, lineWidth: 2)
-        )
+        }
+        path.closeSubpath()
     }
     
     private func normalizeValue(_ value: Double) -> Double {

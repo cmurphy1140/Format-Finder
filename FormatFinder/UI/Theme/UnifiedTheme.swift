@@ -650,10 +650,8 @@ struct UnifiedColors {
     
     // Scoring Colors
     static let birdie = Color(hex: "4CAF50")
-    static let par = Color(hex: "2196F3")
     static let bogey = Color(hex: "FF9800")
     static let doubleBogey = Color(hex: "F44336")
-    static let scoreRed = Color(hex: "C41E3A")
 }
 
 // Typography Backwards Compatibility

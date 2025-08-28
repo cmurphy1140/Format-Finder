@@ -951,37 +951,38 @@ struct MastersTabBar: View {
 // MARK: - Masters Leaderboard Row
 struct MastersLeaderboardRow: View {
     let position: Int
-    let playerName: String
-    let score: Int
-    let parDiff: String
+    let player: String
+    let score: String
+    let thru: String
+    let isLeader: Bool
     
     var body: some View {
         HStack {
             Text("\(position)")
                 .font(.headline)
-                .foregroundColor(MastersColors.mastersGreen)
+                .foregroundColor(isLeader ? MastersColors.mastersGreen : MastersColors.graphite)
                 .frame(width: 30)
             
-            Text(playerName)
+            Text(player)
                 .font(.body)
             
             Spacer()
             
-            Text(parDiff)
+            Text(score)
                 .font(.headline)
                 .foregroundColor(scoreColor)
             
-            Text("\(score)")
-                .font(.body)
+            Text("thru \(thru)")
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
         .padding(.vertical, 8)
     }
     
     private var scoreColor: Color {
-        if parDiff.starts(with: "-") {
+        if score.starts(with: "-") {
             return MastersColors.mastersGreen
-        } else if parDiff == "E" {
+        } else if score == "E" {
             return MastersColors.graphite
         } else {
             return MastersColors.scoreRed
