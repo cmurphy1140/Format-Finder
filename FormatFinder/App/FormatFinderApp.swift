@@ -60,33 +60,40 @@ struct MainNavigationView: View {
                 .ignoresSafeArea()
             
             TabView(selection: $selectedTab) {
+                GolfFormatHomeView()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                    .tag(0)
+                
                 SwipeableFormatCards()
                     .tabItem {
                         Image(systemName: "square.grid.3x3.fill")
                         Text("Formats")
                     }
-                    .tag(0)
+                    .tag(1)
                 
                 PlayView()
                     .tabItem {
                         Image(systemName: "play.circle.fill")
                         Text("Play")
                     }
-                    .tag(1)
+                    .tag(2)
                 
                 StatsView()
                     .tabItem {
                         Image(systemName: "chart.bar.fill")
                         Text("Stats")
                     }
-                    .tag(2)
+                    .tag(3)
                 
-                TaskListView()
+                EnhancedTaskListView()
                     .tabItem {
                         Image(systemName: "checklist")
                         Text("Tasks")
                     }
-                    .tag(3)
+                    .tag(4)
             }
             .accentColor(MastersColors.mastersGreen)
             
@@ -366,8 +373,8 @@ struct EnhancedGameModeSelector: View {
                 // Green gradient background
                 LinearGradient(
                     gradient: Gradient(colors: [
-                        AppColors.primaryGreen.opacity(0.9),
-                        AppColors.darkGreen
+                        MastersColors.mastersGreen.opacity(0.9),
+                        MastersColors.shadowGreen
                     ]),
                     startPoint: .top,
                     endPoint: .bottom
@@ -462,7 +469,7 @@ struct EnhancedFormatCard: View {
                             LinearGradient(
                                 colors: isSelected ? 
                                     [Color.white.opacity(0.3), Color.white.opacity(0.1)] :
-                                    [AppColors.primaryGreen.opacity(0.2), AppColors.primaryGreen.opacity(0.1)],
+                                    [MastersColors.mastersGreen.opacity(0.2), MastersColors.mastersGreen.opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -471,18 +478,18 @@ struct EnhancedFormatCard: View {
                     
                     Image(systemName: getFormatIcon(format.name))
                         .font(.system(size: 28))
-                        .foregroundColor(isSelected ? .white : AppColors.primaryGreen)
+                        .foregroundColor(isSelected ? .white : MastersColors.mastersGreen)
                         .rotationEffect(.degrees(isPressed ? 10 : 0))
                 }
                 
                 Text(format.name)
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(isSelected ? .white : AppColors.darkGreen)
+                    .foregroundColor(isSelected ? .white : MastersColors.shadowGreen)
                     .lineLimit(1)
                 
                 Text(format.players)
                     .font(.system(size: 12))
-                    .foregroundColor(isSelected ? .white.opacity(0.8) : AppColors.textSecondary)
+                    .foregroundColor(isSelected ? .white.opacity(0.8) : MastersColors.textSecondary)
                     .lineLimit(1)
                 
                 DifficultyBadge(difficulty: format.difficulty)
@@ -494,7 +501,7 @@ struct EnhancedFormatCard: View {
                     .fill(
                         isSelected ? 
                             LinearGradient(
-                                colors: [AppColors.primaryGreen, AppColors.darkGreen],
+                                colors: [MastersColors.mastersGreen, MastersColors.shadowGreen],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ) :
@@ -505,7 +512,7 @@ struct EnhancedFormatCard: View {
                             )
                     )
                     .shadow(
-                        color: isSelected ? AppColors.primaryGreen.opacity(0.5) : AppColors.cardShadow,
+                        color: isSelected ? MastersColors.mastersGreen.opacity(0.5) : MastersColors.cardShadow,
                         radius: isSelected ? 10 : 6,
                         x: 0,
                         y: isSelected ? 5 : 3
@@ -580,7 +587,7 @@ struct LaunchGrassParticle: View {
     var body: some View {
         Image(systemName: "leaf.fill")
             .font(.system(size: CGFloat.random(in: 10...20)))
-            .foregroundColor(AppColors.primaryGreen.opacity(Double.random(in: 0.3...0.6)))
+            .foregroundColor(MastersColors.mastersGreen.opacity(Double.random(in: 0.3...0.6)))
             .rotationEffect(.degrees(rotation))
             .offset(offset)
             .onAppear {
