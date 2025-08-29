@@ -87,6 +87,15 @@ struct GameModeCard: View {
     let action: () -> Void
     @State private var isPressed = false
     
+    func difficultyLevel(_ difficulty: String) -> Int {
+        switch difficulty.lowercased() {
+        case "easy": return 1
+        case "medium", "moderate": return 2
+        case "hard", "challenging": return 3
+        default: return 2
+        }
+    }
+    
     var body: some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 12) {
@@ -113,7 +122,15 @@ struct GameModeCard: View {
                     .foregroundColor(.white.opacity(0.7))
                 
                 HStack {
-                    DifficultyIndicator(difficulty: format.difficulty)
+                    // Difficulty indicator
+                    HStack(spacing: 4) {
+                        ForEach(0..<3) { index in
+                            Circle()
+                                .fill(index < difficultyLevel(format.difficulty) ? 
+                                      Color.yellow : Color.gray.opacity(0.3))
+                                .frame(width: 8, height: 8)
+                        }
+                    }
                     Spacer()
                 }
             }

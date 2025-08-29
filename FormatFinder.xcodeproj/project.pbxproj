@@ -56,6 +56,7 @@
 		E474712D3EB5CD39DE1C9EDA /* AppIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF76B3B95836CC383CD7F973 /* AppIconView.swift */; };
 		EF51095FCA0F16A240D4EA65 /* FormatScorecards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D40F03962862BBE0D25520 /* FormatScorecards.swift */; };
 		F0FCE69AF07A8A8F43037BA9 /* MastersFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC9C15A07B40C493641116E /* MastersFormatView.swift */; };
+		ANIMATEDFORMATS123456790 /* AnimatedGolfFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = ANIMATEDFORMATS123456789 /* AnimatedGolfFormats.swift */; };
 		F20F65D82E9B9AA74B56BC05 /* StateAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B1F4511C97BE1AC7F0A5F7 /* StateAdapter.swift */; };
 		F4CFB4677C831A6D5B7FC574 /* SmartCaddie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E38F143E19FACB0188B41B /* SmartCaddie.swift */; };
 		AABBCCDD1234567890ABCDEF /* SwipeableFormatCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDD1234567890ABCDE0 /* SwipeableFormatCards.swift */; };
@@ -114,6 +115,7 @@
 		FEC9C15A07B40C493641116E /* MastersFormatView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MastersFormatView.swift; path = FormatFinder/Features/Formats/MastersFormatView.swift; sourceTree = "<group>"; };
 		FF76B3B95836CC383CD7F973 /* AppIconView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppIconView.swift; path = FormatFinder/Resources/AppIconView.swift; sourceTree = "<group>"; };
 		AABBCCDD1234567890ABCDE0 /* SwipeableFormatCards.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeableFormatCards.swift; path = FormatFinder/Features/Formats/SwipeableFormatCards.swift; sourceTree = "<group>"; };
+		ANIMATEDFORMATS123456789 /* AnimatedGolfFormats.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedGolfFormats.swift; path = FormatFinder/Features/Formats/AnimatedGolfFormats.swift; sourceTree = "<group>"; };
 		AABBCCDD1234567890ABCDE2 /* FormatDataService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FormatDataService.swift; path = FormatFinder/Core/Services/FormatDataService.swift; sourceTree = "<group>"; };
 		COURSEDATA12345678901235 /* CourseData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CourseData.swift; path = FormatFinder/Core/Models/CourseData.swift; sourceTree = "<group>"; };
 		GOLFCONSTANTS123456789013 /* GolfConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GolfConstants.swift; path = FormatFinder/Core/Constants/GolfConstants.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				CA03059A54275CE63F669148 /* IntuitiveDemonstration.swift */,
 				FEC9C15A07B40C493641116E /* MastersFormatView.swift */,
 				AABBCCDD1234567890ABCDE0 /* SwipeableFormatCards.swift */,
+				ANIMATEDFORMATS123456789 /* AnimatedGolfFormats.swift */,
 			);
 			name = Formats;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				77646A97F5FBEC475E550C23 /* FormatComparisonVisualizer.swift in Sources */,
 				COURSEDATA12345678901234 /* CourseData.swift in Sources */,
 				GOLFCONSTANTS123456789012 /* GolfConstants.swift in Sources */,
+				ANIMATEDFORMATS123456790 /* AnimatedGolfFormats.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

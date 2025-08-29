@@ -1,760 +1,380 @@
 import SwiftUI
 
 struct GolfFormatHomeView: View {
-    @State private var numberOfGolfers = 4
-    @State private var selectedFilter: String? = nil
-    @State private var searchText = ""
-    @State private var showSearch = false
-    @State private var showRandomFormat = false
-    @State private var randomFormat: EnhancedGolfFormat?
-    @State private var selectedFormat: EnhancedGolfFormat?
-    @State private var showFormatDetail = false
-    @State private var animateHeader = false
-    @State private var animateCards = false
-    @StateObject private var formatDataService = FormatDataService.shared
-    
-    let filterOptions = ["Casual", "Competitive", "Team Play", "Fast Play", "Traditional"]
-    
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    var filteredFormats: [EnhancedGolfFormat] {
-        formatDataService.formats.filter { format in
-            let matchesSearch = searchText.isEmpty || 
-                format.name.localizedCaseInsensitiveContains(searchText) ||
-                format.description.localizedCaseInsensitiveContains(searchText)
-            
-            let matchesFilter = selectedFilter == nil || {
-                switch selectedFilter {
-                case "Casual":
-                    return format.difficulty == "Easy"
-                case "Competitive":
-                    return format.difficulty == "Hard"
-                case "Team Play":
-                    return format.idealGroupSize.contains(4)
-                case "Fast Play":
-                    return format.difficulty == "Easy"
-                case "Traditional":
-                    return ["Stroke Play", "Match Play", "Stableford", "Nassau"].contains(format.name)
-                default:
-                    return true
-                }
-            }()
-            
-            return matchesSearch && matchesFilter
-        }
-    }
-    
-    var formatOfTheDay: EnhancedGolfFormat? {
-        formatDataService.formats.randomElement()
-    }
+    @State private var animateContent = false
+    @State private var selectedSection: String? = nil
     
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
-                backgroundGradient
+                // Clean background
+                Color(UIColor.systemBackground)
                     .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack(spacing: 0) {
-                        // Animated Header
-                        animatedHeaderSection
-                            .padding(.top, showSearch ? 0 : -40)
+                    VStack(spacing: 40) {
+                        // App Title Section
+                        headerSection
+                            .padding(.top, 20)
                         
-                        // Search Bar (slides down when active)
-                        if showSearch {
-                            searchBarSection
-                                .transition(.asymmetric(
-                                    insertion: .move(edge: .top).combined(with: .opacity),
-                                    removal: .move(edge: .top).combined(with: .opacity)
-                                ))
-                        }
+                        // Introduction Section
+                        introductionSection
                         
-                        VStack(spacing: 24) {
-                            // Quick Setup Card
-                            quickSetupCard
-                                .scaleEffect(animateCards ? 1 : 0.9)
-                                .opacity(animateCards ? 1 : 0)
-                                .animation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.2), value: animateCards)
-                            
-                            // Filter Chips
-                            filterChipsSection
-                                .opacity(animateCards ? 1 : 0)
-                                .animation(.easeInOut(duration: 0.4).delay(0.3), value: animateCards)
-                            
-                            // Format of the Day
-                            if let todayFormat = formatOfTheDay {
-                                formatOfTheDayCard(format: todayFormat)
-                                    .scaleEffect(animateCards ? 1 : 0.9)
-                                    .opacity(animateCards ? 1 : 0)
-                                    .animation(.spring(response: 0.5, dampingFraction: 0.7).delay(0.4), value: animateCards)
-                            }
-                            
-                            // Popular Formats Grid
-                            popularFormatsSection
-                                .opacity(animateCards ? 1 : 0)
-                                .animation(.easeInOut(duration: 0.4).delay(0.5), value: animateCards)
-                        }
-                        .padding(.horizontal)
-                        .padding(.bottom, 100) // Space for floating button
+                        // How to Use Section
+                        howToUseSection
+                        
+                        // Format Types Explanation
+                        formatTypesSection
+                        
+                        // Casual vs Competitive
+                        playStyleSection
+                        
+                        // Action Buttons
+                        actionButtonsSection
+                            .padding(.bottom, 40)
                     }
+                    .padding(.horizontal)
                 }
-                
-                // Floating Random Format Button
-                floatingRandomButton
             }
             .navigationBarHidden(true)
             .onAppear {
-                startAnimations()
-            }
-            .sheet(isPresented: $showFormatDetail) {
-                if let format = selectedFormat {
-                    NavigationView {
-                        VStack(spacing: 20) {
-                            // Format header
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(format.name)
-                                        .font(.largeTitle)
-                                        .fontWeight(.bold)
-                                    Text(format.tagline)
-                                        .font(.headline)
-                                        .foregroundColor(.secondary)
-                                }
-                                Spacer()
-                            }
-                            .padding()
-                            
-                            // Quick info
-                            HStack(spacing: 30) {
-                                VStack {
-                                    Image(systemName: "person.2.fill")
-                                        .font(.title2)
-                                        .foregroundColor(MastersColors.mastersGreen)
-                                    Text("\(format.idealGroupSize.lowerBound)-\(format.idealGroupSize.upperBound) Players")
-                                        .font(.caption)
-                                }
-                                
-                                VStack {
-                                    Image(systemName: "speedometer")
-                                        .font(.title2)
-                                        .foregroundColor(MastersColors.mastersGreen)
-                                    Text(format.difficulty)
-                                        .font(.caption)
-                                }
-                            }
-                            
-                            // Description
-                            Text(format.description)
-                                .padding()
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(10)
-                            
-                            // Rules
-                            VStack(alignment: .leading, spacing: 10) {
-                                Text("How to Play")
-                                    .font(.headline)
-                                ForEach(format.quickRules, id: \.self) { rule in
-                                    HStack(alignment: .top) {
-                                        Text("•")
-                                        Text(rule)
-                                            .font(.subheadline)
-                                    }
-                                }
-                            }
-                            .padding()
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                showFormatDetail = false
-                            }) {
-                                Text("Got it!")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(MastersColors.mastersGreen)
-                                    .cornerRadius(10)
-                            }
-                            .padding()
-                        }
-                        .navigationBarItems(trailing: Button("Close") {
-                            showFormatDetail = false
-                        })
-                    }
+                withAnimation(.easeOut(duration: 0.8)) {
+                    animateContent = true
                 }
             }
         }
     }
     
-    // MARK: - Components
+    // MARK: - Header Section
     
-    var backgroundGradient: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [
-                Color(red: 0.2, green: 0.5, blue: 0.3).opacity(0.8), // Golf course green
-                Color(red: 0.5, green: 0.7, blue: 0.9) // Sky blue
-            ]),
-            startPoint: .bottom,
-            endPoint: .top
-        )
-    }
-    
-    var animatedHeaderSection: some View {
-        ZStack(alignment: .top) {
-            // Animated golf course waves
-            ForEach(0..<3) { index in
-                Wave(amplitude: 30, frequency: 0.01, phase: Double(index) * 0.5)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color.white.opacity(0.1),
-                                Color.white.opacity(0.05)
-                            ]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .frame(height: 150)
-                    .offset(y: CGFloat(index * 20))
-                    .animation(
-                        Animation.easeInOut(duration: 3 + Double(index))
-                            .repeatForever(autoreverses: true),
-                        value: animateHeader
-                    )
-            }
+    var headerSection: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "figure.golf")
+                .font(.system(size: 48))
+                .foregroundColor(MastersColors.mastersGreen)
+                .opacity(animateContent ? 1 : 0)
+                .scaleEffect(animateContent ? 1 : 0.8)
+                .animation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1), value: animateContent)
             
-            VStack(spacing: 16) {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Discover")
-                            .font(.system(size: 36, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                        
-                        Text("Your Perfect Golf Format")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.white.opacity(0.9))
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: { withAnimation { showSearch.toggle() } }) {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white)
-                            .frame(width: 44, height: 44)
-                            .background(Color.white.opacity(0.2))
-                            .clipShape(Circle())
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.top, 50)
-            }
+            Text("Format Finder")
+                .font(.system(size: 36, weight: .thin, design: .serif))
+                .foregroundColor(.primary)
+                .opacity(animateContent ? 1 : 0)
+                .animation(.easeOut(duration: 0.6).delay(0.2), value: animateContent)
+            
+            Text("Elevate Your Golf Experience")
+                .font(.system(size: 16, weight: .light))
+                .foregroundColor(.secondary)
+                .opacity(animateContent ? 1 : 0)
+                .animation(.easeOut(duration: 0.6).delay(0.3), value: animateContent)
         }
-        .frame(height: 200)
+        .padding(.vertical, 20)
     }
     
-    var searchBarSection: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(MastersColors.textSecondary)
-            
-            TextField("Search formats...", text: $searchText)
-                .font(MastersTypography.bodyText())
-            
-            if !searchText.isEmpty {
-                Button(action: { searchText = "" }) {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(MastersColors.textSecondary)
-                }
-            }
-        }
-        .padding()
-        .background(Color.white.opacity(0.95))
-        .cornerRadius(12)
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-    }
+    // MARK: - Introduction Section
     
-    var quickSetupCard: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Image(systemName: "figure.golf")
-                    .font(.system(size: 24))
-                    .foregroundColor(MastersColors.mastersGreen)
-                
-                Text("How many golfers today?")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(MastersColors.textPrimary)
-                
-                Spacer()
-            }
-            
-            HStack(spacing: 20) {
-                Button(action: { if numberOfGolfers > 1 { numberOfGolfers -= 1 } }) {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.system(size: 32))
-                        .foregroundColor(numberOfGolfers > 1 ? MastersColors.mastersGreen : Color.gray)
-                }
-                .disabled(numberOfGolfers <= 1)
-                
-                Text("\(numberOfGolfers)")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundColor(MastersColors.textPrimary)
-                    .frame(minWidth: 60)
-                    .animation(.spring(response: 0.3), value: numberOfGolfers)
-                
-                Button(action: { if numberOfGolfers < 12 { numberOfGolfers += 1 } }) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 32))
-                        .foregroundColor(numberOfGolfers < 12 ? MastersColors.mastersGreen : Color.gray)
-                }
-                .disabled(numberOfGolfers >= 12)
-            }
-            
-            Text("Golfers")
-                .font(.system(size: 14))
-                .foregroundColor(MastersColors.textSecondary)
-        }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-    }
-    
-    var filterChipsSection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                ForEach(filterOptions, id: \.self) { option in
-                    FilterChip(
-                        title: option,
-                        isSelected: selectedFilter == option,
-                        action: {
-                            withAnimation(.spring(response: 0.3)) {
-                                selectedFilter = selectedFilter == option ? nil : option
-                            }
-                        }
-                    )
-                }
-            }
-        }
-    }
-    
-    func formatOfTheDayCard(format: EnhancedGolfFormat) -> some View {
+    var introductionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                colors: [MastersColors.augustaGold, MastersColors.eagleGold],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 50, height: 50)
-                    
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 24))
-                        .foregroundColor(.white)
-                        .rotationEffect(.degrees(animateHeader ? 360 : 0))
-                        .animation(
-                            Animation.linear(duration: 20)
-                                .repeatForever(autoreverses: false),
-                            value: animateHeader
-                        )
-                }
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Format of the Day")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(MastersColors.augustaGold)
-                    
-                    Text(format.name)
-                        .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(MastersColors.textPrimary)
-                }
-                
-                Spacer()
-                
-                // Animated golf ball
-                Image(systemName: "circle.fill")
-                    .font(.system(size: 20))
-                    .foregroundColor(.white)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
-                    .offset(y: animateHeader ? -10 : 0)
-                    .animation(
-                        Animation.easeInOut(duration: 1.5)
-                            .repeatForever(autoreverses: true),
-                        value: animateHeader
-                    )
-            }
+            SectionHeader(title: "Welcome", icon: "hand.wave")
             
-            Text(format.description)
-                .font(.system(size: 14))
-                .foregroundColor(MastersColors.textSecondary)
-                .lineLimit(2)
+            Text("Format Finder transforms your golf rounds with exciting game formats that add strategy, competition, and fun to every hole.")
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(.primary)
+                .lineSpacing(6)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            Text("Whether you're playing casually with friends or in a competitive setting, discover the perfect format for your group.")
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(.secondary)
+                .lineSpacing(6)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .opacity(animateContent ? 1 : 0)
+        .offset(y: animateContent ? 0 : 20)
+        .animation(.easeOut(duration: 0.6).delay(0.4), value: animateContent)
+    }
+    
+    // MARK: - How to Use Section
+    
+    var howToUseSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            SectionHeader(title: "How to Use", icon: "questionmark.circle")
+            
+            VStack(alignment: .leading, spacing: 12) {
+                StepRow(number: "1", text: "Browse available formats or use filters to find the perfect match")
+                StepRow(number: "2", text: "Select a format to view detailed rules and scoring")
+                StepRow(number: "3", text: "Start playing with automatic scoring and live leaderboards")
+                StepRow(number: "4", text: "Track statistics and share results with your group")
+            }
+        }
+        .opacity(animateContent ? 1 : 0)
+        .offset(y: animateContent ? 0 : 20)
+        .animation(.easeOut(duration: 0.6).delay(0.5), value: animateContent)
+    }
+    
+    // MARK: - Format Types Section
+    
+    var formatTypesSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            SectionHeader(title: "Format Categories", icon: "square.grid.2x2")
+            
+            VStack(spacing: 12) {
+                FormatTypeCard(
+                    icon: "person.fill",
+                    title: "Individual",
+                    description: "Stroke play, Stableford, and other solo competitions"
+                )
+                
+                FormatTypeCard(
+                    icon: "person.2.fill",
+                    title: "Team",
+                    description: "Best ball, scrambles, and partner formats"
+                )
+                
+                FormatTypeCard(
+                    icon: "flag.fill",
+                    title: "Match Play",
+                    description: "Hole-by-hole competitions and skins games"
+                )
+                
+                FormatTypeCard(
+                    icon: "star.fill",
+                    title: "Points-Based",
+                    description: "Accumulate points through various achievements"
+                )
+            }
+        }
+        .opacity(animateContent ? 1 : 0)
+        .offset(y: animateContent ? 0 : 20)
+        .animation(.easeOut(duration: 0.6).delay(0.6), value: animateContent)
+    }
+    
+    // MARK: - Play Style Section
+    
+    var playStyleSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            SectionHeader(title: "Play Styles", icon: "slider.horizontal.3")
             
             HStack(spacing: 16) {
-                Label("\(format.idealGroupSize.lowerBound)-\(format.idealGroupSize.upperBound) players", systemImage: "person.2.fill")
-                    .font(.system(size: 12))
-                    .foregroundColor(MastersColors.textSecondary)
+                PlayStyleCard(
+                    title: "Casual",
+                    icon: "sun.max.fill",
+                    color: Color.orange,
+                    points: [
+                        "Focus on fun and camaraderie",
+                        "Flexible rules and scoring",
+                        "Great for mixed skill levels",
+                        "Emphasis on enjoyment"
+                    ]
+                )
                 
-                Label("4-5h", systemImage: "clock")
-                    .font(.system(size: 12))
-                    .foregroundColor(MastersColors.textSecondary)
-                
-                DifficultyIndicator(difficulty: format.difficulty)
+                PlayStyleCard(
+                    title: "Competitive",
+                    icon: "trophy.fill",
+                    color: MastersColors.mastersGreen,
+                    points: [
+                        "Strict rules and scoring",
+                        "Tournament-style formats",
+                        "Handicap integration",
+                        "Official leaderboards"
+                    ]
+                )
             }
         }
-        .padding()
-        .background(
-            LinearGradient(
-                colors: [Color.white, Color(hex: "F8F9FA")],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
-        .cornerRadius(16)
-        .shadow(color: MastersColors.augustaGold.opacity(0.2), radius: 15, x: 0, y: 5)
+        .opacity(animateContent ? 1 : 0)
+        .offset(y: animateContent ? 0 : 20)
+        .animation(.easeOut(duration: 0.6).delay(0.7), value: animateContent)
     }
     
-    var popularFormatsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Popular Formats")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundColor(MastersColors.textPrimary)
+    // MARK: - Action Buttons Section
+    
+    var actionButtonsSection: some View {
+        VStack(spacing: 16) {
+            Divider()
+                .padding(.vertical, 8)
             
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(filteredFormats.prefix(8)) { format in
-                    FormatGridCard(format: format) {
-                        selectedFormat = format
-                        showFormatDetail = true
-                    }
-                    .scaleEffect(animateCards ? 1 : 0.8)
-                    .opacity(animateCards ? 1 : 0)
-                    .animation(
-                        .spring(response: 0.5, dampingFraction: 0.7)
-                        .delay(Double(filteredFormats.firstIndex(where: { $0.id == format.id }) ?? 0) * 0.05 + 0.6),
-                        value: animateCards
+            Text("Ready to play?")
+                .font(.system(size: 20, weight: .light))
+                .foregroundColor(.primary)
+            
+            HStack(spacing: 20) {
+                NavigationLink(destination: FormatsTabView()) {
+                    ActionButton(
+                        title: "Find Format",
+                        subtitle: "Browse all formats",
+                        icon: "magnifyingglass",
+                        color: MastersColors.mastersGreen
+                    )
+                }
+                
+                NavigationLink(destination: PlayTabView()) {
+                    ActionButton(
+                        title: "Play Format",
+                        subtitle: "Start a round",
+                        icon: "play.fill",
+                        color: Color.blue
                     )
                 }
             }
         }
-    }
-    
-    var floatingRandomButton: some View {
-        VStack {
-            Spacer()
-            
-            HStack {
-                Spacer()
-                
-                Button(action: randomFormatAction) {
-                    HStack(spacing: 12) {
-                        Image(systemName: "dice.fill")
-                            .font(.system(size: 20))
-                            .rotationEffect(.degrees(showRandomFormat ? 720 : 0))
-                        
-                        Text("Random Format")
-                            .font(.system(size: 16, weight: .semibold))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 16)
-                    .background(
-                        LinearGradient(
-                            colors: [MastersColors.mastersGreen, MastersColors.shadowGreen],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .cornerRadius(30)
-                    .shadow(color: MastersColors.mastersGreen.opacity(0.4), radius: 15, x: 0, y: 8)
-                }
-                .scaleEffect(showRandomFormat ? 1.1 : 1.0)
-                
-                Spacer()
-            }
-        }
-        .padding(.bottom, 30)
-    }
-    
-    // MARK: - Actions
-    
-    func startAnimations() {
-        withAnimation {
-            animateHeader = true
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation {
-                animateCards = true
-            }
-        }
-    }
-    
-    func randomFormatAction() {
-        withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
-            showRandomFormat = true
-            randomFormat = formatDataService.formats.randomElement()
-            
-            // Haptic feedback
-            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-            impactFeedback.impactOccurred()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            showRandomFormat = false
-            if let format = randomFormat {
-                selectedFormat = format
-                showFormatDetail = true
-            }
-        }
+        .opacity(animateContent ? 1 : 0)
+        .scaleEffect(animateContent ? 1 : 0.9)
+        .animation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.8), value: animateContent)
     }
 }
 
 // MARK: - Supporting Views
 
-struct FilterChip: View {
+struct SectionHeader: View {
     let title: String
-    let isSelected: Bool
-    let action: () -> Void
+    let icon: String
     
     var body: some View {
-        Button(action: action) {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 18))
+                .foregroundColor(MastersColors.mastersGreen)
+            
             Text(title)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(isSelected ? .white : MastersColors.textPrimary)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(
-                    isSelected ?
-                    AnyView(
-                        LinearGradient(
-                            colors: [MastersColors.mastersGreen, MastersColors.shadowGreen],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
-                    ) :
-                    AnyView(Color.white)
-                )
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 1)
-                )
-                .shadow(color: isSelected ? MastersColors.mastersGreen.opacity(0.3) : Color.black.opacity(0.05),
-                       radius: isSelected ? 8 : 4,
-                       x: 0,
-                       y: isSelected ? 4 : 2)
+                .font(.system(size: 22, weight: .light))
+                .foregroundColor(.primary)
+            
+            Spacer()
         }
-        .scaleEffect(isSelected ? 1.05 : 1.0)
-        .animation(.spring(response: 0.3), value: isSelected)
     }
 }
 
-struct FormatGridCard: View {
-    let format: EnhancedGolfFormat
-    let action: () -> Void
-    @State private var isPressed = false
+struct StepRow: View {
+    let number: String
+    let text: String
     
     var body: some View {
-        Button(action: {
-            HapticManager.shared.impact(.light)
-            action()
-        }) {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Image(systemName: getFormatIcon(format.name))
-                        .font(.system(size: 24))
-                        .foregroundColor(MastersColors.mastersGreen)
-                    
-                    Spacer()
-                    
-                    // Player count badge
-                    Text(getPlayerCount(format))
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(MastersColors.mastersGreen)
-                        .cornerRadius(8)
-                }
+        HStack(alignment: .top, spacing: 12) {
+            Text(number)
+                .font(.system(size: 14, weight: .semibold, design: .monospaced))
+                .foregroundColor(.white)
+                .frame(width: 24, height: 24)
+                .background(MastersColors.mastersGreen)
+                .clipShape(Circle())
+            
+            Text(text)
+                .font(.system(size: 14, weight: .light))
+                .foregroundColor(.primary)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            Spacer()
+        }
+    }
+}
+
+struct FormatTypeCard: View {
+    let icon: String
+    let title: String
+    let description: String
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 20))
+                .foregroundColor(MastersColors.mastersGreen)
+                .frame(width: 32)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.primary)
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(format.name)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(MastersColors.textPrimary)
-                        .lineLimit(1)
-                    
-                    HStack(spacing: 8) {
-                        // Time estimate
-                        HStack(spacing: 4) {
-                            Image(systemName: "clock")
-                                .font(.system(size: 10))
-                            Text("4-5h")
-                                .font(.system(size: 11))
-                        }
-                        .foregroundColor(MastersColors.textSecondary)
+                Text(description)
+                    .font(.system(size: 13, weight: .light))
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+struct PlayStyleCard: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let points: [String]
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Image(systemName: icon)
+                    .font(.system(size: 24))
+                    .foregroundColor(color)
+                
+                Text(title)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(.primary)
+            }
+            
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(points, id: \.self) { point in
+                    HStack(alignment: .top, spacing: 6) {
+                        Circle()
+                            .fill(color.opacity(0.3))
+                            .frame(width: 4, height: 4)
+                            .offset(y: 6)
                         
-                        // Difficulty dots
-                        DifficultyDots(difficulty: format.difficulty)
+                        Text(point)
+                            .font(.system(size: 12, weight: .light))
+                            .foregroundColor(.secondary)
                     }
                 }
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.white)
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(MastersColors.mastersGreen.opacity(isPressed ? 0.5 : 0), lineWidth: 2)
-            )
         }
-        .scaleEffect(isPressed ? 0.95 : 1.0)
-        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-            withAnimation(.spring(response: 0.3)) {
-                isPressed = pressing
-            }
-        }, perform: {})
-    }
-    
-    func getPlayerCount(_ format: EnhancedGolfFormat) -> String {
-        if format.idealGroupSize.lowerBound == format.idealGroupSize.upperBound {
-            return "\(format.idealGroupSize.lowerBound)P"
-        } else {
-            return "\(format.idealGroupSize.lowerBound)-\(format.idealGroupSize.upperBound)"
-        }
-    }
-    
-    func getFormatIcon(_ name: String) -> String {
-        switch name {
-        case "Scramble": return "arrow.triangle.merge"
-        case "Best Ball": return "star.circle.fill"
-        case "Match Play": return "person.2.square.stack"
-        case "Skins": return "dollarsign.circle.fill"
-        case "Stableford": return "chart.line.uptrend.xyaxis"
-        case "Nassau": return "flag.2.crossed"
-        case "Wolf": return "hare.fill"
-        case "Bingo Bango Bongo": return "target"
-        default: return "flag.fill"
-        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(Color(UIColor.secondarySystemBackground))
+        .cornerRadius(12)
     }
 }
 
-struct DifficultyDots: View {
-    let difficulty: String
-    
-    var filledDots: Int {
-        switch difficulty {
-        case "Easy": return 1
-        case "Medium": return 3
-        case "Hard": return 5
-        default: return 2
-        }
-    }
+struct ActionButton: View {
+    let title: String
+    let subtitle: String
+    let icon: String
+    let color: Color
     
     var body: some View {
-        HStack(spacing: 2) {
-            ForEach(1...5, id: \.self) { dot in
-                Circle()
-                    .fill(dot <= filledDots ? difficultyColor : Color.gray.opacity(0.2))
-                    .frame(width: 4, height: 4)
-            }
-        }
-    }
-    
-    var difficultyColor: Color {
-        switch difficulty {
-        case "Easy": return .green
-        case "Medium": return .orange
-        case "Hard": return .red
-        default: return .gray
-        }
-    }
-}
-
-struct DifficultyIndicator: View {
-    let difficulty: String
-    
-    var body: some View {
-        HStack(spacing: 4) {
-            ForEach(1...3, id: \.self) { level in
-                Circle()
-                    .fill(level <= difficultyLevel ? difficultyColor : Color.gray.opacity(0.2))
-                    .frame(width: 6, height: 6)
-            }
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 28))
+                .foregroundColor(.white)
             
-            Text(difficulty)
-                .font(.system(size: 11, weight: .medium))
-                .foregroundColor(difficultyColor)
+            Text(title)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.white)
+            
+            Text(subtitle)
+                .font(.system(size: 12, weight: .light))
+                .foregroundColor(.white.opacity(0.9))
         }
-    }
-    
-    var difficultyLevel: Int {
-        switch difficulty {
-        case "Easy": return 1
-        case "Medium": return 2
-        case "Hard": return 3
-        default: return 1
-        }
-    }
-    
-    var difficultyColor: Color {
-        switch difficulty {
-        case "Easy": return .green
-        case "Medium": return .orange
-        case "Hard": return .red
-        default: return .gray
-        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .background(color)
+        .cornerRadius(16)
     }
 }
 
-struct Wave: Shape {
-    var amplitude: CGFloat
-    var frequency: CGFloat
-    var phase: CGFloat
-    
-    var animatableData: CGFloat {
-        get { phase }
-        set { phase = newValue }
-    }
-    
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let width = rect.width
-        let height = rect.height
-        let midHeight = height / 2
-        
-        path.move(to: CGPoint(x: 0, y: midHeight))
-        
-        for x in stride(from: 0, to: width, by: 1) {
-            let relativeX = x / width
-            let y = sin(2 * .pi * frequency * relativeX + phase) * amplitude + midHeight
-            path.addLine(to: CGPoint(x: x, y: y))
-        }
-        
-        path.addLine(to: CGPoint(x: width, y: height))
-        path.addLine(to: CGPoint(x: 0, y: height))
-        path.closeSubpath()
-        
-        return path
+// MARK: - Placeholder Views for Navigation
+
+struct FormatsTabView: View {
+    var body: some View {
+        // This will be replaced with the actual Formats tab content
+        AnimatedGolfFormatsView()
     }
 }
 
-
-// MARK: - Preview
-struct GolfFormatHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        GolfFormatHomeView()
+struct PlayTabView: View {
+    var body: some View {
+        // This will be replaced with the actual Play tab content
+        Text("Play Format View")
+            .navigationTitle("Play")
     }
 }

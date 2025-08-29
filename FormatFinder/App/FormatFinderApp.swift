@@ -87,13 +87,6 @@ struct MainNavigationView: View {
                         Text("Stats")
                     }
                     .tag(3)
-                
-                Text("Tasks Coming Soon")
-                    .tabItem {
-                        Image(systemName: "checklist")
-                        Text("Tasks")
-                    }
-                    .tag(4)
             }
             .accentColor(MastersColors.mastersGreen)
             
