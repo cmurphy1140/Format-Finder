@@ -10,6 +10,8 @@ struct SwipeableFormatCards: View {
     @State private var expandedCard: String? = nil
     @State private var searchText = ""
     @State private var filterCriteria = FilterCriteria()
+    @State private var selectedFormatForDemo: GolfFormat? = nil
+    @State private var showFormatDemo = false
     
     @Namespace private var animation
     @Environment(\.colorScheme) var colorScheme
@@ -67,6 +69,8 @@ struct SwipeableFormatCards: View {
                                     dragOffset: $dragOffset,
                                     isExpanded: expandedCard == format.id,
                                     namespace: animation,
+                                    selectedFormatForDemo: $selectedFormatForDemo,
+                                    showFormatDemo: $showFormatDemo,
                                     onTap: {
                                         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                                             if expandedCard == format.id {
@@ -99,6 +103,11 @@ struct SwipeableFormatCards: View {
         }
         .onAppear {
             viewModel.loadFormats()
+        }
+        .sheet(isPresented: $showFormatDemo) {
+            if let format = selectedFormatForDemo {
+                FormatDemonstrationView(format: format)
+            }
         }
     }
     
@@ -252,6 +261,8 @@ struct FormatCard: View {
     @Binding var dragOffset: CGSize
     let isExpanded: Bool
     let namespace: Namespace.ID
+    @Binding var selectedFormatForDemo: GolfFormat?
+    @Binding var showFormatDemo: Bool
     let onTap: () -> Void
     let onSwipe: (SwipeDirection) -> Void
     
@@ -412,6 +423,49 @@ struct FormatCard: View {
                 )
                 .frame(height: 250)
                 .padding(.horizontal, 20)
+                
+                // Watch Demo Button
+                Button(action: {
+                    // Convert EnhancedGolfFormat to GolfFormat for demo
+                    let golfFormat = GolfFormat(
+                        id: format.id,
+                        name: format.name,
+                        description: format.description,
+                        players: "\(format.idealGroupSize.first ?? 2)-\(format.idealGroupSize.last ?? 4) Players",
+                        difficulty: format.difficulty.rawValue,
+                        pace: format.pace.rawValue,
+                        scoring: format.scoringType.rawValue,
+                        teamBased: format.isTeamFormat,
+                        handicapFriendly: format.isHandicapFriendly,
+                        strategy: format.strategy,
+                        funFactor: format.funFactor
+                    )
+                    selectedFormatForDemo = golfFormat
+                    showFormatDemo = true
+                }) {
+                    HStack {
+                        Image(systemName: "tv.fill")
+                            .font(.system(size: 16))
+                        Text("Watch Broadcast Demo")
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.0, green: 0.5, blue: 0.25),
+                                Color(red: 0.0, green: 0.4, blue: 0.2)
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(25)
+                    .shadow(color: Color.green.opacity(0.3), radius: 10, x: 0, y: 5)
+                }
+                .padding(.top, 16)
                 
                 // Full Rules Section
                 VStack(alignment: .leading, spacing: 16) {
