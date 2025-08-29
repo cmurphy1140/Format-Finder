@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import AudioToolbox
 
 class FeedbackCoordinator: ObservableObject {
     @Published var currentSection: Int = 0

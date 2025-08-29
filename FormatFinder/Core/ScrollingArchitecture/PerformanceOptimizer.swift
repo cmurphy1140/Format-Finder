@@ -38,7 +38,7 @@ class PerformanceOptimizer: NSObject, ObservableObject {
     }
     
     private func setupDisplayLink() {
-        displayLink = CADisplayLink(target: self, selector: #selector(displayLinkFired))
+        displayLink = CADisplayLink(target: WeakProxy(target: self), selector: #selector(WeakProxy.displayLinkFired))
         displayLink?.add(to: .main, forMode: .common)
     }
     
@@ -313,5 +313,19 @@ struct PerformanceMonitoring: ViewModifier {
 extension View {
     func performanceMonitoring() -> some View {
         modifier(PerformanceMonitoring())
+    }
+}
+
+// MARK: - WeakProxy to prevent retain cycles
+class WeakProxy: NSObject {
+    private weak var target: PerformanceOptimizer?
+    
+    init(target: PerformanceOptimizer) {
+        self.target = target
+        super.init()
+    }
+    
+    @objc func displayLinkFired(_ displayLink: CADisplayLink) {
+        target?.displayLinkFired(displayLink)
     }
 }

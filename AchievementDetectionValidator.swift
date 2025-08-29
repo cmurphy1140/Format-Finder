@@ -40,7 +40,9 @@ struct AchievementDetectionValidator {
     static func validateHoleInOneDetection() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         let hole = 7
         
         // Set hole-in-one score
@@ -84,7 +86,9 @@ struct AchievementDetectionValidator {
     static func validateEagleDetection() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         let hole = 5
         
         // Set eagle score (2 on assumed par 4)
@@ -126,7 +130,9 @@ struct AchievementDetectionValidator {
     static func validateBirdieStreakDetection() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         
         // Set up 3 consecutive birdies (score 3 on assumed par 4)
         for hole in 3...5 {
@@ -169,7 +175,9 @@ struct AchievementDetectionValidator {
     static func validatePersonalBestDetection() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         
         // Set scores to total under 80
         var totalScore = 0
@@ -213,7 +221,9 @@ struct AchievementDetectionValidator {
     static func validateMilestoneDetection() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         
         // Test even par (72)
         for hole in 1...18 {
@@ -254,7 +264,9 @@ struct AchievementDetectionValidator {
     static func validateScoreCalculation() -> TestResult {
         let gameState = createTestGameState()
         let detector = AchievementDetector()
-        let player = gameState.players.first!
+        guard let player = gameState.players.first else {
+            return false
+        }
         
         let expectedScores = [4, 3, 5, 4, 2, 6, 4, 3, 4] // Total: 35
         
