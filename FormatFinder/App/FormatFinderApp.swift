@@ -1,9 +1,12 @@
 import SwiftUI
 import Foundation
+import CoreData
+import Combine
 
 @main
 struct FormatFinderApp: App {
     @State private var showLaunchScreen = true
+    @StateObject private var appState = AppState.shared
     @StateObject private var gameStore = GameStore()
     @StateObject private var themeEngine = ThemeEngine()
     @StateObject private var timeEnvironmentService = TimeEnvironmentService.shared
@@ -13,6 +16,7 @@ struct FormatFinderApp: App {
         WindowGroup {
             ZStack {
                 MainNavigationView()
+                    .environmentObject(appState)
                     .environmentObject(gameStore)
                     .environmentObject(themeEngine)
                     .environmentObject(timeEnvironmentService)
